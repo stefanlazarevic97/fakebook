@@ -1,0 +1,24 @@
+--height
+
+.modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(10, 10, 10, 0.1);
+    z-index: 10;
+}
+
+.modal-foreground {
+    --modal-height: 500px;
+    --modal-width: 300px;
+    position: absolute;
+    top: calc(50vh - var(--modal-height) / 2);
+    left: calc(50vw - var(--modal-width) / 2);
+    height: var(--modal-height);
+    width: var(--modal-width);
+    border: 1px solid black;
+    background-color: blanchedalmond;
+    z-index: 15
+}
