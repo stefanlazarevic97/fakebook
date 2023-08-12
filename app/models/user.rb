@@ -25,7 +25,7 @@ class User < ApplicationRecord
     validates :phone, 
         uniqueness: true, 
         presence: true, unless: -> (user) { user.email.present? },
-        phone: true
+        format: { with: /\A\d{10}\z/, message: "must be a 10-digit number" }
     validates :password, length: { in: 6..255 }, allow_nil: true
 
     before_validation :ensure_session_token

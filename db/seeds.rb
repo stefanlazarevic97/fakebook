@@ -15,20 +15,54 @@ ApplicationRecord.transaction do
 
     ApplicationRecord.connection.reset_pk_sequence!('users')
 
-    puts "Creating users..."
+    puts "creating users with email, phone number, and bio..."
 
-
-    # More users
-    20.times do 
+    5.times do 
         User.create!({
             first_name: Faker::Name.first_name,
             last_name: Faker::Name.last_name,
             email: Faker::Internet.unique.email,
-            phone: Faker::Number.unique.leading_zero_number(digits: 10),
+            phone: Faker::PhoneNumber.cell_phone.gsub(/\D/, '').first(10),
+            bio: Faker::Lorem.paragraph(sentence_count: 2),
             password: 'password'
         }) 
     end
 
+    puts "creating users with email and phone number but no bio..."
+
+    5.times do 
+        User.create!({
+            first_name: Faker::Name.first_name,
+            last_name: Faker::Name.last_name,
+            email: Faker::Internet.unique.email,
+            phone: Faker::PhoneNumber.cell_phone.gsub(/\D/, '').first(10),
+            password: 'password'
+        }) 
+    end
+
+    puts "creating users with email and bio but no phone number..."
+
+    5.times do 
+        User.create!({
+            first_name: Faker::Name.first_name,
+            last_name: Faker::Name.last_name,
+            email: Faker::Internet.unique.email,
+            bio: Faker::Lorem.paragraph(sentence_count: 2),
+            password: 'password'
+        }) 
+    end
+
+    puts "creating users with phone number and bio but no email..."
+
+    5.times do 
+        User.create!({
+            first_name: Faker::Name.first_name,
+            last_name: Faker::Name.last_name,
+            phone: Faker::PhoneNumber.cell_phone.gsub(/\D/, '').first(10),
+            bio: Faker::Lorem.paragraph(sentence_count: 2),
+            password: 'password'
+        }) 
+    end
 
     puts "Done!"
 end
