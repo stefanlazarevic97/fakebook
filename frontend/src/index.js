@@ -6,11 +6,13 @@ import './index.css';
 import './reset.css';
 import App from './App';
 import configureStore from './store/store';
+import csrfFetch, { restoreCSRF } from './store/csrf';
 
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
     window.store = store;
+    window.csrfFetch = csrfFetch;
 }
 
 function Root() {
@@ -31,4 +33,8 @@ const renderApplication = () => {
     );
 }
 
-renderApplication();
+if (sessionStorage.getItem("X-CSRF-Token") === null) {
+    restoreCSRF().then(renderApplication);
+} else {
+    renderApplication();
+}
