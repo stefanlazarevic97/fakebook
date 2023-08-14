@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import * as sessionActions from "../../store/session";
-import './SignUpModal.css'
+import './SignUpForm.css'
 
 const SignUpForm = () => {
     const dispatch = useDispatch();
@@ -49,81 +49,77 @@ const SignUpForm = () => {
 
     return (
         <>
-            <h1>Sign Up</h1>
-            <p>It's quick and easy.</p>
+            <h1 className="signup-header">Sign Up</h1>
+            <p className="signup-slogan">It's quick and easy.</p>
 
-            <form onSubmit={handleSubmit}>
+            <form className="signup-form" onSubmit={handleSubmit}>
                 <ul>
                     {errors.map((error) => <li key={error}>{error}</li>)}
                 </ul>
 
-                <label>
+                <div className="names-container">
                     <input
+                        className="name-inputs"
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         required
                         placeholder="First name"
                     />
-                </label>
 
-                <label>
+
                     <input
+                        className="name-inputs"
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         required
                         placeholder="Last name"
                     />
-                </label>
+                </div>
 
-                <label>
-                    <textarea
-                        value={bio}
-                        onChange={(e) => setBio(e.target.value)}
-                        placeholder="Tell us about yourself..."
-                    />
-                </label>
+                <textarea
+                    className="other-inputs"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Tell us about yourself..."
+                />
 
-                <label>
-                    <input
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email"
-                    />
-                </label>
+                <input
+                    className="other-inputs"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                />
 
-                <label>
-                    <input
-                        type="text"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Phone number"
-                    />
-                </label>
+                <input
+                    className="other-inputs"
+                    type="text"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Phone number"
+                />
 
-                <label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
-                        required
-                    />
-                </label>
+                <input
+                    className="other-inputs"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
+                />
 
-                <label>
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Confirm password"
-                        required
-                    />
-                </label>
+                <input
+                    className="other-inputs"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm password"
+                    required
+                />
 
-                <button>Sign Up</button>
+                <button className="signup-button">Sign Up</button>
             </form>
         </>
     );

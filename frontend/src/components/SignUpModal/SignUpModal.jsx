@@ -1,10 +1,13 @@
 import { Modal } from "../../context/Modal";
 import SignUpForm from "./SignUpForm";
+import './SignUpModal.css'
 
-const SignUpModal = ({ setShowSignUpModal, onClose }) => {
+const SignUpModal = ({ onClose }) => {
     return (
         <Modal onClose={onClose}>
-            <SignUpForm />
+            <div className="signup-modal-content">
+                <SignUpForm />
+            </div>
         </Modal>
     );
 }
