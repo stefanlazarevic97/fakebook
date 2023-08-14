@@ -1,9 +1,20 @@
-.fakebook-logo {
-    height: 50px;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin: 10px;
+    background-color: #ffffff;
+    padding: 5px;
+    color: #1877f2;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fakebook-logo {
+    width: 70px;
+    object-fit: contain;
 }

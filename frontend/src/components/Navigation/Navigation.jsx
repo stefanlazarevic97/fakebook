@@ -12,12 +12,12 @@ export default function Navigation() {
     if (sessionUser) {
         sessionLinks = (
             <>
-                <header className="nav-header">  
+                <nav className="nav-header">
                     <NavLink exact to="/">
                         <img src="https://1000logos.net/wp-content/uploads/2021/04/Facebook-logo.png" alt="fakebook logo" className="fakebook-logo" />
-                    </NavLink>                
+                    </NavLink>
                     <ProfileButton user={sessionUser} />
-                </header>
+                </nav>
             </>
         );
     } else {
