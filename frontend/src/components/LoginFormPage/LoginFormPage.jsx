@@ -84,17 +84,19 @@ const LoginFormPage = () => {
 
                         <button className="login-button">Log In</button>
                     </form>
+
+                    <div className="login-buttons-container">
+                        <button
+                            onClick={handleDemoLogin}
+                            className="demo-user-login">Demo Login
+                        </button>
+
+                        <button className="create-new-account-button"
+                            onClick={handleCreateAccount}>
+                            Create new account
+                        </button>
+                    </div>
                 </div>
-
-                <button 
-                    onClick={handleDemoLogin}
-                    className="demo-user-login">Demo Login
-                    </button>
-
-                <button className="create-new-account-button"
-                    onClick={handleCreateAccount}>
-                    Create new account
-                </button>
             </div>
 
             <div className="create-new-account-modal">

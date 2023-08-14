@@ -79,4 +79,25 @@
     font-size: 18px;
     color: #fff;
     cursor: pointer;
+    flex: 2;
+    margin-left: 10px;
+}
+
+.login-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.demo-user-login {
+    padding: 10px 15px;
+    background-color: #1877f2;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    flex: 1;
+    margin-right: 10px;
 }
