@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
 import './LoginFormPage.css';
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import SignUpModal from "../SignUpModal/SignUpModal";
 
 const LoginFormPage = () => {
     const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const LoginFormPage = () => {
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
+    const [showSignUpModal, setShowSignUpModal] = useState(false);
 
     if (sessionUser) return <Redirect to="/" />;
 
@@ -35,6 +37,10 @@ const LoginFormPage = () => {
                     setErrors([res.statusText]);
                 }
             });
+    }
+
+    const handleCreateAccount = (e) => {
+        setShowSignUpModal(true)
     }
 
     return (
@@ -74,8 +80,18 @@ const LoginFormPage = () => {
                         <button className="login-button">Log In</button>
                     </form>
 
-                    <button className="create-new-account-button">Create new account</button>
+                    <button className="create-new-account-button"
+                        onClick={handleCreateAccount}>
+                        Create new account
+                    </button>
                 </div>
+            </div>
+
+            <div className="create-new-account-modal">
+                {showSignUpModal && <SignUpModal 
+                    showModal={showSignUpModal} 
+                    onClose={() => setShowSignUpModal(false)} 
+                />}
             </div>
         </>
     );
