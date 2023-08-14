@@ -41,7 +41,10 @@ const LoginFormPage = () => {
 
     const handleCreateAccount = (e) => {
         setShowSignUpModal(true)
-        // console.log("inside handleCreateAccount...")
+    }
+
+    const handleDemoLogin = (e) => {
+        dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'demo-password' }))
     }
 
     return (
@@ -51,6 +54,7 @@ const LoginFormPage = () => {
                     <h1 className="login-logo">fakebook</h1>
                     <p className="login-slogan">Connect with friends and the world around you on Fakebook.</p>
                 </div>
+
                 <div className="login">
                     <form className="login-form" onSubmit={handleSubmit}>
                         <ul>
@@ -80,12 +84,17 @@ const LoginFormPage = () => {
 
                         <button className="login-button">Log In</button>
                     </form>
-
-                    <button className="create-new-account-button"
-                        onClick={handleCreateAccount}>
-                        Create new account
-                    </button>
                 </div>
+
+                <button 
+                    onClick={handleDemoLogin}
+                    className="demo-user-login">Demo Login
+                    </button>
+
+                <button className="create-new-account-button"
+                    onClick={handleCreateAccount}>
+                    Create new account
+                </button>
             </div>
 
             <div className="create-new-account-modal">

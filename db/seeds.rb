@@ -15,7 +15,18 @@ ApplicationRecord.transaction do
 
     ApplicationRecord.connection.reset_pk_sequence!('users')
 
-    puts "creating users with email, phone number, and bio..."
+    puts "Creating demo user..."
+
+    User.create!({
+            first_name: 'Demo',
+            last_name: 'User',
+            bio: 'A placeholder user to demonstrate application functionality.',
+            email: 'demo@user.io',
+            phone: '4155559072',
+            password: 'demo-password'
+        })
+
+    puts "Creating users with email, phone number, and bio..."
 
     5.times do 
         User.create!({
@@ -28,7 +39,7 @@ ApplicationRecord.transaction do
         }) 
     end
 
-    puts "creating users with email and phone number but no bio..."
+    puts "Creating users with email and phone number but no bio..."
 
     5.times do 
         User.create!({
@@ -40,7 +51,7 @@ ApplicationRecord.transaction do
         }) 
     end
 
-    puts "creating users with email and bio but no phone number..."
+    puts "Creating users with email and bio but no phone number..."
 
     5.times do 
         User.create!({
@@ -52,7 +63,7 @@ ApplicationRecord.transaction do
         }) 
     end
 
-    puts "creating users with phone number and bio but no email..."
+    puts "Creating users with phone number and bio but no email..."
 
     5.times do 
         User.create!({
