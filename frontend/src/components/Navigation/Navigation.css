@@ -1,0 +1,9 @@
+.fakebook-logo {
+    height: 50px;
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}

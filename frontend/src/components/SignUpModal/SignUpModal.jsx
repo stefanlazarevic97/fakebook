@@ -1,15 +1,11 @@
 import { Modal } from "../../context/Modal";
 import SignUpForm from "./SignUpForm";
 
-const SignUpModal = ({showModal, onClose}) => {
+const SignUpModal = ({ setShowSignUpModal, onClose }) => {
     return (
-        <>
-            {showModal && (
-                <Modal onClose={onClose}>
-                    <SignUpForm />
-                </Modal>
-            )}
-        </>
+        <Modal onClose={onClose}>
+            <SignUpForm />
+        </Modal>
     );
 }
 

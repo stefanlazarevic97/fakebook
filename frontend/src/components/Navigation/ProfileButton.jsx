@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/session';
+import './ProfileButton.css'
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
 
-    const openMenu = () => {
+    const openMenu = (e) => {
+        e.stopPropagation();
         if (showMenu) return;
         setShowMenu(true);
     }
@@ -30,13 +32,13 @@ export default function ProfileButton({ user }) {
 
     return (
         <>
-            <button onClick={openMenu}>
-                <i className="fa-solid fa-user-circle" />
+            <button className="profile-button" onClick={openMenu}>
+                <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="profile button logo" className="profile-button-logo" />
             </button>
 
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li>Hello, {user.firstName}</li>
+                    <li>{user.firstName} {user.lastName}</li>
                     {user.email && <li>{user.email}</li>}
                     {user.phone && <li>{user.phone}</li>}
 

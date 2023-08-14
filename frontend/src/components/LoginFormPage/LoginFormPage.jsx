@@ -41,6 +41,7 @@ const LoginFormPage = () => {
 
     const handleCreateAccount = (e) => {
         setShowSignUpModal(true)
+        // console.log("inside handleCreateAccount...")
     }
 
     return (

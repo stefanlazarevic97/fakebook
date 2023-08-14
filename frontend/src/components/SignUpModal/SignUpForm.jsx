@@ -8,15 +8,15 @@ const SignUpForm = () => {
     const dispatch = useDispatch();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [bio, setBio] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [bio, setBio] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
 
-    if (sessionUser) return <Redirect to="/login" />;
+    if (sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,6 +27,7 @@ const SignUpForm = () => {
             return dispatch(sessionActions.signup({ firstName, lastName, bio, email, phone, password }))
                 .catch(async res => {
                     let data;
+
                     try {
                         data = await res.clone().json();
                     } catch {
