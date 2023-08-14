@@ -39,32 +39,44 @@ const LoginFormPage = () => {
 
     return (
         <>
-            <h1>Log In</h1>
+            <div className="login-form-page">
+                <div className="fakebook">
+                    <h1 className="login-logo">fakebook</h1>
+                    <p className="login-slogan">Connect with friends and the world around you on Fakebook.</p>
+                </div>
+                <div className="login">
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <ul>
+                            {errors.map(error => <li key={error}>{error}</li>)}
+                        </ul>
+                        <label className="login-label">
+                            <input
+                                className="login-input"
+                                type="text"
+                                value={credential}
+                                onChange={(e) => setCredential(e.target.value)}
+                                required
+                                placeholder="Email or phone number"
+                            />
+                        </label>
 
-            <form onSubmit={handleSubmit}>
-                <ul>
-                    {errors.map(error => <li key={error}>{error}</li>)}
-                </ul>
-                <label>Phone or Email:
-                    <input
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
+                        <label className="login-label">
+                            <input
+                                className="login-input"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                placeholder="Password"
+                            />
+                        </label>
 
-                <label>Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
+                        <button className="login-button">Log In</button>
+                    </form>
 
-                <button>Log In</button>
-            </form>
+                    <button className="create-new-account-button">Create new account</button>
+                </div>
+            </div>
         </>
     );
 }
