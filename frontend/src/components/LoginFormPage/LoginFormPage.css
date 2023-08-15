@@ -45,7 +45,8 @@
     margin-bottom: 15px;
 }
 
-.login-input, .login-button {
+.login-input,
+.login-button {
     width: 100%;
 }
 
@@ -57,47 +58,35 @@
     box-sizing: border-box;
 }
 
-.login-button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #1877f2;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
+.login-button,
+.demo-user-login,
 .create-new-account-button {
     display: block;
     margin: 0 auto;
-    margin-top: 10px;
-    padding: 10px 30px;
-    background-color: #42b72a;
+    margin-top: 15px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     font-size: 18px;
-    color: #fff;
     cursor: pointer;
-    flex: 2;
-    margin-left: 10px;
 }
 
-.login-buttons-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
+.login-button {
+    background-color: #1877f2;
+    color: #fff;
+    width: 100%;
 }
 
 .demo-user-login {
-    padding: 10px 15px;
-    background-color: #1877f2;
-    border: none;
-    border-radius: 5px;
+    background-color: #d4d4d4;
+    color: #555;
+    font-size: 14px;
+    padding: 7px;
+    width: 30%;
+}
+
+.create-new-account-button {
+    background-color: #42b72a;
     color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    flex: 1;
-    margin-right: 10px;
+    width: 60%;
 }
