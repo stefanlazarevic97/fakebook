@@ -75,5 +75,20 @@ ApplicationRecord.transaction do
         }) 
     end
 
+    puts "Creating sample posts..."
+
+    user_ids = User.pluck(:id)
+
+    user_ids.each do |user_id|
+        rand(1..5).times do
+            Post.create!({
+            author_id: user_id,
+            body: Faker::Lorem.paragraph(sentence_count: rand(1..3))
+            })
+        end
+    end
+
+    puts "Sample posts created!"
+
     puts "Done!"
 end
