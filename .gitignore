@@ -52,12 +52,12 @@ bower.json
 
 # Ignore node_modules
 node_modules/
-node_modules 2/
 
 # Ignore precompiled javascript packs
 /public/packs
 /public/packs-test
 /public/assets
+/public
 
 # Ignore yarn files
 /yarn-error.log

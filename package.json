@@ -1,0 +1,25 @@
+{
+  "name": "fullstack-project",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "sample-state.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stefanlazarevic97/fakebook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stefanlazarevic97/fakebook/issues"
+  },
+  "homepage": "https://github.com/stefanlazarevic97/fakebook#readme",
+  "engines": { "node": "16.x" }
+}
