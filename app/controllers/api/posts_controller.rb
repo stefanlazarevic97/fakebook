@@ -11,27 +11,20 @@ class Api::PostsController < ApplicationController
         render 'api/posts/show'
     end
 
-    def new
-        @post = Post.new
-    end
-
     def create
         @post = Post.new(post_params)
         @post.author_id = current_user.id
 
         if @post.save
-            redirect_to @post, notice: 'Post was successfully created.'
+            render 'api/posts/show', notice: 'Post was successfully created.'
         else
             render :new
         end
     end
 
-    def edit
-    end
-
     def update
         if @post.update(post_params)
-            redirect_to @post, notice: 'Post was successfully updated.'
+            render 'api/posts/show', notice: 'Post was successfully updated.'
         else
             render :edit
         end
@@ -39,7 +32,7 @@ class Api::PostsController < ApplicationController
 
     def destroy
         @post.destroy
-        redirect_to posts_url, notice: 'Post was successfully deleted.'
+        head :no_content, notice: 'Post was successfully deleted.'
     end
 
     private
