@@ -3,12 +3,17 @@
 const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
 const RECEIVE_POST = 'posts/RECEIVE_POST';
 const REMOVE_POST = 'posts/REMOVE_POST';
+const RECEIVE_POST_ERRORS = 'posts/RECEIVE_POST_ERRORS';
+const CLEAR_POST_ERRORS = 'posts/CLEAR_POST_ERRORS';
 
 // ACTION CREATORS
 
 export const receivePosts = (posts) => ({ type: RECEIVE_POSTS, posts });
 export const receivePost = (post) => ({ type: RECEIVE_POST, post });
 export const removePost = (postId) => ({ type: REMOVE_POST, postId });
+export const receivePostErrors = (errors) => ({ type: RECEIVE_POST_ERRORS, errors });
+export const clearPostErrors = () => ({ type: CLEAR_POST_ERRORS });
+
 
 // SELECTORS
 
@@ -23,6 +28,9 @@ export const fetchPosts = () => async dispatch => {
     if (res.ok) {
         const posts = await res.json();
         dispatch(receivePosts(posts));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
     }
 }
 
@@ -32,6 +40,9 @@ export const fetchPost = (postId) => async dispatch => {
     if (res.ok) {
         const post = await res.json();
         dispatch(receivePost(post));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
     }
 }
 
@@ -46,6 +57,9 @@ export const createPost = (post) => async dispatch => {
         const post = await res.json();
         dispatch(receivePost(post));
         return post;
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
     }
 }
 
@@ -60,6 +74,9 @@ export const updatePost = (post) => async dispatch => {
         const post = await res.json();
         dispatch(receivePost(post));
         return post;
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
     }
 }
 
@@ -70,12 +87,15 @@ export const deletePost = (postId) => async dispatch => {
 
     if (res.ok) {
         dispatch(removePost(postId));
+    } else {
+        const errors = await res.json();
+        dispatch(receivePostErrors(errors));
     }
 }
 
 // REDUCER
 
-const postsReducer = (state = {}, action) => {
+const postsReducer = (state = { posts: {}, errors: [] }, action) => {
     const nextState = { ...state };
 
     switch (action.type) {
@@ -87,6 +107,10 @@ const postsReducer = (state = {}, action) => {
         case REMOVE_POST:
             delete nextState[action.postId];
             return nextState;
+        case RECEIVE_POST_ERRORS:
+            return { ...nextState, errors: action.errors };
+        case CLEAR_POST_ERRORS:
+            return { ...nextState, errors: [] };
         default:
             return state;
     }
