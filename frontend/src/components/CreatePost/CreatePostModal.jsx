@@ -1,18 +1,22 @@
 import { useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import { createPost } from "../../store/postsReducer";
+import { useDispatch } from "react-redux";
 
-const CreatePostModal = ({ closeModal, currentUser, createPost }) => {
+const CreatePostModal = ({ closeModal, currentUser }) => {
     const [body, setBody] = useState('');
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createPost ({ body });
+        dispatch(createPost({ authorId: currentUser.id, body }));
         closeModal();
     }
 
     return (
         <div className="create-post-modal">
             <div className="modal-header">
-                <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="profile button logo" className="profile-button-logo" />
+                <CgProfile className="profile-button-logo" />
                 <h2>Create post</h2>
                 <button onClick={closeModal}>X</button>
             </div>

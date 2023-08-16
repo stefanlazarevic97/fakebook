@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css'
+import { CgProfile } from 'react-icons/cg';
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export default function ProfileButton({ user }) {
     return (
         <>
             <button className="profile-button" onClick={openMenu}>
-                <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="profile button logo" className="profile-button-logo" />
+                <CgProfile className="profile-button-logo" />
             </button>
 
             {showMenu && (

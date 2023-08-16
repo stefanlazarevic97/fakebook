@@ -1,3 +1,5 @@
+import csrfFetch from "./csrf";
+
 // CONSTANTS
 
 const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
@@ -17,13 +19,13 @@ export const clearPostErrors = () => ({ type: CLEAR_POST_ERRORS });
 
 // SELECTORS
 
-export const getPosts = (state) => Object.values(state.entities.posts);
-export const getPost = (state, postId) => state.entities.posts[postId];
+export const getPosts = (state) => Object.values(state.posts);
+export const getPost = (state, postId) => state.posts[postId];
 
 // THUNK ACTION CREATORS
 
-export const fetchPosts = () => async dispatch => {
-    const res = await fetch('/api/posts');
+export const fetchPosts = (userId) => async dispatch => {
+    const res = await csrfFetch(`/api/posts?userId=${userId}`);
 
     if (res.ok) {
         const posts = await res.json();
@@ -35,7 +37,7 @@ export const fetchPosts = () => async dispatch => {
 }
 
 export const fetchPost = (postId) => async dispatch => {
-    const res = await fetch(`/api/posts/${postId}`);
+    const res = await csrfFetch(`/api/posts/${postId}`);
 
     if (res.ok) {
         const post = await res.json();
@@ -47,7 +49,7 @@ export const fetchPost = (postId) => async dispatch => {
 }
 
 export const createPost = (post) => async dispatch => {
-    const res = await fetch('/api/posts', {
+    const res = await csrfFetch('/api/posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(post)
@@ -64,7 +66,7 @@ export const createPost = (post) => async dispatch => {
 }
 
 export const updatePost = (post) => async dispatch => {
-    const res = await fetch(`/api/posts/${post.id}`, {
+    const res = await csrfFetch(`/api/posts/${post.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(post)
@@ -81,7 +83,7 @@ export const updatePost = (post) => async dispatch => {
 }
 
 export const deletePost = (postId) => async dispatch => { 
-    const res = await fetch(`/api/posts/${postId}`, { 
+    const res = await csrfFetch(`/api/posts/${postId}`, { 
         method: 'DELETE' 
     });
 
@@ -95,12 +97,12 @@ export const deletePost = (postId) => async dispatch => {
 
 // REDUCER
 
-const postsReducer = (state = { posts: {}, errors: [] }, action) => {
+const postsReducer = (state = {}, action) => {
     const nextState = { ...state };
 
     switch (action.type) {
         case RECEIVE_POSTS:
-            return { ...state, ...action.posts };
+            return { ...state, ...action.posts };       
         case RECEIVE_POST:
             nextState[action.post.id] = action.post;
             return nextState;

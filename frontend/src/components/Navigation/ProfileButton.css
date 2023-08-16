@@ -6,9 +6,7 @@
 }
 
 .profile-button-logo {
-    width: 45px;
-    border-radius: 50%;
-    object-fit: cover;
+    font-size: 40px;
 }
 
 .profile-dropdown {

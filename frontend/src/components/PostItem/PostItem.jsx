@@ -3,8 +3,9 @@ const PostItem = ({ post }) => {
         <li className="post-item">
             <header className="post-header">
                 <strong>{post.author}</strong>
-                <span className="post-date">{new Date(post.created_at).toLocaleDateString()}</span>
+                <span className="post-date">{new Date(post.createdAt).toLocaleDateString()}</span>
             </header>
+
             <div className="post-body">{post.body}</div>
         </li>
     );
