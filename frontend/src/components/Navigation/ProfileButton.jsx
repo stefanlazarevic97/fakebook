@@ -39,6 +39,9 @@ export default function ProfileButton({ user }) {
 
             {showMenu && (
                 <ul className="profile-dropdown">
+                    <li>
+                        <img src={user.photoUrl} />
+                    </li>
                     <li>{user.firstName} {user.lastName}</li>
                     {user.email && <li>{user.email}</li>}
                     {user.phone && <li>{user.phone}</li>}
