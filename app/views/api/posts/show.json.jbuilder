@@ -6,3 +6,4 @@ json.extract! @post,
     :updated_at
 
 json.author "#{@post.author.first_name} #{@post.author.last_name}"
+json.imageUrls @post.photos.map { |photo| url_for(photo) }

@@ -50,8 +50,7 @@ export const fetchPost = (postId) => async dispatch => {
 export const createPost = (post) => async dispatch => {
     const res = await csrfFetch('/api/posts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(post)
+        body: post
     });
 
     if (res.ok) {

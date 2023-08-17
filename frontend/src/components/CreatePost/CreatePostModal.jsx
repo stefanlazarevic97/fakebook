@@ -3,16 +3,56 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '../../store/postsReducer';
 import { BsPersonCircle } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
+import { IoMdPhotos } from 'react-icons/io';
+import { BsPersonPlusFill } from 'react-icons/bs';
+import { BsFiletypeGif } from 'react-icons/bs';
 import './CreatePostModal.css';
 
 const CreatePostModal = ({ closeModal, currentUser }) => {
     const [body, setBody] = useState('');
+    const [imageFiles, setImageFiles] = useState([]); 
+    const [imageUrls, setImageUrls] = useState([]);
     const dispatch = useDispatch();
     const postErrors = useSelector(state => state.errors.posts);
 
-    const handleSubmit = (e) => {
+    const handleFiles = ({ currentTarget}) => { 
+        const files = currentTarget.files;
+        setImageFiles(Array.from(files));
+
+        if (files.length !== 0) {
+            let filesLoaded = 0;
+            const urls = [];
+
+            Array.from(files).forEach((file, i) => {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = () => {
+                    urls[i] = fileReader.result;
+
+                    if (++filesLoaded === files.length) {
+                        setImageUrls(urls);
+                    }
+                }
+            })
+        } else {
+            setImageUrls([]);
+        }
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(createPost({ authorId: currentUser.id, body }));
+        const formData = new FormData();
+        formData.append('post[authorId]', currentUser.id);
+        formData.append('post[body]', body);
+
+        if (imageFiles.length !== 0) {
+            imageFiles.forEach((photo) => {
+                formData.append('post[photos][]', photo);
+            })
+        }
+
+        dispatch(createPost(formData));
         closeModal();
     }
 
@@ -38,6 +78,19 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
                     onChange={e => setBody(e.target.value)}
                     placeholder={`What's on your mind, ${currentUser.firstName}?`}
                 />
+                <div className="footer">
+                    <p>Add to your post</p>
+                    {/* <div className="add-on-icons">            
+                        <IoMdPhotos className="photo-icon" />
+                        <BsPersonPlusFill className="tag-icon" />
+                        <BsFiletypeGif className="gif-icon" />
+                    </div> */}
+                    <input 
+                        type="file" 
+                        onChange={handleFiles}
+                        multiple 
+                    />
+                </div>
             </div>
 
             <div className="modal-footer">

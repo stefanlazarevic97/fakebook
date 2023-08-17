@@ -42,6 +42,12 @@ const PostItem = ({ post }) => {
                     </div>
                 )}
             </header>
+            
+            <div className="post-images">
+                {post.imageUrls && post.imageUrls.map(imageUrl => (
+                    <img key={imageUrl} src={imageUrl} alt="" />
+                ))}
+            </div>
 
             <div className="post-body">
                 {editMode ? (

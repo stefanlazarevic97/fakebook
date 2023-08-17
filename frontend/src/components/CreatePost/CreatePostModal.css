@@ -37,10 +37,6 @@
     background-color: rgb(215, 215, 215);
 }
 
-/* .close-button:hover {
-    background-color: rgb(190, 190, 190);
-} */
-
 hr {
     border-top: 1px solid #ddd;
     margin: 10px 0;
@@ -92,4 +88,46 @@ button:hover {
 .error-list {
     color: red;
     margin-top: 10px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgb(215, 215, 215);
+    border-radius: 8px;
+    width: 100%;
+}
+
+.photo-icon, .tag-icon, .gif-icon {
+    font-size: 28px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.photo-icon:hover, .tag-icon:hover, .gif-icon:hover {
+    background-color: rgb(215, 215, 215);
+}
+
+.add-on-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}
+
+.photo-icon {
+    color: #00A400
+}
+
+.tag-icon {
+    color: #3578E5;
+}
+
+.gif-icon {
+    color: #4DBBA6;
+}
+
+.footer > p {
+    vertical-align: bottom;
+    
 }
