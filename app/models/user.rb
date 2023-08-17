@@ -34,6 +34,9 @@ class User < ApplicationRecord
         foreign_key: :author_id,
         class_name: :Post,
         dependent: :destroy
+
+    has_one_attached :profile_picture
+    has_one_attached :cover_picture
         
     def self.find_by_credentials(credential, password)
         field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :phone
