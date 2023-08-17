@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { deletePost, updatePost } from "../../store/postsReducer";
-import './PostItem.css'
 import { useDispatch } from "react-redux";
 import formatDate from "../../util/formatDate";
+import './PostItem.css'
 
 const PostItem = ({ post }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
