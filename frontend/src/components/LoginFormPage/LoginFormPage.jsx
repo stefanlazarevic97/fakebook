@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import * as sessionActions from "../../store/session";
+import * as sessionActions from "../../store/sessionReducer";
 import './LoginFormPage.css';
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import SignUpModal from "../SignUpModal/SignUpModal";
@@ -8,35 +8,16 @@ import SignUpModal from "../SignUpModal/SignUpModal";
 const LoginFormPage = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const sessionErrors = useSelector(state => state.errors.session);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
     const [showSignUpModal, setShowSignUpModal] = useState(false);
-
+    
     if (sessionUser) return <Redirect to="/" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
-
-        return dispatch(sessionActions.login({ credential, password }))
-            .catch(async (res) => {
-                let data;
-
-                try {
-                    data = await res.clone().json();
-                } catch {
-                    data = await res.text();
-                }
-
-                if (data?.errors) {
-                    setErrors(data.errors);
-                } else if (data) {
-                    setErrors([data]);
-                } else {
-                    setErrors([res.statusText]);
-                }
-            });
+        dispatch(sessionActions.login({ credential, password }));
     }
 
     const handleCreateAccount = (e) => {
@@ -58,8 +39,9 @@ const LoginFormPage = () => {
                 <div className="login">
                     <form className="login-form" onSubmit={handleSubmit}>
                         <ul>
-                            {errors.map(error => <li key={error}>{error}</li>)}
+                            {sessionErrors.map(error => <li key={error}>{error}</li>)}
                         </ul>
+
                         <label className="login-label">
                             <input
                                 className="login-input"

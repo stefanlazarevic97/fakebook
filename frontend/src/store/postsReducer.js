@@ -2,11 +2,11 @@ import csrfFetch from "./csrf";
 
 // CONSTANTS
 
-const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
-const RECEIVE_POST = 'posts/RECEIVE_POST';
-const REMOVE_POST = 'posts/REMOVE_POST';
-const RECEIVE_POST_ERRORS = 'posts/RECEIVE_POST_ERRORS';
-const CLEAR_POST_ERRORS = 'posts/CLEAR_POST_ERRORS';
+export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
+export const RECEIVE_POST = 'posts/RECEIVE_POST';
+export const REMOVE_POST = 'posts/REMOVE_POST';
+export const RECEIVE_POST_ERRORS = 'posts/RECEIVE_POST_ERRORS';
+export const CLEAR_POST_ERRORS = 'posts/CLEAR_POST_ERRORS';
 
 // ACTION CREATORS
 
@@ -14,8 +14,6 @@ export const receivePosts = (posts) => ({ type: RECEIVE_POSTS, posts });
 export const receivePost = (post) => ({ type: RECEIVE_POST, post });
 export const removePost = (postId) => ({ type: REMOVE_POST, postId });
 export const receivePostErrors = (errors) => ({ type: RECEIVE_POST_ERRORS, errors });
-export const clearPostErrors = () => ({ type: CLEAR_POST_ERRORS });
-
 
 // SELECTORS
 
@@ -109,10 +107,6 @@ const postsReducer = (state = {}, action) => {
         case REMOVE_POST:
             delete nextState[action.postId];
             return nextState;
-        case RECEIVE_POST_ERRORS:
-            return { ...nextState, errors: action.errors };
-        case CLEAR_POST_ERRORS:
-            return { ...nextState, errors: [] };
         default:
             return state;
     }

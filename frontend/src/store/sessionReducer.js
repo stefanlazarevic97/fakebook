@@ -1,7 +1,9 @@
 import csrfFetch from "./csrf";
 
-const SET_CURRENT_USER = 'session/setCurrentUser';
-const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
+export const SET_CURRENT_USER = 'session/setCurrentUser';
+export const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
+export const RECEIVE_SESSION_ERRORS = 'session/receiveSessionErrors';
+export const CLEAR_SESSION_ERRORS = 'session/clearSessionErrors';
 
 const setCurrentUser = user => ({
     type: SET_CURRENT_USER,
@@ -11,6 +13,11 @@ const setCurrentUser = user => ({
 const removeCurrentUser = () => ({
     type: REMOVE_CURRENT_USER
 })
+
+const receiveSessionErrors = (errorMessage) => ({
+    type: RECEIVE_SESSION_ERRORS,
+    payload: errorMessage
+});
 
 export function storeCSRFToken(response) {
     const csrfToken = response.headers.get("X-CSRF-Token");
@@ -31,10 +38,17 @@ export const login = ({ credential, password }) => async dispatch => {
         body: JSON.stringify({ credential, password })
     });
 
-    const userData = await res.json();
-    storeCurrentUser(userData.user);
-    dispatch(setCurrentUser(userData.user));
-    return userData;
+    if (res.ok) {
+        console.log("res is ok");
+        const userData = await res.json();
+        storeCurrentUser(userData.user);
+        dispatch(setCurrentUser(userData.user));
+        return userData;
+    } else {
+        console.log("res is not ok")
+        const errors = await res.json();
+        dispatch(receiveSessionErrors(errors));
+    }
 }
 
 export const restoreSession = () => async dispatch => {
@@ -52,10 +66,15 @@ export const signup = (user) => async dispatch => {
         body: JSON.stringify(user)
     });
 
-    const userData = await res.json();
-    storeCurrentUser(userData.user);
-    dispatch(setCurrentUser(userData.user));
-    return res;
+    if (res.ok) {
+        const userData = await res.json();
+        storeCurrentUser(userData.user);
+        dispatch(setCurrentUser(userData.user));
+        return res;
+    } else {
+        const errors = await res.json();
+        dispatch(receiveSessionErrors(errors));
+    }
 }
 
 export const logout = () => async dispatch => {
@@ -69,10 +88,10 @@ export const logout = () => async dispatch => {
 }
 
 const initialState = {
-    user: JSON.parse(sessionStorage.getItem("currentUser"))
+    user: JSON.parse(sessionStorage.getItem("currentUser")),
 };
 
-export default function sessionReducer(state = initialState, action) {
+const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CURRENT_USER:
             return { ...state, user: action.payload };
@@ -82,3 +101,5 @@ export default function sessionReducer(state = initialState, action) {
             return state;
     }
 };
+
+export default sessionReducer;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import * as sessionActions from '../../store/session';
+import * as sessionActions from '../../store/sessionReducer';
 import './ProfileButton.css'
 import { CgProfile } from 'react-icons/cg';
 
