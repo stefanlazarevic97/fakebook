@@ -39,13 +39,11 @@ export const login = ({ credential, password }) => async dispatch => {
     });
 
     if (res.ok) {
-        console.log("res is ok");
         const userData = await res.json();
         storeCurrentUser(userData.user);
         dispatch(setCurrentUser(userData.user));
         return userData;
     } else {
-        console.log("res is not ok")
         const errors = await res.json();
         dispatch(receiveSessionErrors(errors));
     }
@@ -63,7 +61,7 @@ export const restoreSession = () => async dispatch => {
 export const signup = (user) => async dispatch => {
     const res = await csrfFetch('/api/users', {
         method: "POST",
-        body: JSON.stringify(user)
+        body: user
     });
 
     if (res.ok) {
@@ -82,9 +80,14 @@ export const logout = () => async dispatch => {
         method: "DELETE"
     });
 
-    storeCurrentUser(null);
-    dispatch(removeCurrentUser());
-    return res;
+    if (res.ok) {
+        storeCurrentUser(null);
+        dispatch(removeCurrentUser());
+        return res;
+    } else {
+        const errors = await res.json();
+        dispatch(receiveSessionErrors(errors));
+    }
 }
 
 const initialState = {

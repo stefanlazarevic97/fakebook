@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/sessionReducer';
 import './ProfileButton.css'
-import { CgProfile } from 'react-icons/cg';
+import { BsPersonCircle } from 'react-icons/bs';
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -33,15 +33,15 @@ export default function ProfileButton({ user }) {
 
     return (
         <>
-            <button className="profile-button" onClick={openMenu}>
-                <CgProfile className="profile-button-logo" />
-            </button>
+            <div className="profile-button" onClick={openMenu}>
+                {user.photoUrl ? 
+                    <img className="profile-button-image" src={user.photoUrl} alt="User Profile" /> : 
+                    <BsPersonCircle className="profile-button-logo" />
+                }
+            </div>
 
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li>
-                        <img src={user.photoUrl} />
-                    </li>
                     <li>{user.firstName} {user.lastName}</li>
                     {user.email && <li>{user.email}</li>}
                     {user.phone && <li>{user.phone}</li>}

@@ -1,0 +1,35 @@
+.create-post-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.create-post-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.create-post-button {
+    flex-grow: 1;
+    background-color: #f0f2f5;
+    border-radius: 20px;
+    padding: 10px 15px;
+    color: #65676b;
+    font-weight: 500;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #e4e6e9;
+    }
+}
+
+.BsPersonCircle {
+    color: #65676b;
+    font-size: 40px;
+    margin-right: 10px;
+}

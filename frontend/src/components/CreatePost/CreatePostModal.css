@@ -1,0 +1,95 @@
+.create-post-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-button {
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(111, 110, 110);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-button-x{
+    font-size: 28px;
+    color: rgb(140, 140, 140);
+    border-radius: 50%;
+    border: none;
+}
+
+.close-button:hover{
+    background-color: rgb(215, 215, 215);
+}
+
+/* .close-button:hover {
+    background-color: rgb(190, 190, 190);
+} */
+
+hr {
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+.modal-body {
+    padding: 15px 0;
+}
+
+.user-info {
+    margin-right: 15px;
+}
+
+.create-post-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 0;
+    resize: vertical;
+    font-size: 16px;
+}
+
+.modal-footer {
+    text-align: right;
+}
+
+button {
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #1660cb;
+}
+
+.error-list {
+    color: red;
+    margin-top: 10px;
+}

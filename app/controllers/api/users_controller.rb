@@ -1,5 +1,9 @@
 class Api::UsersController < ApplicationController
-    wrap_parameters include: User.attribute_names + ['password'] + ['firstName'] + ['lastName']
+    wrap_parameters include: User.attribute_names + 
+    ['password'] + 
+    ['passwordConfirmation'] + 
+    ['firstName'] +
+    ['lastName']
 
     def create
         @user = User.new(user_params)
@@ -24,6 +28,6 @@ class Api::UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(:first_name, :last_name, :bio, :email, :phone, :password)
+        params.require(:user).permit(:first_name, :last_name, :bio, :email, :phone, :profile_picture, :cover_picture, :password, :password_confirmation)
     end
 end

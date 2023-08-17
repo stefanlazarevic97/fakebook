@@ -12,10 +12,10 @@ const SignUpForm = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
-    const [errors, setErrors] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
+    const sessionErrors = useSelector(state => state.errors.session);
 
     if (sessionUser) return <Redirect to="/" />;
 
@@ -27,28 +27,19 @@ const SignUpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (password === confirmPassword) {
-            dispatch(sessionActions.signup({ firstName, lastName, bio, email, phone, password, profilePicture }))
-                .catch(async res => {
-                    let data;
+        // const userData = { firstName, lastName, bio, password, passwordConfirmation };
+        
+        const userData = new FormData();
+        userData.append('user[firstName]', firstName);
+        userData.append('user[lastName]', lastName);
+        userData.append('user[bio]', bio);
+        userData.append('user[password]', password);
+        userData.append('user[passwordConfirmation]', passwordConfirmation);
+        if (email !== '') userData.append('user[email]', email);
+        if (phone !== '') userData.append('user[phone]', phone);
+        if (profilePicture) userData.append('user[profilePicture]', profilePicture);
 
-                    try {
-                        data = await res.clone().json();
-                    } catch {
-                        data = await res.text();    
-                    }
-
-                    if (data?.errors) {
-                        setErrors(data.errors);
-                    } else if (data) {
-                        setErrors([data]);
-                    } else {
-                        setErrors([res.statusText]);
-                    }
-                });
-        }
-
-        return setErrors(['Confirm Password field must match the Password field']);
+        dispatch(sessionActions.signup(userData)) 
     };
 
     return (
@@ -58,7 +49,7 @@ const SignUpForm = () => {
 
             <form className="signup-form" onSubmit={handleSubmit}>
                 <ul>
-                    {errors.map((error) => <li key={error}>{error}</li>)}
+                    {sessionErrors.map(error => <li key={error}>{error}</li>)}
                 </ul>
 
                 <div className="names-container">
@@ -117,8 +108,8 @@ const SignUpForm = () => {
                 <input
                     className="other-inputs"
                     type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={passwordConfirmation}
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
                     placeholder="Confirm password"
                     required
                 />

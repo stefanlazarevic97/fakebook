@@ -1,12 +1,19 @@
-import { CgProfile } from 'react-icons/cg'; 
+import { BsPersonCircle } from 'react-icons/bs'; 
+import './CreatePostButton.css';
 
 const CreatePostButton = ({ openModal, currentUser }) => {
     return (
-        <button onClick={openModal} className="create-post-button">
-            <CgProfile className="profile-button-logo" />
-            {`What's on your mind, ${currentUser.firstName}?`}
-        </button>
+        <div className="create-post-container" onClick={openModal}>
+            {currentUser.photoUrl ? 
+                <img className="create-post-logo" src={currentUser.photoUrl} alt="User Profile" /> : 
+                <BsPersonCircle className="create-post-logo" />
+            }
+            <div className="create-post-button">
+                {`What's on your mind, ${currentUser.firstName}?`}
+            </div>
+        </div>
     );
 }
+
 
 export default CreatePostButton;

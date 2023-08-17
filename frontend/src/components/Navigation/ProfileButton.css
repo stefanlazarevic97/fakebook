@@ -1,12 +1,21 @@
 .profile-button {
-    background: none;
-    border: none;
     cursor: pointer;
     position: relative;
 }
 
 .profile-button-logo {
-    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    color: black
+}
+
+.profile-button-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .profile-dropdown {

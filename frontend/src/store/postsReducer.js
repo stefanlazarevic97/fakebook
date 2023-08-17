@@ -1,4 +1,5 @@
 import csrfFetch from "./csrf";
+import { REMOVE_CURRENT_USER } from "./sessionReducer";
 
 // CONSTANTS
 
@@ -107,6 +108,8 @@ const postsReducer = (state = {}, action) => {
         case REMOVE_POST:
             delete nextState[action.postId];
             return nextState;
+        case REMOVE_CURRENT_USER:
+            return {};
         default:
             return state;
     }
