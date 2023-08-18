@@ -15,7 +15,7 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
     const dispatch = useDispatch();
     const postErrors = useSelector(state => state.errors.posts);
 
-    const handleFiles = ({ currentTarget}) => { 
+    const handleFiles = ({ currentTarget }) => { 
         const files = currentTarget.files;
         setImageFiles(Array.from(files));
 
@@ -67,8 +67,8 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
             
             <div className="modal-body">
                 <div className="user-info">
-                    {currentUser.photoUrl ? 
-                        <img className="create-post-logo" src={currentUser.photoUrl} alt="User Profile" /> : 
+                    {currentUser.profilePictureUrl ? 
+                        <img className="create-post-logo" src={currentUser.profilePictureUrl} alt="User Profile" /> : 
                         <BsPersonCircle className="create-post-logo" />
                     }
                     {currentUser.firstName} {currentUser.lastName}
@@ -81,7 +81,8 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
                 />
                 <div className="footer">
                     <p>Add to your post</p>
-                    <div className="add-on-icons">            
+                    <div  
+                        className="add-on-icons">
                         <IoMdPhotos className="photo-icon" />
                         <BsPersonPlusFill className="tag-icon" />
                         <BsFiletypeGif className="gif-icon" />

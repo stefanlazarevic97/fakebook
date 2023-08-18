@@ -36,7 +36,7 @@ class User < ApplicationRecord
         dependent: :destroy
 
     has_one_attached :profile_picture
-    has_one_attached :cover_picture
+    has_one_attached :cover_photo
         
     def self.find_by_credentials(credential, password)
         field = credential =~ URI::MailTo::EMAIL_REGEXP ? :email : :phone

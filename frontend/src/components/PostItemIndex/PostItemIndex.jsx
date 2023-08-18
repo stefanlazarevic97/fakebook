@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, getPosts } from '../../store/postsReducer';
 import PostItem from '../PostItem/PostItem';
 
-const PostItemIndex = () => {
-    const currentUser = useSelector(state => state.session.user);
+const PostItemIndex = ({ user }) => {
     const userPosts = useSelector(getPosts);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchPosts(currentUser.id));
-    }, []);
+        dispatch(fetchPosts(user.id));
+    }, [dispatch, user.id]);
 
     if (userPosts.length === 0) {
         return <div>You haven't posted anything yet.</div>

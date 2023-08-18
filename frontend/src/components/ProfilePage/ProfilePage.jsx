@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { fetchUser, getUser } from "../../store/usersReducer";
+import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { fetchUser, getUser, updateUser } from "../../store/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { BsPersonCircle } from 'react-icons/bs';
@@ -10,6 +10,7 @@ import './ProfilePage.css';
 const ProfilePage = () => {
     const { userId } = useParams();
     const user = useSelector(getUser(userId));
+    const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
@@ -26,25 +27,24 @@ const ProfilePage = () => {
         setCoverPhotoDropdown(prev => !prev);
     }
 
-    const handleChangeProfilePicture = () => {
-        // some logic
+    const handleChangeProfilePicture = (e) => {
+        const file = e.currentTarget.files[0];
+        if (!file) return;
+        const updatedUser = { ...user, profilePicture: file };
+        dispatch(updateUser(updatedUser));
         setProfilePictureDropdown(false);
     }
 
-    const handleDeleteProfilePicture = () => {
-        // some logic
-        setProfilePictureDropdown(false);
-    }
-
-    const handleChangeCoverPhoto = () => {
-        // some logic
+    const handleChangeCoverPhoto = (e) => {
+        const file = e.currentTarget.files[0];
+        if (!file) return;
+        const updatedUser = { ...user, coverPhoto: file };
+        dispatch(updateUser(updatedUser));
         setCoverPhotoDropdown(false);
     }
 
-    const handleDeleteCoverPhoto = () => {
-        // some logic
-        setCoverPhotoDropdown(false);
-    }
+    if (!sessionUser) return <Redirect to="/" />;
+    if (!user) return null;
 
     return (
         <div className="profile-page">
@@ -55,58 +55,52 @@ const ProfilePage = () => {
                 {user?.coverPhotoUrl ?
                     <img 
                         className="cover-photo" 
-                        src={user?.coverPhotoUrl} 
+                        src={user.coverPhotoUrl} 
                         alt="cover" 
                     /> : 
                     <GiPhotoCamera className="cover-photo" />
                 }
                 {coverPhotoDropdown && (
                     <div className="cover-photo-dropdown-menu">
-                        <button 
-                            onClick={handleChangeCoverPhoto}>
-                                Change Cover Photo
-                        </button>
-                        <button 
-                            onClick={handleDeleteCoverPhoto}>
-                                Delete Cover Photo
-                        </button>
+                        <input 
+                            type="file"
+                            onChange={handleChangeCoverPhoto}
+                            onClick={e => e.stopPropagation()}
+                        />
                     </div>
                 )}
             </div>
             
-            <h1 className="user-name">{user?.firstName} {user?.lastName}</h1>
+            <h1 className="user-name">{user.firstName} {user.lastName}</h1>
 
             <div 
                 className="profile-picture-container" 
                 onClick={toggleProfilePictureDropdown}>
 
-                {user?.photoUrl ? 
+                {user.profilePictureUrl ? 
                     <img 
                     className="profile-picture" 
-                    src={user?.photoUrl} 
+                    src={user.profilePictureUrl} 
                     alt="profile" 
                     /> : 
                     <BsPersonCircle className="profile-picture" />
                 }
                 {profilePictureDropdown && (
                     <div className="profile-dropdown-menu">
-                        <button 
-                            onClick={handleChangeProfilePicture}>
-                                Change Profile Picture
-                        </button>
-                        <button 
-                            onClick={handleDeleteProfilePicture}>
-                                Delete Profile Picture
-                        </button>
+                        <input 
+                            type="file"
+                            onChange={handleChangeProfilePicture}
+                            onClick={e => e.stopPropagation()}
+                        />
                     </div>
                 )}
             </div>
 
             <div className="profile-body">
-                <p className="user-bio">{user?.bio}</p>
-                
+                <p className="user-bio">{user.bio}</p>
+
                 <div className="user-posts">
-                    <PostItemIndex userId={user?.id} />
+                    <PostItemIndex user={user} />
                 </div>
             </div>
             

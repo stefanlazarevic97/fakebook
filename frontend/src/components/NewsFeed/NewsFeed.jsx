@@ -33,7 +33,7 @@ const NewsFeed = () => {
                         createPost={createPost}
                     />
                 }
-                <PostItemIndex />
+                <PostItemIndex user={sessionUser}/>
             </div>
             <div className="right-sidebar">
                 <h1>Right Sidebar</h1>

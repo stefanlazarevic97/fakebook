@@ -5,7 +5,7 @@ class Api::PostsController < ApplicationController
     before_action :ensure_author, only: [:update, :destroy]
 
     def index
-        @posts = Post.where(author_id: current_user.id)
+        @posts = Post.where(author_id: params[:user_id])
         render 'api/posts/index'
     end
 
@@ -39,7 +39,7 @@ class Api::PostsController < ApplicationController
     private
 
     def set_post
-        @post = Post.find(params[:id])
+        @post = Post.find_by(id: params[:id])
     end
 
     def ensure_author

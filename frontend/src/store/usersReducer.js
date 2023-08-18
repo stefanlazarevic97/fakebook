@@ -5,6 +5,7 @@ import csrfFetch from "./csrf";
 export const RECEIVE_USERS = 'users/RECEIVE_USERS';
 export const RECEIVE_USER = 'users/RECEIVE_USER';
 export const REMOVE_USER = 'users/REMOVE_USER';
+export const RECEIVE_UPLOAD_ERRORS = 'users/RECEIVE_UPLOAD_ERRORS';
 export const RECEIVE_USER_ERRORS = 'users/RECEIVE_USER_ERRORS';
 export const CLEAR_USER_ERRORS = 'users/CLEAR_USER_ERRORS';
 
@@ -14,6 +15,7 @@ export const receiveUsers = (users) => ({ type: RECEIVE_USERS, users });
 export const receiveUser = (user) => ({ type: RECEIVE_USER, user });
 export const removeUser = (userId) => ({ type: REMOVE_USER, userId });
 export const receiveUserErrors = (errors) => ({ type: RECEIVE_USER_ERRORS, errors });
+export const recieveUploadErrors = (errors) => ({ type: RECEIVE_UPLOAD_ERRORS, errors });
 
 // SELECTORS
 
@@ -47,15 +49,21 @@ export const fetchUser = (userId) => async dispatch => {
 }
 
 export const updateUser = (user) => async dispatch => {
+    const formData = new FormData();
+
+    for (const key in user) {
+        formData.append(`user[${key}]`, user[key]);
+    }
+
     const res = await csrfFetch(`/api/users/${user.id}`, {
         method: 'PUT',
-        body: user
+        body: formData
     });
 
     if (res.ok) {
-        const user = await res.json();
-        dispatch(receiveUser(user));
-        return user;
+        const payload = await res.json();
+        dispatch(receiveUser(payload.user));
+        return payload;
     } else {
         const errors = await res.json();
         dispatch(receiveUserErrors(errors));

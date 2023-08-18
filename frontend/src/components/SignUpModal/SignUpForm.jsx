@@ -13,16 +13,11 @@ const SignUpForm = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [profilePicture, setProfilePicture] = useState(null);
+    // const [profilePicture, setProfilePicture] = useState(null);
     const sessionUser = useSelector(state => state.session.user);
     const sessionErrors = useSelector(state => state.errors.session);
 
     if (sessionUser) return <Redirect to="/" />;
-
-    const handleFile = (e) => {
-        const file = e.currentTarget.files[0];
-        setProfilePicture(file);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,7 +30,6 @@ const SignUpForm = () => {
         userData.append('user[passwordConfirmation]', passwordConfirmation);
         if (email !== '') userData.append('user[email]', email);
         if (phone !== '') userData.append('user[phone]', phone);
-        if (profilePicture) userData.append('user[profilePicture]', profilePicture);
 
         dispatch(sessionActions.signup(userData)) 
     };
@@ -111,14 +105,7 @@ const SignUpForm = () => {
                     placeholder="Confirm password"
                     required
                 />
-                <label>Upload Profile Picture: 
-                    <input
-                        type="file"
-                        onChange={handleFile}
-                    />
-                </label>
                
-
                 <button className="signup-button">Sign Up</button>
             </form>
         </>
