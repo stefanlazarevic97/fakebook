@@ -1,0 +1,23 @@
+.news-feed-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.left-sidebar,
+.right-sidebar {
+    width: 25%;
+    background-color: #f5f6f7;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.main-feed {
+    width: 50%;
+    margin: 0 20px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+}

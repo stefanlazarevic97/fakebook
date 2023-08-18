@@ -37,11 +37,6 @@
     background-color: rgb(215, 215, 215);
 }
 
-hr {
-    border-top: 1px solid #ddd;
-    margin: 10px 0;
-}
-
 .modal-body {
     padding: 15px 0;
 }
@@ -57,7 +52,7 @@ hr {
     object-fit: cover;
 }
 
-textarea {
+.bio-input {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -70,7 +65,7 @@ textarea {
     text-align: right;
 }
 
-button {
+.submit-button {
     background-color: #1877f2;
     color: #fff;
     border: none;
@@ -81,7 +76,7 @@ button {
     width: 100%;
 }
 
-button:hover {
+.submit-button:hover {
     background-color: #1660cb;
 }
 

@@ -27,8 +27,6 @@ const SignUpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // const userData = { firstName, lastName, bio, password, passwordConfirmation };
-        
         const userData = new FormData();
         userData.append('user[firstName]', firstName);
         userData.append('user[lastName]', lastName);
@@ -48,7 +46,7 @@ const SignUpForm = () => {
             <p className="signup-slogan">It's quick and easy.</p>
 
             <form className="signup-form" onSubmit={handleSubmit}>
-                <ul>
+                <ul className="errors">
                     {sessionErrors.map(error => <li key={error}>{error}</li>)}
                 </ul>
 

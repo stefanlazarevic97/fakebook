@@ -64,7 +64,7 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
                     <IoClose className="close-button-x" />
                 </div>
             </div>
-            <hr />
+            
             <div className="modal-body">
                 <div className="user-info">
                     {currentUser.photoUrl ? 
@@ -74,17 +74,18 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
                     {currentUser.firstName} {currentUser.lastName}
                 </div>
                 <textarea
+                    className="bio-input"
                     value={body}
                     onChange={e => setBody(e.target.value)}
                     placeholder={`What's on your mind, ${currentUser.firstName}?`}
                 />
                 <div className="footer">
                     <p>Add to your post</p>
-                    {/* <div className="add-on-icons">            
+                    <div className="add-on-icons">            
                         <IoMdPhotos className="photo-icon" />
                         <BsPersonPlusFill className="tag-icon" />
                         <BsFiletypeGif className="gif-icon" />
-                    </div> */}
+                    </div>
                     <input 
                         type="file" 
                         onChange={handleFiles}
@@ -94,7 +95,11 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
             </div>
 
             <div className="modal-footer">
-                <button onClick={handleSubmit}>Post</button>
+                <button 
+                    className="submit-button" 
+                    onClick={handleSubmit}>
+                        Post
+                </button>
             </div>
 
             <ul className="error-list">

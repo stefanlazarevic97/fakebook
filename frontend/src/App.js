@@ -13,6 +13,9 @@ function App() {
                     <Route path="/">
                         <NewsFeed />
                     </Route>
+                    <Route path="/users/:userId">
+                        
+                    </Route>
                 </Switch>
             </ModalProvider>
         </>

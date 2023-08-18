@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import './NewsFeed.css';
 import { useState } from 'react';
 import CreatePostButton from '../CreatePost/CreatePostButton';
 import CreatePostModal from '../CreatePost/CreatePostModal';
 import PostItemIndex from '../PostItemIndex/PostItemIndex';
+import './NewsFeed.css';
 
 const NewsFeed = () => {
     const dispatch = useDispatch();
@@ -20,16 +20,24 @@ const NewsFeed = () => {
     }
 
     return (
-        <div className="main-feed">
-            <CreatePostButton openModal={openModal} currentUser={sessionUser} />
-            {modalOpen &&
-                <CreatePostModal
-                    closeModal={closeModal}
-                    currentUser={sessionUser}
-                    createPost={createPost}
-                />
-            }
-            <PostItemIndex />
+        <div className="news-feed-container">
+            <div className="left-sidebar">
+                <h1>Left Sidebar</h1>
+            </div>
+            <div className="main-feed">
+                <CreatePostButton openModal={openModal} currentUser={sessionUser} />
+                {modalOpen &&
+                    <CreatePostModal
+                        closeModal={closeModal}
+                        currentUser={sessionUser}
+                        createPost={createPost}
+                    />
+                }
+                <PostItemIndex />
+            </div>
+            <div className="right-sidebar">
+                <h1>Right Sidebar</h1>
+            </div>
         </div>
     );
 }
