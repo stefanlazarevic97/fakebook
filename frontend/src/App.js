@@ -11,11 +11,11 @@ function App() {
             <ModalProvider>
                 <Navigation />
                 <Switch>
-                    <Route path="/">
-                        <NewsFeed />
-                    </Route>
                     <Route path="/users/:userId">
                         <ProfilePage />
+                    </Route>
+                    <Route path="/">
+                        <NewsFeed />
                     </Route>
                 </Switch>
             </ModalProvider>

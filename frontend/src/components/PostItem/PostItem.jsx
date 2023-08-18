@@ -6,6 +6,7 @@ import { BsThreeDots } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { IoChevronForwardOutline } from 'react-icons/io5';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import './PostItem.css'
 
 const PostItem = ({ post }) => {
@@ -45,12 +46,14 @@ const PostItem = ({ post }) => {
         <li className="post-item">
             <header className="post-header">
                 <div className="left-header">
-                    <div className="user-info">
-                        {post.photoUrl ? 
-                            <img className="post-item-logo" src={post.photoUrl} alt="user-profile-picture" /> : 
-                            <BsPersonCircle className="post-item-logo" />
-                        }
-                    </div>
+                    <Link to={`/users/${post.authorId}`}>
+                        <div className="user-picture">
+                            {post.photoUrl ? 
+                                <img className="post-item-logo" src={post.photoUrl} alt="profile" /> : 
+                                <BsPersonCircle className="post-item-logo" />
+                            }
+                        </div>
+                    </Link>
                     <div className="post-info">
                         <h3 className="post-author">{post.author}</h3>
                         <p className="post-date">{formatDate(post.createdAt)}</p>
@@ -91,7 +94,9 @@ const PostItem = ({ post }) => {
             
             <div className="post-images">
                 {imageIndex > 0 && <IoChevronBackOutline className="back-button" onClick={handlePrevImage} />}
+
                 <img src={post.imageUrls[imageIndex]} alt="" />
+
                 {imageIndex < post.imageUrls.length - 1 && <IoChevronForwardOutline className="next-button" onClick={handleNextImage} />}
             </div>
         </li>
