@@ -18,7 +18,7 @@ const PostItemIndex = () => {
 
     return (
         <div className="user-posts-container">
-            <h2>Your Posts</h2>
+            <h2>Posts</h2>
 
             <ul>
                 {userPosts.map(post => (

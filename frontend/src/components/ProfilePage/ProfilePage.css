@@ -1,0 +1,34 @@
+.profile-page {
+    width: 70vw;
+    margin: 0 auto;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.cover-photo {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.user-bio {
+    margin: 0;
+    padding: 10px;
+    width: 40%;
+}
+
+.user-posts {
+    margin: auto;
+    padding: 10px;
+    width: 100%;
+}
+
+.profile-body {
+    display: flex;
+    justify-content: space-between;
+}

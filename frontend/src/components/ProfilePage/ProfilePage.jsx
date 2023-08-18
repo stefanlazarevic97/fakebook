@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { BsPersonCircle } from 'react-icons/bs';
 import { GiPhotoCamera } from 'react-icons/gi';
+import PostItemIndex from "../PostItemIndex/PostItemIndex";
+import './ProfilePage.css';
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -56,7 +58,7 @@ const ProfilePage = () => {
                         src={user?.coverPhotoUrl} 
                         alt="cover" 
                     /> : 
-                    <GiPhotoCamera className="cover-photo-logo" />
+                    <GiPhotoCamera className="cover-photo" />
                 }
                 {coverPhotoDropdown && (
                     <div className="cover-photo-dropdown-menu">
@@ -73,7 +75,6 @@ const ProfilePage = () => {
             </div>
             
             <h1 className="user-name">{user?.firstName} {user?.lastName}</h1>
-            <p className="user-bio">{user?.bio}</p>
 
             <div 
                 className="profile-picture-container" 
@@ -81,11 +82,11 @@ const ProfilePage = () => {
 
                 {user?.photoUrl ? 
                     <img 
-                        className="profile-picture" 
-                        src={user?.photoUrl} 
-                        alt="profile" 
+                    className="profile-picture" 
+                    src={user?.photoUrl} 
+                    alt="profile" 
                     /> : 
-                    <BsPersonCircle className="profile-picture-logo" />
+                    <BsPersonCircle className="profile-picture" />
                 }
                 {profilePictureDropdown && (
                     <div className="profile-dropdown-menu">
@@ -99,6 +100,14 @@ const ProfilePage = () => {
                         </button>
                     </div>
                 )}
+            </div>
+
+            <div className="profile-body">
+                <p className="user-bio">{user?.bio}</p>
+                
+                <div className="user-posts">
+                    <PostItemIndex userId={user?.id} />
+                </div>
             </div>
             
         </div>
