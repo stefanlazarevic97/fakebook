@@ -35,6 +35,17 @@ class User < ApplicationRecord
         class_name: :Post,
         dependent: :destroy
 
+    has_many :friendships,
+        dependent: :destroy
+
+    has_many :friends,
+        through: :friendships
+        source: :friend
+
+    has_many :friends_posts,
+        through: :friends,
+        source: :posts  
+
     has_one_attached :profile_picture
     has_one_attached :cover_photo
         
@@ -47,6 +58,23 @@ class User < ApplicationRecord
     def reset_session_token!
         self.update!(session_token: generate_session_token)
         self.session_token
+    end
+
+    def is_friend?(user)
+        friend_ids = self.friends.map{ |friend| friend.id }
+        friend_ids.include?(user.id)
+    end
+
+    def mutual_friends(current_user, user)
+        # return -1 if current_user.friends.include?(user)
+        return -1 if current_user.id == user.id
+        friends_hash = {}
+        count = 0
+
+        current_user.friends.each { |user| hash[user.id] = true }
+        user.friends.each { |user| count += 1 if hash[user.id] }
+
+        count
     end
 
     private 

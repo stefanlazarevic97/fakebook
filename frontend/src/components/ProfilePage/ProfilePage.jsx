@@ -83,7 +83,7 @@ const ProfilePage = () => {
                     }
                     {coverPhotoDropdown && (
                         <div className="cover-photo-dropdown-menu">
-                            <label class="dropdown-label">Update Cover Photo
+                            <label className="dropdown-label">Update Cover Photo
                                 <input 
                                     type="file"
                                     onChange={handleChangeCoverPhoto}
@@ -109,7 +109,7 @@ const ProfilePage = () => {
                         }
                         {profilePictureDropdown && (
                             <div className="profile-dropdown-menu">
-                                <label class="dropdown-label">Update Profile Picture
+                                <label className="dropdown-label">Update Profile Picture
                                     <input 
                                         type="file"
                                         onChange={handleChangeProfilePicture}
