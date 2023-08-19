@@ -37,7 +37,7 @@
     font-size: 14px;
 }
 
-.profile-dropdown li:hover {
+.profile-dropdown li:first-child:hover {
     background-color: #f5f6f7;
 }
 

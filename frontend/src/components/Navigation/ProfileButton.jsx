@@ -49,6 +49,7 @@ export default function ProfileButton({ user }) {
                             {user.firstName} {user.lastName}
                         </li>
                     </Link>
+                    
                     {user.email && <li>{user.email}</li>}
                     {user.phone && <li>{formatPhoneNumber(user.phone)}</li>}
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, getPosts } from '../../store/postsReducer';
 import PostItem from '../PostItem/PostItem';
+import './PostItemIndex.css';
 
 const PostItemIndex = ({ user }) => {
     const userPosts = useSelector(getPosts);
