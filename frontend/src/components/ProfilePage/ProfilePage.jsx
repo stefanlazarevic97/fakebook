@@ -9,6 +9,7 @@ import PostItemIndex from "../PostItemIndex/PostItemIndex";
 import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import CreatePostModal from "../CreatePost/CreatePostModal";
+import EditProfileModal from "./EditProfileModal";
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -21,6 +22,10 @@ const ProfilePage = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
+
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const openEditModal = () => setEditModalOpen(true);
+    const closeEditModal = () => setEditModalOpen(false);
 
     useEffect(() => {
         dispatch(fetchUser(userId));
@@ -52,6 +57,10 @@ const ProfilePage = () => {
         const updatedUser = { ...user, coverPhoto: file };
         dispatch(updateUser(updatedUser));
         setCoverPhotoDropdown(false);
+    }
+
+    const handleEditProfile = () => {
+        openEditModal();
     }
 
     if (!sessionUser) return <Redirect to="/" />;
@@ -119,10 +128,20 @@ const ProfilePage = () => {
 
                         <div className="right-profile-header">
                             {(user.id === sessionUser.id) ?
-                                <button className="edit-profile-button"><span><BsFillPencilFill /></span> Edit Profile</button> :
+                                <button 
+                                    className="edit-profile-button"
+                                    onClick={handleEditProfile}>
+                                        <span><BsFillPencilFill /></span> Edit Profile</button> :
                                 <button className="add-friend-button">Add Friend</button>
                             }
                         </div>
+                        
+                        {editModalOpen && 
+                            <EditProfileModal 
+                            onClose={closeEditModal} 
+                            user={sessionUser} 
+                            />
+                        }
                     </div>
                 </div>
             </div>
@@ -131,7 +150,8 @@ const ProfilePage = () => {
                 <p className="user-bio">{user.bio}</p>
 
                 <div className="user-posts">
-                <CreatePostButton openModal={openModal} currentUser={sessionUser} />
+                {user.id === sessionUser.id && 
+                    <CreatePostButton openModal={openModal} currentUser={sessionUser} />}
                 {modalOpen &&
                     <CreatePostModal
                         closeModal={closeModal}
