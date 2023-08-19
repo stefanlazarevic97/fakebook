@@ -4,6 +4,12 @@
     border-radius: 10px;
     width: 500px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 .modal-header {
@@ -42,7 +48,8 @@
 }
 
 .user-info {
-    margin-right: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .create-post-logo {
@@ -56,9 +63,12 @@
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 10px 0;
+    padding: 10px;
     resize: vertical;
     font-size: 16px;
+    height: 150px;
+    margin: 10px 0;
+    box-sizing: border-box;
 }
 
 .modal-footer {
@@ -98,6 +108,8 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .photo-icon:hover, .tag-icon:hover, .gif-icon:hover {
@@ -124,5 +136,17 @@
 
 .footer > p {
     vertical-align: bottom;
-    
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
 }

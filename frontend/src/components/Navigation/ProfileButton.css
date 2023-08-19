@@ -28,6 +28,8 @@
     border-radius: 8px;
     width: 200px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+            color: black;
 }
 
 .profile-dropdown li {
@@ -51,4 +53,9 @@
 
 .profile-dropdown button:hover {
     background-color: #165db6;
+}
+
+.profile-dropdown a {
+    text-decoration: none;
+    color: black;
 }

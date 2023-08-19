@@ -57,56 +57,61 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
     }
 
     return (
-        <div className="create-post-modal">
-            <div className="modal-header">
-                <h2>Create Post</h2>
-                <div className="close-button" onClick={closeModal}>
-                    <IoClose className="close-button-x" />
-                </div>
-            </div>
-            
-            <div className="modal-body">
-                <div className="user-info">
-                    {currentUser.profilePictureUrl ? 
-                        <img className="create-post-logo" src={currentUser.profilePictureUrl} alt="User Profile" /> : 
-                        <BsPersonCircle className="create-post-logo" />
-                    }
-                    {currentUser.firstName} {currentUser.lastName}
-                </div>
-                <textarea
-                    className="bio-input"
-                    value={body}
-                    onChange={e => setBody(e.target.value)}
-                    placeholder={`What's on your mind, ${currentUser.firstName}?`}
-                />
-                <div className="footer">
-                    <p>Add to your post</p>
-                    <div  
-                        className="add-on-icons">
-                        <IoMdPhotos className="photo-icon" />
-                        <BsPersonPlusFill className="tag-icon" />
-                        <BsFiletypeGif className="gif-icon" />
+        <>
+            <div className="modal-backdrop"></div>
+            <div className="create-post-modal">
+                <div className="modal-header">
+                    <h2>Create Post</h2>
+                    <div className="close-button" onClick={closeModal}>
+                        <IoClose className="close-button-x" />
                     </div>
-                    <input 
-                        type="file" 
-                        onChange={handleFiles}
-                        multiple 
-                    />
                 </div>
-            </div>
+                
+                <div className="modal-body">
+                    <div className="user-info">
+                        {currentUser.profilePictureUrl ? 
+                            <img className="create-post-logo" src={currentUser.profilePictureUrl} alt="User Profile" /> : 
+                            <BsPersonCircle className="create-post-logo" />
+                        }
+                        {currentUser.firstName} {currentUser.lastName}
+                    </div>
+                    <textarea
+                        className="bio-input"
+                        value={body}
+                        onChange={e => setBody(e.target.value)}
+                        placeholder={`What's on your mind, ${currentUser.firstName}?`}
+                    />
+                    <div className="footer">
+                        <p>Add to your post</p>
+                        <div  
+                            className="add-on-icons">
+                            <label className ="photo-icon-label">
+                                <IoMdPhotos className="photo-icon" />
+                                <input 
+                                    type="file" 
+                                    onChange={handleFiles}
+                                    multiple 
+                                />  
+                            </label>
+                            <BsPersonPlusFill className="tag-icon" />
+                            <BsFiletypeGif className="gif-icon" />
+                        </div>
+                    </div>
+                </div>
 
-            <div className="modal-footer">
-                <button 
-                    className="submit-button" 
-                    onClick={handleSubmit}>
-                        Post
-                </button>
-            </div>
+                <div className="modal-footer">
+                    <button 
+                        className="submit-button" 
+                        onClick={handleSubmit}>
+                            Post
+                    </button>
+                </div>
 
-            <ul className="error-list">
-                {postErrors.map(error => <li key={error}>{error}</li>)}
-            </ul>
-        </div>
+                <ul className="error-list">
+                    {postErrors.map(error => <li key={error}>{error}</li>)}
+                </ul>
+            </div>
+        </>
     );
 }
 

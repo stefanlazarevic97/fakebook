@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/sessionReducer';
 import './ProfileButton.css'
 import { BsPersonCircle } from 'react-icons/bs';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import formatPhoneNumber from "../../util/formatPhone";
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -42,9 +44,13 @@ export default function ProfileButton({ user }) {
 
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li>{user.firstName} {user.lastName}</li>
+                    <Link to={`/users/${user.id}`}>
+                        <li>
+                            {user.firstName} {user.lastName}
+                        </li>
+                    </Link>
                     {user.email && <li>{user.email}</li>}
-                    {user.phone && <li>{user.phone}</li>}
+                    {user.phone && <li>{formatPhoneNumber(user.phone)}</li>}
 
                     <li>
                         <button onClick={logout}>Log Out</button>
