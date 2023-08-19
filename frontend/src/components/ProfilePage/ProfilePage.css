@@ -1,11 +1,22 @@
+:root{
+    --blue: #1877F2;
+}
+
 .profile-page {
-    width: 70vw;
+    width: 100vw;
     margin: 0 auto;
+    background-color: lightgrey;
+}
+
+.header-background {
+    background-color: white;
+    width: 100%;
 }
 
 .cover-photo-container {
     position: relative;
-    width: 100%;
+    width: 70%;
+    margin: auto;
     height: 250px;
     cursor: pointer;
     z-index: 0;
@@ -18,9 +29,9 @@
 }
 
 .profile-picture-container {
-    position: absolute;
-    bottom: 0px;
-    left: 20px;
+    position: relative;
+    bottom: 70px;
+    left: 50px;
     z-index: 1;
 }
 
@@ -41,18 +52,23 @@
     align-items: center;
     padding-top: 20px;
     position: relative;
+    width: 70%;
+    margin: auto;
 }
 
 .profile-info {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: flex-start;
-    padding-left: 180px;
+    padding-left: 60px;
 }
 
-.left-header {
+.left-profile-header {
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .user-name {
@@ -60,7 +76,7 @@
     text-align: center;
 }
 
-.right-header {
+.right-profile-header {
     margin-top: 10px;
 }
 
@@ -89,6 +105,8 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    width: 70%;
+    margin: auto;
 }
 
 .user-posts {
@@ -102,7 +120,25 @@ input[type="file"] {
 
 .dropdown-label {
     border: 1px solid #ccc;
+    width: 180px;
     display: inline-block;
-    padding: 6px 12px;
+    padding: 10px;
     cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #ccc;
+    text-align: center;
 }
+
+.profile-dropdown-menu {
+    position: absolute;
+    top: 170px;
+    right: -27px;
+}
+
+.cover-photo-dropdown-menu {
+    position: absolute;
+    top: 270px;
+    right: 400px;
+}
+
+

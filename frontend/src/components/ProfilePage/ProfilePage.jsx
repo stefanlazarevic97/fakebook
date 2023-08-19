@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { BsPersonCircle } from 'react-icons/bs';
 import { GiPhotoCamera } from 'react-icons/gi';
+import { BsFillPencilFill } from 'react-icons/bs';
 import PostItemIndex from "../PostItemIndex/PostItemIndex";
 import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
@@ -58,50 +59,25 @@ const ProfilePage = () => {
 
     return (
         <div className="profile-page">
-            <div 
-                className="cover-photo-container" 
-                onClick={toggleCoverPhotoDropdown}>
-                
-                {user?.coverPhotoUrl ?
-                    <img 
-                        className="cover-photo" 
-                        src={user.coverPhotoUrl} 
-                        alt="cover" 
-                    /> : 
-                    <GiPhotoCamera className="cover-photo" />
-                }
-                {coverPhotoDropdown && (
-                    <div className="cover-photo-dropdown-menu">
-                        <label class="dropdown-label">Update Cover Photo
-                            <input 
-                                type="file"
-                                onChange={handleChangeCoverPhoto}
-                                onClick={e => e.stopPropagation()}
-                            />
-                        </label>
-                    </div>
-                )}
-            </div>
-            
-            <div className="profile-header">
+            <div className="header-background">
                 <div 
-                    className="profile-picture-container" 
-                    onClick={toggleProfilePictureDropdown}>
-
-                    {user.profilePictureUrl ? 
+                    className="cover-photo-container" 
+                    onClick={toggleCoverPhotoDropdown}>
+                    
+                    {user?.coverPhotoUrl ?
                         <img 
-                        className="profile-picture" 
-                        src={user.profilePictureUrl} 
-                        alt="profile" 
+                            className="cover-photo" 
+                            src={user.coverPhotoUrl} 
+                            alt="cover" 
                         /> : 
-                        <BsPersonCircle className="profile-picture" />
+                        <GiPhotoCamera className="cover-photo" />
                     }
-                    {profilePictureDropdown && (
-                        <div className="profile-dropdown-menu">
-                            <label class="dropdown-label">Update Profile Picture
+                    {coverPhotoDropdown && (
+                        <div className="cover-photo-dropdown-menu">
+                            <label class="dropdown-label">Update Cover Photo
                                 <input 
                                     type="file"
-                                    onChange={handleChangeProfilePicture}
+                                    onChange={handleChangeCoverPhoto}
                                     onClick={e => e.stopPropagation()}
                                 />
                             </label>
@@ -109,21 +85,47 @@ const ProfilePage = () => {
                     )}
                 </div>
                 
-                <div className="profile-info">
-                    <div className="left-header">
-                        <h1 className="user-name">{user.firstName} {user.lastName}</h1>
-                        <p>173 friends</p>
-                    </div>
+                <div className="profile-header">
+                    <div 
+                        className="profile-picture-container" 
+                        onClick={toggleProfilePictureDropdown}>
 
-                    <div className="right-header">
-                        {(user.id === sessionUser.id) ?
-                            <button className="edit-profile-button">Edit Profile</button> :
-                            <button className="add-friend-button">Add Friend</button>
+                        {user.profilePictureUrl ? 
+                            <img 
+                            className="profile-picture" 
+                            src={user.profilePictureUrl} 
+                            alt="profile" 
+                            /> : 
+                            <BsPersonCircle className="profile-picture" />
                         }
+                        {profilePictureDropdown && (
+                            <div className="profile-dropdown-menu">
+                                <label class="dropdown-label">Update Profile Picture
+                                    <input 
+                                        type="file"
+                                        onChange={handleChangeProfilePicture}
+                                        onClick={e => e.stopPropagation()}
+                                    />
+                                </label>
+                            </div>
+                        )}
+                    </div>
+                    
+                    <div className="profile-info">
+                        <div className="left-profile-header">
+                            <h1 className="user-name">{user.firstName} {user.lastName}</h1>
+                            <p>173 friends</p>
+                        </div>
+
+                        <div className="right-profile-header">
+                            {(user.id === sessionUser.id) ?
+                                <button className="edit-profile-button"><span><BsFillPencilFill /></span> Edit Profile</button> :
+                                <button className="add-friend-button">Add Friend</button>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-
 
             <div className="profile-body">
                 <p className="user-bio">{user.bio}</p>
