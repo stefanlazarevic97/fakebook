@@ -6,6 +6,8 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { GiPhotoCamera } from 'react-icons/gi';
 import PostItemIndex from "../PostItemIndex/PostItemIndex";
 import './ProfilePage.css';
+import CreatePostButton from "../CreatePost/CreatePostButton";
+import CreatePostModal from "../CreatePost/CreatePostModal";
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -14,11 +16,19 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
+    
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
 
     useEffect(() => {
         dispatch(fetchUser(userId));
     }, [dispatch, userId]);
     
+    const createPost = (post) => {
+        dispatch(createPost(post));
+    }
+
     const toggleProfilePictureDropdown = () => {
         setProfilePictureDropdown(prev => !prev);
     }
@@ -62,44 +72,71 @@ const ProfilePage = () => {
                 }
                 {coverPhotoDropdown && (
                     <div className="cover-photo-dropdown-menu">
-                        <input 
-                            type="file"
-                            onChange={handleChangeCoverPhoto}
-                            onClick={e => e.stopPropagation()}
-                        />
+                        <label class="dropdown-label">Update Cover Photo
+                            <input 
+                                type="file"
+                                onChange={handleChangeCoverPhoto}
+                                onClick={e => e.stopPropagation()}
+                            />
+                        </label>
                     </div>
                 )}
             </div>
             
-            <h1 className="user-name">{user.firstName} {user.lastName}</h1>
+            <div className="profile-header">
+                <div 
+                    className="profile-picture-container" 
+                    onClick={toggleProfilePictureDropdown}>
 
-            <div 
-                className="profile-picture-container" 
-                onClick={toggleProfilePictureDropdown}>
-
-                {user.profilePictureUrl ? 
-                    <img 
-                    className="profile-picture" 
-                    src={user.profilePictureUrl} 
-                    alt="profile" 
-                    /> : 
-                    <BsPersonCircle className="profile-picture" />
-                }
-                {profilePictureDropdown && (
-                    <div className="profile-dropdown-menu">
-                        <input 
-                            type="file"
-                            onChange={handleChangeProfilePicture}
-                            onClick={e => e.stopPropagation()}
-                        />
+                    {user.profilePictureUrl ? 
+                        <img 
+                        className="profile-picture" 
+                        src={user.profilePictureUrl} 
+                        alt="profile" 
+                        /> : 
+                        <BsPersonCircle className="profile-picture" />
+                    }
+                    {profilePictureDropdown && (
+                        <div className="profile-dropdown-menu">
+                            <label class="dropdown-label">Update Profile Picture
+                                <input 
+                                    type="file"
+                                    onChange={handleChangeProfilePicture}
+                                    onClick={e => e.stopPropagation()}
+                                />
+                            </label>
+                        </div>
+                    )}
+                </div>
+                
+                <div className="profile-info">
+                    <div className="left-header">
+                        <h1 className="user-name">{user.firstName} {user.lastName}</h1>
+                        <p>173 friends</p>
                     </div>
-                )}
+
+                    <div className="right-header">
+                        {(user.id === sessionUser.id) ?
+                            <button className="edit-profile-button">Edit Profile</button> :
+                            <button className="add-friend-button">Add Friend</button>
+                        }
+                    </div>
+                </div>
             </div>
+
 
             <div className="profile-body">
                 <p className="user-bio">{user.bio}</p>
 
                 <div className="user-posts">
+                <CreatePostButton openModal={openModal} currentUser={sessionUser} />
+                {modalOpen &&
+                    <CreatePostModal
+                        closeModal={closeModal}
+                        currentUser={sessionUser}
+                        createPost={createPost}
+                    />
+                }
                     <PostItemIndex user={user} />
                 </div>
             </div>

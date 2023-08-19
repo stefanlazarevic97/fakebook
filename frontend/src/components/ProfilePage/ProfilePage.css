@@ -3,32 +3,106 @@
     margin: 0 auto;
 }
 
-.profile-picture {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 50%;
+.cover-photo-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    cursor: pointer;
+    z-index: 0;
 }
 
 .cover-photo {
     width: 100%;
-    height: 300px;
+    height: 250px;
     object-fit: cover;
+}
+
+.profile-picture-container {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    z-index: 1;
+}
+
+.profile-picture {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    height: 150px;
+    align-items: center;
+    position: relative;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    position: relative;
+}
+
+.profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 180px;
+}
+
+.left-header {
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.right-header {
+    margin-top: 10px;
+}
+
+.edit-profile-button,
+.add-friend-button {
+    padding: 8px 12px;
+    background-color: #1877F2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-profile-button:hover,
+.add-friend-button:hover {
+    background-color: #165dbb;
 }
 
 .user-bio {
     margin: 0;
-    padding: 10px;
+    padding: 20px 0;
     width: 40%;
-}
-
-.user-posts {
-    margin: auto;
-    padding: 10px;
-    width: 100%;
 }
 
 .profile-body {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
+}
+
+.user-posts {
+    width: 58%;
+    padding: 0 20px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.dropdown-label {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
