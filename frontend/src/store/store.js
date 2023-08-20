@@ -4,11 +4,13 @@ import sessionReducer from './sessionReducer';
 import postsReducer from './postsReducer';
 import errorsReducer from './errorsReducer';
 import usersReducer from './usersReducer';
+import friendshipsReducer from './friendshipsReducer';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     users: usersReducer,
     posts: postsReducer,
+    friendships: friendshipsReducer,
     errors: errorsReducer
 });
 
