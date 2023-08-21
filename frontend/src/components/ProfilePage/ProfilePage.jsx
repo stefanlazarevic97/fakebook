@@ -1,4 +1,4 @@
-import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { fetchUser, getUser, updateUser } from "../../store/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import CreatePostModal from "../CreatePost/CreatePostModal";
 import EditProfileModal from "./EditProfileModal";
+import { createFriendship, deleteFriendship } from "../../store/friendshipsReducer";
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -18,7 +19,8 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
-    
+    const sessionUserFriends = useSelector(state => state.session.user.friends);
+
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -61,6 +63,18 @@ const ProfilePage = () => {
 
     const handleEditProfile = () => {
         openEditModal();
+    }
+
+    const isFriends = () => {
+        sessionUserFriends.includes(user);
+    }
+
+    const handleFriendClick = () => {
+        if (isFriends) {
+            dispatch(deleteFriendship(user.id));
+        } else {
+            dispatch(createFriendship(user.id));
+        }
     }
 
     if (!sessionUser) return <Redirect to="/" />;
@@ -123,7 +137,7 @@ const ProfilePage = () => {
                     <div className="profile-info">
                         <div className="left-profile-header">
                             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
-                            <p>173 friends</p>
+                            <Link to={`/users/${user.id}/friends`}>{user.friends.count} friends</Link>
                         </div>
 
                         <div className="right-profile-header">
@@ -132,7 +146,11 @@ const ProfilePage = () => {
                                     className="edit-profile-button"
                                     onClick={handleEditProfile}>
                                         <span><BsFillPencilFill /></span> Edit Profile</button> :
-                                <button className="add-friend-button">Add Friend</button>
+                                <button 
+                                    className="add-friend-button"
+                                    onClick={handleFriendClick}>
+                                        {isFriends ? "Remove Friend" : "Add Friend"}
+                                </button>
                             }
                         </div>
                         

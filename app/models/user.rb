@@ -39,7 +39,7 @@ class User < ApplicationRecord
         dependent: :destroy
 
     has_many :friends,
-        through: :friendships
+        through: :friendships,
         source: :friend
 
     has_many :friends_posts,

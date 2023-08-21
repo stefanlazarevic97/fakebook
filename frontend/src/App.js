@@ -4,6 +4,7 @@ import NewsFeed from './components/NewsFeed/NewsFeed';
 import Navigation from './components/Navigation/Navigation';
 import { ModalProvider } from './context/Modal';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import FriendIndex from './components/FriendsIndex/FriendIndex';
 
 function App() {
     return (
@@ -11,6 +12,9 @@ function App() {
             <ModalProvider>
                 <Navigation />
                 <Switch>
+                    <Route path="/users/:userId/friends">
+                        <FriendIndex />
+                    </Route>
                     <Route path="/users/:userId">
                         <ProfilePage />
                     </Route>

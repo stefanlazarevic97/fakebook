@@ -25,8 +25,14 @@ class Api::FriendshipsController < ApplicationController
     end
 
     def index
-        @friendships = current_user.friendships
-        render :index
+        user = User.find_by(id: params[:user_id])
+        
+        if user
+            @friendships = user.friendships
+            render :index
+        else
+            render json: { errors: ["User not found."] }, status: 404
+        end
     end
 
     private 
