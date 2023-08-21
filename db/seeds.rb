@@ -103,16 +103,21 @@ ApplicationRecord.transaction do
     desired_friendships = 100
     created_friendships = 0
 
+    unique_pairs = []
+
     while created_friendships < desired_friendships
         user1_id, user2_id = user_ids.sample(2)
-  
-        friendship1 = Friendship.new(user_id: user1_id, friend_id: user2_id, status: 'accepted')
+    
+        next if unique_pairs.include?([user1_id, user2_id]) || unique_pairs.include?([user2_id, user1_id]) || user1_id == user2_id
+    
+        friendship = Friendship.new(user_id: user1_id, friend_id: user2_id, status: 'accepted')
 
-        if friendship1.save
+        if friendship.save
             created_friendships += 1
-            Friendship.create(user_id: user2_id, friend_id: user1_id, status: 'accepted')
+            unique_pairs << [user1_id, user2_id]
         end
     end
+
 
     puts "Done!"
 end
