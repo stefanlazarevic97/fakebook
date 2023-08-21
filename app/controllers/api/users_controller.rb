@@ -35,6 +35,12 @@ class Api::UsersController < ApplicationController
         head :no_content, notice: 'User was successfully deleted.'
     end
 
+    def search
+        @users = User.search(params[:query])
+        @current_user = current_user
+        render 'api/users/search'
+    end
+
     private
 
     def set_user

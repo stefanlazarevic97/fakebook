@@ -65,16 +65,20 @@ class User < ApplicationRecord
         friend_ids.include?(user.id)
     end
 
-    def mutual_friends(current_user, user)
+    def mutual_friends(user)
         # return -1 if current_user.friends.include?(user)
-        return -1 if current_user.id == user.id
+        return -1 if self.id == user.id
         friends_hash = {}
         count = 0
 
-        current_user.friends.each { |user| hash[user.id] = true }
+        self.friends.each { |user| hash[user.id] = true }
         user.friends.each { |user| count += 1 if hash[user.id] }
 
         count
+    end
+
+    def self.search(query)
+        where("first_name ILIKE ? OR last_name ILIKE ?", "%#{query}%", "%#{query}%")
     end
 
     private 
