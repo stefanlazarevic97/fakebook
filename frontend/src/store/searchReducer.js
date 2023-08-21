@@ -1,6 +1,8 @@
+import csrfFetch from "./csrf";
+
 export const INITIATE_SEARCH = 'search/INITIATE_SEARCH';
 export const RECEIVE_SEARCH_RESULTS = 'search/RECEIVE_SEARCH_RESULTS';
-export const SEARCH_ERROR = 'search/SEARCH_ERROR';
+export const RECEIVE_SEARCH_ERRORS = 'search/RECEIVE_SEARCH_ERRORS';
 
 export const initiateSearch = () => ({
     type: INITIATE_SEARCH
@@ -11,9 +13,9 @@ export const receiveSearchResults = (results) => ({
     results
 });
 
-export const searchError = (error) => ({
-    type: SEARCH_ERROR,
-    error
+export const receiveSearchErrors = (errors) => ({
+    type: RECEIVE_SEARCH_ERRORS,
+    errors
 });
 
 export const searchUsers = (query) => async (dispatch) => {
@@ -26,14 +28,13 @@ export const searchUsers = (query) => async (dispatch) => {
         dispatch(receiveSearchResults(results));
     } else {
         const errors = await res.json();
-        dispatch(searchError(errors));
+        dispatch(receiveSearchErrors(errors));
     }
 };
 
 const initialSearchState = {
     loading: false,
     results: [],
-    error: null
 };
 
 const searchReducer = (state = initialSearchState, action) => {
@@ -42,8 +43,6 @@ const searchReducer = (state = initialSearchState, action) => {
             return { ...state, loading: true, error: null };
         case RECEIVE_SEARCH_RESULTS:
             return { ...state, loading: false, results: action.results };
-        case SEARCH_ERROR:
-            return { ...state, loading: false, error: action.error };
         default:
             return state;
     }
