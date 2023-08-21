@@ -5,9 +5,9 @@ export const REMOVE_CURRENT_USER = 'session/removeCurrentUser';
 export const RECEIVE_SESSION_ERRORS = 'session/receiveSessionErrors';
 export const CLEAR_SESSION_ERRORS = 'session/clearSessionErrors';
 
-const setCurrentUser = user => ({
+const setCurrentUser = payload => ({
     type: SET_CURRENT_USER,
-    payload: user
+    payload
 });
 
 const removeCurrentUser = () => ({
@@ -40,8 +40,8 @@ export const login = ({ credential, password }) => async dispatch => {
 
     if (res.ok) {
         const userData = await res.json();
-        storeCurrentUser(userData.user);
-        dispatch(setCurrentUser(userData.user));
+        storeCurrentUser(userData);
+        dispatch(setCurrentUser(userData));
         return userData;
     } else {
         const errors = await res.json();
@@ -53,8 +53,8 @@ export const restoreSession = () => async dispatch => {
     const res = await csrfFetch('/api/session');
     storeCSRFToken(res);
     const data = await res.json();
-    storeCurrentUser(data.user);
-    dispatch(setCurrentUser(data.user));
+    storeCurrentUser(data);
+    dispatch(setCurrentUser(data));
     return res;
 }
 
@@ -66,8 +66,8 @@ export const signup = (user) => async dispatch => {
 
     if (res.ok) {
         const userData = await res.json();
-        storeCurrentUser(userData.user);
-        dispatch(setCurrentUser(userData.user));
+        storeCurrentUser(userData);
+        dispatch(setCurrentUser(userData));
         return res;
     } else {
         const errors = await res.json();
@@ -91,13 +91,13 @@ export const logout = () => async dispatch => {
 }
 
 const initialState = {
-    user: JSON.parse(sessionStorage.getItem("currentUser")),
+    user: JSON.parse(sessionStorage.getItem("currentUser"))?.user || null,
 };
 
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CURRENT_USER:
-            return { ...state, user: action.payload };
+            return { ...state, user: action.payload.user };
         case REMOVE_CURRENT_USER:
             return { ...state, user: null };
         default:

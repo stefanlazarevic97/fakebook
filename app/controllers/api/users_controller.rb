@@ -9,6 +9,7 @@ class Api::UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
+        @current_user = current_user
         
         if @user.save
             login(@user)
@@ -19,10 +20,13 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        render 'api/users/profile'
+        @current_user = current_user
+        render 'api/users/show'
     end
 
     def update
+        @current_user = current_user
+
         if @user.update(user_params)
             render 'api/users/show'
         else

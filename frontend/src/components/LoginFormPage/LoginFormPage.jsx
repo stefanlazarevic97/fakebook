@@ -38,9 +38,9 @@ const LoginFormPage = () => {
 
                 <div className="login">
                     <form className="login-form" onSubmit={handleSubmit}>
-                        <ul>
+                        {/* <ul>
                             {sessionErrors.map(error => <li key={error}>{error}</li>)}
-                        </ul>
+                        </ul> */}
 
                         <label className="login-label">
                             <input

@@ -10,7 +10,7 @@ import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import CreatePostModal from "../CreatePost/CreatePostModal";
 import EditProfileModal from "./EditProfileModal";
-import { createFriendship, deleteFriendship } from "../../store/friendshipsReducer";
+import { createFriendship, deleteFriendship, getFriendsByUserId } from "../../store/friendshipsReducer";
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -19,7 +19,8 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
-    const sessionUserFriends = useSelector(state => state.session.user.friends);
+    const sessionUserFriends = useSelector(getFriendsByUserId(sessionUser.id));
+    const userFriends = useSelector(getFriendsByUserId(userId));
 
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
@@ -67,13 +68,15 @@ const ProfilePage = () => {
 
     const isFriends = () => {
         sessionUserFriends.includes(user);
+        console.log(sessionUserFriends);
+        console.log(user);
     }
 
     const handleFriendClick = () => {
-        if (isFriends) {
+        if (isFriends()) {
             dispatch(deleteFriendship(user.id));
         } else {
-            dispatch(createFriendship(user.id));
+            dispatch(createFriendship({ friendId: user.id }));
         }
     }
 
@@ -137,7 +140,7 @@ const ProfilePage = () => {
                     <div className="profile-info">
                         <div className="left-profile-header">
                             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
-                            <Link to={`/users/${user.id}/friends`}>{user.friends.count} friends</Link>
+                            <Link to={`/users/${user.id}/friends`}>{user.friends} friends</Link>
                         </div>
 
                         <div className="right-profile-header">
@@ -149,7 +152,7 @@ const ProfilePage = () => {
                                 <button 
                                     className="add-friend-button"
                                     onClick={handleFriendClick}>
-                                        {isFriends ? "Remove Friend" : "Add Friend"}
+                                        {isFriends() ? "Remove Friend" : "Add Friend"}
                                 </button>
                             }
                         </div>

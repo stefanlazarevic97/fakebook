@@ -1,5 +1,6 @@
 import csrfFetch from "./csrf";
-import { REMOVE_CURRENT_USER } from "./sessionReducer";
+import { REMOVE_CURRENT_USER, SET_CURRENT_USER } from "./sessionReducer";
+import { RECEIVE_USER } from "./usersReducer";
 
 // CONSTANTS
 
@@ -13,13 +14,19 @@ export const CLEAR_FRIENDSHIP_ERRORS = 'friendships/CLEAR_FRIENDSHIP_ERRORS';
 
 export const receiveFriendships = (friendships) => ({ type: RECEIVE_FRIENDSHIPS, friendships });
 export const receiveFriendship = (friendship) => ({ type: RECEIVE_FRIENDSHIP, friendship });
-export const removeFriendship = (friendshipId) => ({ type: REMOVE_FRIENDSHIP, friendshipId });
+export const removeFriendship = (data) => ({ type: REMOVE_FRIENDSHIP, data });
 export const receiveFriendshipErrors = (errors) => ({ type: RECEIVE_FRIENDSHIP_ERRORS, errors });
 
 // SELECTORS
 
 export const getFriendships = (state) => Object.values(state.friendships);
 export const getFriendship = (state, friendshipId) => state.friendships[friendshipId];
+
+export const getFriendsByUserId = (userId) => (state) => {
+    const friendships = getFriendships(state).filter(friendship => friendship.userId === userId || friendship.friendId === userId);
+    const friends = friendships.map(friendship => state.users[friendship.friendId] || state.users[friendship.userId]);
+    return friends;
+}
 
 // THUNK ACTION CREATORS
 
@@ -52,13 +59,14 @@ export const createFriendship = (friendship) => async dispatch => {
     }
 }
 
-export const deleteFriendship = (friendshipId) => async dispatch => { 
-    const res = await csrfFetch(`/api/friendships/${friendshipId}`, { 
+export const deleteFriendship = (friendId) => async dispatch => { 
+    const res = await csrfFetch(`/api/friendships/${friendId}`, { 
         method: 'DELETE' 
     });
 
     if (res.ok) {
-        dispatch(removeFriendship(friendshipId));
+        const data = await res.json();
+        dispatch(removeFriendship(data));
     } else {
         const errors = await res.json();
         dispatch(receiveFriendshipErrors(errors));
@@ -67,20 +75,26 @@ export const deleteFriendship = (friendshipId) => async dispatch => {
 
 // REDUCER
 
-const friendshipsReducer = (state = {}, action) => {
+const initialState = JSON.parse(sessionStorage.getItem("currentUser"))?.friendships || {};
+
+const friendshipsReducer = (state = initialState, action) => {
     const nextState = { ...state };
 
     switch (action.type) {
         case RECEIVE_FRIENDSHIPS:
-            return action.friendships;       
+            return { ...state, ...action.friendships };       
         case RECEIVE_FRIENDSHIP:
             nextState[action.friendship.id] = action.friendship;
             return nextState;
         case REMOVE_FRIENDSHIP:
-            delete nextState[action.friendshipId];
+            action.data.forEach(friendship => delete nextState[friendship]);
             return nextState;
+        case RECEIVE_USER:
+            return { ...state, ...action.payload.friendships };
         case REMOVE_CURRENT_USER:
             return {};
+        case SET_CURRENT_USER:
+            return { ...state, ...action.payload.friendships };
         default:
             return state;
     }

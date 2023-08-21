@@ -1,5 +1,7 @@
 class Api::SessionsController < ApplicationController
     def show
+        @current_user = current_user
+
         if current_user
             @user = current_user
             render 'api/users/show'
@@ -10,7 +12,8 @@ class Api::SessionsController < ApplicationController
 
     def create
         @user = User.find_by_credentials(params[:credential], params[:password])
-
+        @current_user = current_user
+        
         if @user
             login(@user)
             render 'api/users/show'

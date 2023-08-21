@@ -66,13 +66,12 @@ class User < ApplicationRecord
     end
 
     def mutual_friends(user)
-        # return -1 if current_user.friends.include?(user)
         return -1 if self.id == user.id
         friends_hash = {}
         count = 0
 
-        self.friends.each { |user| hash[user.id] = true }
-        user.friends.each { |user| count += 1 if hash[user.id] }
+        self.friends.each { |user| friends_hash[user.id] = true }
+        user.friends.each { |user| count += 1 if friends_hash[user.id] }
 
         count
     end

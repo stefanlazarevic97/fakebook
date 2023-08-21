@@ -17,7 +17,7 @@ export default function Navigation() {
                     <NavLink exact to="/">
                         <BsFacebook className="fakebook-logo" />
                     </NavLink>
-                    <SearchBar />
+                    {/* <SearchBar /> */}
                     <ProfileButton user={sessionUser} />
                 </nav>
             </>

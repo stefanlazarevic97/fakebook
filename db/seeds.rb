@@ -75,6 +75,14 @@ ApplicationRecord.transaction do
         }) 
     end
 
+    # puts "Giving each user a random profile picture and cover photo..."
+
+    # User.all.each do |user|
+    #     user.profile_picture = Faker::Avatar.image(slug: user.first_name, size: "150x150", format: "png", set: "set4")
+    #     user.cover_photo = Faker::LoremPixel.image(size: "1200x400", is_random: true)
+    #     user.save
+    # end
+
     puts "Creating sample posts..."
 
     user_ids = User.pluck(:id)
@@ -89,6 +97,22 @@ ApplicationRecord.transaction do
     end
 
     puts "Sample posts created!"
+
+    puts "Creating sample friendships..."
+
+    desired_friendships = 100
+    created_friendships = 0
+
+    while created_friendships < desired_friendships
+        user1_id, user2_id = user_ids.sample(2)
+  
+        friendship1 = Friendship.new(user_id: user1_id, friend_id: user2_id, status: 'accepted')
+
+        if friendship1.save
+            created_friendships += 1
+            Friendship.create(user_id: user2_id, friend_id: user1_id, status: 'accepted')
+        end
+    end
 
     puts "Done!"
 end
