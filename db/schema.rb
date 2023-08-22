@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_19_195943) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_22_162813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_195943) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "commenter_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "parent_comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commenter_id"], name: "index_comments_on_commenter_id"
+    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -79,6 +91,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_195943) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "comments", column: "parent_comment_id"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users", column: "commenter_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "posts", "users", column: "author_id"

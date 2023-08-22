@@ -46,6 +46,10 @@ class User < ApplicationRecord
         through: :friends,
         source: :posts  
 
+    has_many :comments,
+        foreign_key: :commenter_id,
+        dependent: :destroy 
+
     has_one_attached :profile_picture
     has_one_attached :cover_photo
         
