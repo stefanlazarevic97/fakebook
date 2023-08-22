@@ -26,8 +26,8 @@ class User < ApplicationRecord
         uniqueness: true, 
         presence: true, unless: -> (user) { user.email.present? },
         format: { with: /\A\d{10}\z/, message: "must be a 10-digit number" }
-    validates :password, length: { in: 6..255 }, allow_nil: true
-
+        validates :password, length: { in: 6..255 }, allow_nil: true
+        
     before_validation :ensure_session_token
 
     has_many :posts,
@@ -35,13 +35,24 @@ class User < ApplicationRecord
         class_name: :Post,
         dependent: :destroy
 
-    has_many :friendships,
+    has_many :user_friendships,
+        foreign_key: :user_id,
+        class_name: :Friendship,
         dependent: :destroy
-
-    has_many :friends,
-        through: :friendships,
+    
+    has_many :friend_friendships,
+        foreign_key: :friend_id,
+        class_name: :Friendship,
+        dependent: :destroy
+    
+    has_many :user_friends,
+        through: :user_friendships,
         source: :friend
-
+    
+    has_many :friend_friends,
+        through: :friend_friendships,
+        source: :user
+    
     has_many :friends_posts,
         through: :friends,
         source: :posts  
@@ -78,6 +89,14 @@ class User < ApplicationRecord
         other_user.friends.each { |friend| count += 1 if friends_hash[friend.id] }
 
         count
+    end
+
+    def friends
+        self.user_friends + self.friend_friends
+    end
+
+    def friendships
+        self.user_friendships + self.friend_friendships
     end
 
     def self.search(query)

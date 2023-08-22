@@ -7,7 +7,6 @@ export const RECEIVE_POSTS = 'posts/RECEIVE_POSTS';
 export const RECEIVE_POST = 'posts/RECEIVE_POST';
 export const REMOVE_POST = 'posts/REMOVE_POST';
 export const RECEIVE_POST_ERRORS = 'posts/RECEIVE_POST_ERRORS';
-export const CLEAR_POST_ERRORS = 'posts/CLEAR_POST_ERRORS';
 
 // ACTION CREATORS
 

@@ -10,7 +10,7 @@ import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import CreatePostModal from "../CreatePost/CreatePostModal";
 import EditProfileModal from "./EditProfileModal";
-import { createFriendship, deleteFriendship, getFriendsByUserId } from "../../store/friendshipsReducer";
+import { createFriendship, deleteFriendship, getFriendship, getFriendsByUserId } from "../../store/friendshipsReducer";
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -19,8 +19,9 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
-    const sessionUserFriends = useSelector(getFriendsByUserId(sessionUser.id));
+    const sessionUserFriends = useSelector(getFriendsByUserId(sessionUser?.id));
     const userFriends = useSelector(getFriendsByUserId(userId));
+    const friendship = useSelector(getFriendship(+userId));
 
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => setModalOpen(true);
@@ -66,17 +67,6 @@ const ProfilePage = () => {
         openEditModal();
     }
 
-    const isFriends = () => {
-        console.log(sessionUserFriends);
-        console.log(user);
-        return sessionUserFriends.includes(user);
-    }
-
-    const friendshipStatus = () => {
-        const friendship = sessionUserFriends.find(friend => friend.id === user.id);
-        return friendship ? friendship.status : null;
-    }
-
     const numMutualFriends = () => {
         let count = 0;
         sessionUserFriends.forEach(friend => {
@@ -86,27 +76,28 @@ const ProfilePage = () => {
     }
     
     const handleFriendClick = () => {
-        if (isFriends()) {
-            dispatch(deleteFriendship(user.id));
-        } else {
-            dispatch(createFriendship({ friendId: user.id }));
+        if (friendship?.status === 'accepted') {
+            dispatch(deleteFriendship(friendship.id));
+        } else if (!friendship) {
+            dispatch(createFriendship({ friendId: user.id, status: 'pending' }));
         }
     }
 
     if (!sessionUser) return <Redirect to="/" />;
     if (!user) return null;
     
+    console.log("friendship: ", friendship)
+
     let buttonText = "Add Friend";
 
     if (user.id === sessionUser.id) {
         buttonText = "Edit Profile";
-    } else if (isFriends()) {
-        const status = friendshipStatus();
-        if (status === 'accepted') {
-            buttonText = "Remove Friend";
-        } else if (status === 'pending') {
-            buttonText = "Cancel Request";
-        }
+    } else if (friendship?.status === 'pending' && friendship?.userId === sessionUser.id) {
+        buttonText = "Cancel Request";
+    } else if (friendship?.status === 'pending' && friendship?.friendId === sessionUser.id) {
+        buttonText = "Respond to Request";
+    } else if (friendship?.status === 'accepted') {
+        buttonText = "Unfriend";
     }
 
     return (
@@ -176,6 +167,7 @@ const ProfilePage = () => {
                                     onClick={handleEditProfile}>
                                         <span><BsFillPencilFill /></span> Edit Profile</button> :
                                 <button 
+                                    disabled={buttonText === "Respond to Request" ? true : false}
                                     className="add-friend-button"
                                     onClick={handleFriendClick}>
                                         {buttonText}

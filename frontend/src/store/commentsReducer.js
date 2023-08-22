@@ -7,7 +7,6 @@ export const RECEIVE_COMMENTS = 'comments/RECEIVE_COMMENTS';
 export const RECEIVE_COMMENT = 'comments/RECEIVE_COMMENT';
 export const REMOVE_COMMENT = 'comments/REMOVE_COMMENT';
 export const RECEIVE_COMMENT_ERRORS = 'comments/RECEIVE_COMMENT_ERRORS';
-// export const CLEAR_COMMENT_ERRORS = 'comments/CLEAR_COMMENT_ERRORS';
 
 // ACTION CREATORS
 
