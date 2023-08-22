@@ -22,7 +22,7 @@ json.friends do
             :last_name
             
             json.profile_picture_url friend.profile_picture.attached? ? url_for(friend.profile_picture) : nil
-            json.mutual_friends_count @current_user ? @current_user.mutual_friends(@user) : nil
+            json.mutual_friends_count @current_user ? @current_user.mutual_friends(friend) : nil
         end
     end
 end

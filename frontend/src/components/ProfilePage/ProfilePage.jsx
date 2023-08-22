@@ -67,11 +67,24 @@ const ProfilePage = () => {
     }
 
     const isFriends = () => {
-        sessionUserFriends.includes(user);
         console.log(sessionUserFriends);
         console.log(user);
+        return sessionUserFriends.includes(user);
     }
 
+    const friendshipStatus = () => {
+        const friendship = sessionUserFriends.find(friend => friend.id === user.id);
+        return friendship ? friendship.status : null;
+    }
+
+    const numMutualFriends = () => {
+        let count = 0;
+        sessionUserFriends.forEach(friend => {
+            if (userFriends.includes(friend)) count++;
+        })
+        return count;
+    }
+    
     const handleFriendClick = () => {
         if (isFriends()) {
             dispatch(deleteFriendship(user.id));
@@ -82,6 +95,19 @@ const ProfilePage = () => {
 
     if (!sessionUser) return <Redirect to="/" />;
     if (!user) return null;
+    
+    let buttonText = "Add Friend";
+
+    if (user.id === sessionUser.id) {
+        buttonText = "Edit Profile";
+    } else if (isFriends()) {
+        const status = friendshipStatus();
+        if (status === 'accepted') {
+            buttonText = "Remove Friend";
+        } else if (status === 'pending') {
+            buttonText = "Cancel Request";
+        }
+    }
 
     return (
         <div className="profile-page">
@@ -140,7 +166,7 @@ const ProfilePage = () => {
                     <div className="profile-info">
                         <div className="left-profile-header">
                             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
-                            <Link to={`/users/${user.id}/friends`}>{user.friends} friends</Link>
+                            <Link to={`/users/${user.id}/friends`}>{numMutualFriends()} mutual friends</Link>
                         </div>
 
                         <div className="right-profile-header">
@@ -152,7 +178,7 @@ const ProfilePage = () => {
                                 <button 
                                     className="add-friend-button"
                                     onClick={handleFriendClick}>
-                                        {isFriends() ? "Remove Friend" : "Add Friend"}
+                                        {buttonText}
                                 </button>
                             }
                         </div>

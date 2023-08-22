@@ -4,6 +4,7 @@ import CreatePostButton from '../CreatePost/CreatePostButton';
 import CreatePostModal from '../CreatePost/CreatePostModal';
 import PostItemIndex from '../PostItemIndex/PostItemIndex';
 import './NewsFeed.css';
+import FriendIndex from '../FriendsIndex/FriendIndex';
 
 const NewsFeed = () => {
     const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const NewsFeed = () => {
                 <PostItemIndex user={sessionUser}/>
             </div>
             <div className="right-sidebar">
-                <h1>Right Sidebar</h1>
+                <FriendIndex user={sessionUser} />
             </div>
         </div>
     );

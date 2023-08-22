@@ -1,21 +1,15 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import './FriendIndex.css';
-import { fetchFriendships, getFriendships } from "../../store/friendshipsReducer";
+import { getFriendsByUserId } from "../../store/friendshipsReducer";
 
-const FriendIndex = ({ userId }) => {
-    const dispatch = useDispatch();
-    const friends = useSelector(getFriendships);
-
-    useEffect(() => {
-        dispatch(fetchFriendships(userId));
-    }, [dispatch, userId]);
+const FriendIndex = ({ user }) => {
+    const sessionUserFriends = useSelector(getFriendsByUserId(user.id));
 
     return (
         <div className="friend-index">
-            <h2>Friends</h2>
-            {friends && friends.length > 0 ? (
-                friends.map(friend => (
+            <h1>Friends</h1>
+            {sessionUserFriends && sessionUserFriends.length > 0 ? (
+                sessionUserFriends.map(friend => (
                     <div key={friend.id} className="friend-item">
                         <img 
                             className="friend-profile-picture" 
@@ -24,7 +18,7 @@ const FriendIndex = ({ userId }) => {
                             onError={(e) => {e.target.onerror = null; e.target.src="path_to_default_image.jpg";}}
                         />
                         <span>{friend.firstName} {friend.lastName}</span>
-                        <span>{friend.mutualFriendCount} mutual friends</span>
+                        <span>{friend.mutualFriendsCount} mutual friends</span>
                     </div>
                 ))
             ) : (

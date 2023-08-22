@@ -87,7 +87,7 @@ const friendshipsReducer = (state = initialState, action) => {
             nextState[action.friendship.id] = action.friendship;
             return nextState;
         case REMOVE_FRIENDSHIP:
-            action.data.forEach(friendship => delete nextState[friendship]);
+            delete nextState[action.friendship];
             return nextState;
         case RECEIVE_USER:
             return { ...state, ...action.payload.friendships };
