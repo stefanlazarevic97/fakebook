@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         @current_user = current_user
-        
+
         if @user.save
             login(@user)
             render 'api/users/show'
@@ -39,10 +39,14 @@ class Api::UsersController < ApplicationController
         head :no_content, notice: 'User was successfully deleted.'
     end
 
-    def search
-        @users = User.search(params[:query])
-        @current_user = current_user
-        render 'api/users/search'
+    def index
+        @users = User.all
+
+        if params[:search]
+            @users = @users.where("first_name ILIKE '%#{params[:search]}%' OR last_name ILIKE '%#{params[:search]}%'")
+        end
+        
+        render :index
     end
 
     private

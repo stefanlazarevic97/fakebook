@@ -13,7 +13,7 @@ const FriendIndex = ({ user }) => {
             {sessionUserFriendRequests.length > 0 ? (
                 sessionUserFriendRequests.map(friend => (
                     <Link key={friend.id} to={`/users/${friend.id}`} className="friend-link">
-                        <div className="friend-item">
+                        <div key={friend.id} className="friend-item">
                             <img 
                                 className="friend-profile-picture" 
                                 src={friend.profilePictureUrl} 

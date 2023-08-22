@@ -97,12 +97,14 @@
     padding: 10px;
 }
 
-textarea {
+.post-body-textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     resize: none;
+    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 .post-images {

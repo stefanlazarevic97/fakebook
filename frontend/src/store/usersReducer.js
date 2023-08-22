@@ -22,8 +22,14 @@ export const getUser = (userId) => (state) => state.users[userId];
 
 // THUNK ACTION CREATORS
 
-export const fetchUsers = () => async dispatch => {
-    const res = await csrfFetch('/api/users');
+export const fetchUsers = (params) => async dispatch => {
+    let baseUrl = '/api/users?';
+
+    for (let key in params) {
+        baseUrl = baseUrl + `${key}=${params[key]}&`
+    }
+    
+    const res = await csrfFetch(baseUrl);
 
     if (res.ok) {
         const users = await res.json();

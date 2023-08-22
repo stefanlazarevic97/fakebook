@@ -99,10 +99,6 @@ class User < ApplicationRecord
         self.user_friendships + self.friend_friendships
     end
 
-    def self.search(query)
-        where("first_name ILIKE ? OR last_name ILIKE ?", "%#{query}%", "%#{query}%")
-    end
-
     private 
 
     def generate_session_token
