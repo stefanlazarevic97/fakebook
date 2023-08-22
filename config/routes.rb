@@ -4,6 +4,7 @@ Rails.application.routes.draw do
         resources :posts, except: [:new, :edit]
         resource :session, only: [:show, :create, :destroy]
         resources :friendships, only: [:create, :update, :destroy]
+        resources :comments, only: [:index, :show, :create, :update, :destroy]
     end
 
     get '*path', 
