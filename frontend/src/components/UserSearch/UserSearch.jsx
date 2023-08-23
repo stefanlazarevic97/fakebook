@@ -51,7 +51,10 @@ const UserSearch = props => {
                 />
             </form>
 
-            {showDropdown && <SearchResults />}
+            {showDropdown && <SearchResults 
+                setShowDropdown={setShowDropdown}
+                setSearchParams={setSearchParams}
+            />}
         </div>
     )
 }

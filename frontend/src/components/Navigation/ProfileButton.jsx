@@ -36,9 +36,13 @@ export default function ProfileButton({ user }) {
     return (
         <>
             <div className="profile-button" onClick={openMenu}>
-                {user.photoUrl ? 
-                    <img className="profile-button-image" src={user.profilePictureUrl} alt="User Profile" /> : 
-                    <BsPersonCircle className="profile-button-logo" />
+                {user.profilePictureUrl ? 
+                    <img 
+                        className="profile-button-picture" 
+                        src={user.profilePictureUrl} 
+                        alt="profile" 
+                    /> : 
+                    <BsPersonCircle className="profile-button-picture" />
                 }
             </div>
 

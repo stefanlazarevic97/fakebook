@@ -1,17 +1,30 @@
-import { useSelector } from "react-redux"
-import { getSearchResults } from "../../store/usersReducer"
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux"
+import { clearSearchResults, getSearchResults } from "../../store/usersReducer"
 import { BsPersonCircle } from 'react-icons/bs';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const SearchResults = () => {
+const SearchResults = ({ setShowDropdown, setSearchParams }) => {
     const searchResults = useSelector(getSearchResults);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleClick = (userId) => e => {
+        e.preventDefault();
+        dispatch(clearSearchResults());
+        setShowDropdown(false);
+        setSearchParams({});
+        history.push(`/users/${userId}`);
+    }
 
     return (
         <div className="search-results">
             {searchResults.length > 0 ? (
                 searchResults.map(user => (
-                    <Link key={user.id} to={`/users/${user.id}`} className="user-link">
-                        <div className="user-item">
+                        <div 
+                            key={user.id}
+                            className="user-item"
+                            onClick={handleClick(user.id)}
+                        >
                             {user.profilePictureUrl ? 
                                 <img 
                                     className="profile-picture" 
@@ -23,7 +36,6 @@ const SearchResults = () => {
                             <span>{user.firstName} {user.lastName}</span>
                             <span>{user.mutualFriendsCount} mutual friends</span>
                         </div>
-                    </Link>
                 ))
             ) : (
                 <p>No results found</p>

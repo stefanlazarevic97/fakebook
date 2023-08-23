@@ -111,6 +111,8 @@ const usersReducer = (state = { search: {} }, action) => {
             return { ...state, ...action.payload.friends };
         case RECEIVE_SEARCH_RESULTS:
             return { ...state, search: action.users };
+        case CLEAR_SEARCH_RESULTS:
+            return { ...state, search: {} };
         default:
             return state;
     }  

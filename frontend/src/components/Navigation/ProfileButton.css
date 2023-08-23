@@ -3,15 +3,7 @@
     position: relative;
 }
 
-.profile-button-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    color: black
-}
-
-.profile-button-image {
+.profile-button-picture {
     width: 40px;
     height: 40px;
     border-radius: 50%;
