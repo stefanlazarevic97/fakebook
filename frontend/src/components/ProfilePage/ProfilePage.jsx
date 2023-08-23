@@ -86,8 +86,6 @@ const ProfilePage = () => {
     if (!sessionUser) return <Redirect to="/" />;
     if (!user) return null;
     
-    console.log("friendship: ", friendship)
-
     let buttonText = "Add Friend";
 
     if (user.id === sessionUser.id) {

@@ -110,5 +110,18 @@ while created_friendships < desired_friendships
     end
 end
 
+puts "Creating sample top-level comments..."
+
+post_ids = Post.pluck(:id)
+
+user_ids.each do |user_id|
+    rand(1..5).times do
+        Comment.create!({
+        commenter_id: user_id,
+        post_id: post_ids.sample,
+        body: Faker::Lorem.paragraph(sentence_count: rand(1..3))
+        })
+    end
+end
 
 puts "Done!"

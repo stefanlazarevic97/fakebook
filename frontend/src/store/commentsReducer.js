@@ -15,10 +15,30 @@ export const receiveComment = (comment) => ({ type: RECEIVE_COMMENT, comment });
 export const removeComment = (commentId) => ({ type: REMOVE_COMMENT, commentId });
 export const receiveCommentErrors = (errors) => ({ type: RECEIVE_COMMENT_ERRORS, errors });
 
+// SELECTORS
+
+export const getComments = (state) => Object.values(state.comments);
+
+export const getTopLevelCommentsByPostId = (postId) => (state) => {
+    const comments = getComments(state).filter(
+        comment => comment.postId === postId && comment.parentCommentId === null
+    );
+
+    return comments;
+}
+
+export const getCommentReplies = (commentId) => (state) => {
+    const commentReplies = getComments(state).filter(
+        comment => comment.parentId === commentId
+    );
+    
+    return commentReplies
+}
+
 // THUNK ACTION CREATORS
 
 export const fetchCommentsByPostId = (postId) => async dispatch => {
-    const res = await csrfFetch(`/api/posts/${postId}/comments`);
+    const res = await csrfFetch(`/api/comments?postId=${postId}`);
 
     if (res.ok) {
         const comments = await res.json();
@@ -30,9 +50,9 @@ export const fetchCommentsByPostId = (postId) => async dispatch => {
 }
 
 export const createComment = (comment) => async dispatch => {
-    const res = await csrfFetch(`/api/comments`, {
+    const res = await csrfFetch('/api/comments', {
         method: 'POST',
-        body: JSON.stringify(comment),
+        body: comment,
     });
 
     if (res.ok) {
@@ -48,7 +68,7 @@ export const createComment = (comment) => async dispatch => {
 export const updateComment = (comment) => async dispatch => {
     const res = await csrfFetch(`/api/comments/${comment.id}`, {
         method: 'PUT',
-        body: JSON.stringify(comment),
+        body: comment,
     });
 
     if (res.ok) {
@@ -74,7 +94,7 @@ export const deleteComment = (commentId) => async dispatch => {
     }
 }
 
-// REDUCER 
+// REDUCER
 
 const commentsReducer = (state = {}, action) => {
     const nextState = { ...state };

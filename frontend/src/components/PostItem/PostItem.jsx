@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deletePost, updatePost } from "../../store/postsReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../util/formatDate";
 import { BsThreeDots } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
@@ -8,13 +8,20 @@ import { IoChevronBackOutline } from 'react-icons/io5';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import './PostItem.css'
+import { createComment, fetchCommentsByPostId, getTopLevelCommentsByPostId } from "../../store/commentsReducer";
+import Comment from "../Comment/Comment";
 
 const PostItem = ({ post }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editedPostBody, setEditedPostBody] = useState(post.body);
+    const [editedPostPhoto, setEditedPostPhoto] = useState(post.photoUrl);
     const dispatch = useDispatch();
     const [imageIndex, setImageIndex] = useState(0);
+    const [commentInput, setCommentInput] = useState(null);
+    const postTopLevelComments = useSelector(getTopLevelCommentsByPostId(post.id));
+    const [photoFile, setPhotoFile] = useState(null);
+    const sessionUser = useSelector(state => state.session.user);
 
     const handlePrevImage = () => {
         if (imageIndex > 0) {
@@ -38,8 +45,27 @@ const PostItem = ({ post }) => {
     }
 
     const handleUpdate = () => {
-        dispatch(updatePost({...post, body: editedPostBody}));
+        dispatch(updatePost({...post, body: editedPostBody, photo: editedPostPhoto}));
         setEditMode(false);
+    }
+
+    const openCommentBar = (postId) => (e) => {
+        e.stopPropagation();
+        setCommentInput(postId);
+        dispatch(fetchCommentsByPostId(postId));
+    }
+
+    const handleCommentSubmit = (e, postId, parentCommentId = null) => {
+        if (e.key === 'Enter' && e.target.value.trim()) {
+            e.preventDefault();
+            const commentFormData = new FormData();
+            commentFormData.append('comment[commenterId]', sessionUser.id);
+            commentFormData.append('comment[postId]', postId);
+            commentFormData.append('comment[body]', e.target.value.trim());
+            commentFormData.append('comment[parentCommentId]', parentCommentId);
+            if (photoFile) commentFormData.append('comment[photo]', photoFile);
+            dispatch(createComment(commentFormData));
+        }
     }
     
     return (
@@ -98,6 +124,12 @@ const PostItem = ({ post }) => {
                 <img src={post.imageUrls[imageIndex]} alt="" />
 
                 {imageIndex < post.imageUrls.length - 1 && <IoChevronForwardOutline className="next-button" onClick={handleNextImage} />}
+            </div>
+
+            <div className="comments-section">
+                {postTopLevelComments.map(comment => (
+                    <Comment comment={comment} post={post} key={comment.id} sessionUser={sessionUser} />
+                ))}
             </div>
         </li>
     );
