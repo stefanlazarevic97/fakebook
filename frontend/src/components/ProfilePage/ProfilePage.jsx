@@ -105,8 +105,8 @@ const ProfilePage = () => {
             <div className="header-background">
                 <div 
                     className="cover-photo-container" 
-                    onClick={toggleCoverPhotoDropdown}>
-                    
+                    onClick={user.id === sessionUser.id ? toggleCoverPhotoDropdown : null}>         
+
                     {user?.coverPhotoUrl ?
                         <img 
                             className="cover-photo" 
@@ -116,7 +116,7 @@ const ProfilePage = () => {
                         <GiPhotoCamera className="cover-photo" />
                     }
                 </div>
-                {coverPhotoDropdown && (
+                {coverPhotoDropdown && user.id === sessionUser.id (
                     <div className="cover-photo-dropdown-menu">
                         <label 
                             className="dropdown-label"
@@ -134,17 +134,17 @@ const ProfilePage = () => {
                 <div className="profile-header">
                     <div 
                         className="profile-picture-container" 
-                        onClick={toggleProfilePictureDropdown}>
+                        onClick={user.id === sessionUser.id ? toggleProfilePictureDropdown : null}>
 
                         {user.profilePictureUrl ? 
                             <img 
-                            className="profile-picture" 
-                            src={user.profilePictureUrl} 
-                            alt="profile" 
+                                className="profile-picture" 
+                                src={user.profilePictureUrl} 
+                                alt="profile" 
                             /> : 
                             <BsPersonCircle className="profile-picture" />
                         }
-                        {profilePictureDropdown && (
+                        {profilePictureDropdown && user.id === sessionUser.id && (
                             <div className="profile-dropdown-menu">
                                 <label 
                                     className="dropdown-label" 

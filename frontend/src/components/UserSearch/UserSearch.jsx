@@ -1,10 +1,17 @@
-import { useDispatch } from "react-redux"
-import { fetchUsers } from "../../store/usersReducer";
-import { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
+import { fetchUsers, getSearchResults } from "../../store/usersReducer";
+import { useEffect, useMemo, useState } from "react";
+import SearchResults from "./SearchResults";
 
 const UserSearch = props => {
     const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useState({});
+    const [showDropdown, setShowDropdown] = useState(false);
+    const searchResults = useSelector(getSearchResults);
+
+    useEffect(() => {
+        setShowDropdown(searchResults.length > 0);
+    }, [searchResults]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -43,6 +50,8 @@ const UserSearch = props => {
                     onChange={handleInputChange('search')}
                 />
             </form>
+
+            {showDropdown && <SearchResults />}
         </div>
     )
 }

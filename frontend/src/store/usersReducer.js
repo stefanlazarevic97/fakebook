@@ -23,8 +23,8 @@ export const receiveSearchErrors = (errors) => ({ type: RECEIVE_SEARCH_ERRORS, e
 
 // SELECTORS
 
-export const getUsers = (state) => Object.values(state.users);
 export const getUser = (userId) => (state) => state.users[userId];
+export const getSearchResults = (state) => Object.values(state.users.search);
 
 // THUNK ACTION CREATORS
 
