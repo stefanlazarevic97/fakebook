@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CreatePostButton from '../CreatePost/CreatePostButton';
 import CreatePostModal from '../CreatePost/CreatePostModal';
 import PostItemIndex from '../PostItemIndex/PostItemIndex';
 import './NewsFeed.css';
 import FriendIndex from '../FriendsIndex/FriendIndex';
+import { getFriendsByUserId } from '../../store/friendshipsReducer';
+import { getPostsByUserId } from '../../store/postsReducer';
 
 const NewsFeed = () => {
     const dispatch = useDispatch();
@@ -14,11 +16,11 @@ const NewsFeed = () => {
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
     
-    if (!sessionUser) return null;
-
     const createPost = (post) => {
         dispatch(createPost(post));
     }
+    
+    if (!sessionUser) return null;
 
     return (
         <div className="news-feed-container">
@@ -34,7 +36,7 @@ const NewsFeed = () => {
                         createPost={createPost}
                     />
                 }
-                <PostItemIndex user={sessionUser}/>
+                <PostItemIndex />
             </div>
             <div className="right-sidebar">
                 <FriendIndex user={sessionUser} />

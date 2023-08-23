@@ -9,8 +9,8 @@ const PostItemIndex = ({ user }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchPosts(user.id));
-    }, [dispatch, user.id]);
+        dispatch(fetchPosts(user?.id));
+    }, [dispatch, user?.id]);
 
     if (userPosts.length === 0) {
         return <div>You haven't posted anything yet.</div>

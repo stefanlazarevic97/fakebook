@@ -20,10 +20,21 @@ export const receivePostErrors = (errors) => ({ type: RECEIVE_POST_ERRORS, error
 export const getPosts = (state) => Object.values(state.posts);
 export const getPost = (state, postId) => state.posts[postId];
 
+export const getPostsByUserId = (userId) => (state) => {
+    const posts = getPosts(state).filter(post => post.userId === userId);
+    return posts;
+}
+
 // THUNK ACTION CREATORS
 
 export const fetchPosts = (userId) => async dispatch => {
-    const res = await csrfFetch(`/api/posts?userId=${userId}`);
+    let res;
+    
+    if (userId) {
+        res = await csrfFetch(`/api/posts?userId=${userId}`);
+    } else {
+        res = await csrfFetch(`/api/posts`);
+    }
 
     if (res.ok) {
         const posts = await res.json();

@@ -5,7 +5,12 @@ class Api::PostsController < ApplicationController
     before_action :ensure_author, only: [:update, :destroy]
 
     def index
-        @posts = Post.where(author_id: params[:user_id])
+        if params[:user_id]
+            @posts = Post.where(author_id: params[:user_id])
+        else
+            @posts = Post.where(author_id: current_user.friends.pluck(:id).push(current_user.id))
+        end
+        
         render 'api/posts/index'
     end
 
