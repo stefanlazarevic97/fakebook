@@ -37,8 +37,14 @@ export const getCommentReplies = (commentId) => (state) => {
 
 // THUNK ACTION CREATORS
 
-export const fetchCommentsByPostId = (postId) => async dispatch => {
-    const res = await csrfFetch(`/api/comments?postId=${postId}`);
+export const fetchCommentsByPostId = (postId, limited) => async dispatch => {
+    let res;
+
+    if (limited) {
+        res = await csrfFetch(`/api/comments?postId=${postId}&${limited}=true`);
+    } else {
+        res = await csrfFetch(`/api/comments?postId=${postId}`);
+    }
 
     if (res.ok) {
         const comments = await res.json();

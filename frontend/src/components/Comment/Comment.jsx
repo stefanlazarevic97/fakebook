@@ -3,6 +3,7 @@ import { createComment, deleteComment, getCommentReplies, getComments, updateCom
 import { BsPersonCircle } from 'react-icons/bs';
 import formatDate from "../../util/formatDate";
 import { useState } from "react";
+import CommentInput from "./CommentInput";
 
 const Comment = ({ comment, post, sessionUser }) => {
     const comments = useSelector(getComments);
@@ -19,19 +20,6 @@ const Comment = ({ comment, post, sessionUser }) => {
     const openReply = (parentCommentId) => (e) => {
         e.stopPropagation();
         setReplyToParent(parentCommentId);
-    }
-
-    const handleCommentSubmit = (e, postId, parentCommentId = null) => {
-        if (e.key === 'Enter' && e.target.value.trim()) {
-            e.preventDefault();
-            const commentFormData = new FormData();
-            commentFormData.append('comment[commenterId]', sessionUser.id);
-            commentFormData.append('comment[postId]', postId);
-            commentFormData.append('comment[body]', e.target.value.trim());
-            commentFormData.append('comment[parentCommentId]', parentCommentId);
-            if (photoFile) commentFormData.append('comment[photo]', photoFile);
-            dispatch(createComment(commentFormData));
-        }
     }
 
     const handleDelete = () => {
@@ -68,41 +56,27 @@ const Comment = ({ comment, post, sessionUser }) => {
                 <button onClick={ openReply(comment.id)}>Reply</button>
     
                     {replyToParent === comment.id &&
-                        <div>
-                            <input 
-                                type="text"
-                                placeholder="Write a public reply..."
-                                onKeyDown={e => handleCommentSubmit(e, post.id, comment.id)}
-                                onClick={e => e.stopPropagation()}
-                            />
-                            <input
-                                className="comment-photo-input"
-                                type="file"
-                                onChange={e => handleCommentSubmit(e.target.files[0])}
-                            />
-                        </div>
+                        <CommentInput 
+                            postId={post.id}
+                            parentCommentId={comment.id}
+                            sessionUser={sessionUser}
+                        />
                     }
             </div>
 
             <div className="comment-input">
                 {editMode ? (
                     <>
-                        <textarea 
-                            className="comment-body-input"
-                            value={editedCommentBody}
-                            onChange={e => setEditedCommentBody(e.target.value)}
-                        />
-                        <input
-                            className="comment-photo-input"
-                            type="file"
-                            value={editedCommentPhoto}
-                            onChange={e => setEditedCommentPhoto(e.target.files[0])}
+                        <CommentInput 
+                            postId={post.id}
+                            parentCommentId={comment.id}
+                            sessionUser={sessionUser}
                         />
                         <button onClick={handleUpdate}>Save</button>  
-                        <button onClick={() => setEditMode(false)}>Cancel</button>                 
+                        <button onClick={handleEdit}>Cancel</button>                 
                     </>
                 ) : (
-                    post.body
+                    comment.body
                 )}
             </div>
 

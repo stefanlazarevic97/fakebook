@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { deletePost, updatePost } from "../../store/postsReducer";
 import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../util/formatDate";
@@ -6,10 +6,14 @@ import { BsThreeDots } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { IoChevronForwardOutline } from 'react-icons/io5';
+import { IoMdPhotos } from 'react-icons/io';
+import { BsPersonPlusFill } from 'react-icons/bs';
+import { BsFiletypeGif } from 'react-icons/bs';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import './PostItem.css'
 import { createComment, fetchCommentsByPostId, getTopLevelCommentsByPostId } from "../../store/commentsReducer";
 import Comment from "../Comment/Comment";
+import CommentInput from "../Comment/CommentInput";
 
 const PostItem = ({ post }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -20,7 +24,7 @@ const PostItem = ({ post }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const [commentInput, setCommentInput] = useState(null);
     const postTopLevelComments = useSelector(getTopLevelCommentsByPostId(post.id));
-    const [photoFile, setPhotoFile] = useState(null);
+    const [photoFiles, setPhotoFiles] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
 
     const handlePrevImage = () => {
@@ -45,7 +49,16 @@ const PostItem = ({ post }) => {
     }
 
     const handleUpdate = () => {
-        dispatch(updatePost({...post, body: editedPostBody, photo: editedPostPhoto}));
+        const updatedPostFormData = new FormData();
+        updatedPostFormData.append('post[body]', editedPostBody);
+        
+        if (photoFiles.length !== 0) {
+            Array.from(photoFiles).forEach((photo) => {
+                updatedPostFormData.append('post[photos][]', photo);
+            })
+        }
+
+        dispatch(updatePost(updatedPostFormData, post.id));
         setEditMode(false);
     }
 
@@ -55,18 +68,9 @@ const PostItem = ({ post }) => {
         dispatch(fetchCommentsByPostId(postId));
     }
 
-    const handleCommentSubmit = (e, postId, parentCommentId = null) => {
-        if (e.key === 'Enter' && e.target.value.trim()) {
-            e.preventDefault();
-            const commentFormData = new FormData();
-            commentFormData.append('comment[commenterId]', sessionUser.id);
-            commentFormData.append('comment[postId]', postId);
-            commentFormData.append('comment[body]', e.target.value.trim());
-            commentFormData.append('comment[parentCommentId]', parentCommentId);
-            if (photoFile) commentFormData.append('comment[photo]', photoFile);
-            dispatch(createComment(commentFormData));
-        }
-    }
+    useEffect(() => { 
+        dispatch(fetchCommentsByPostId(post.id, false));
+    }, [dispatch, post.id]);
     
     return (
         <li className="post-item">
@@ -110,6 +114,20 @@ const PostItem = ({ post }) => {
                             value={editedPostBody}
                             onChange={e => setEditedPostBody(e.target.value)}
                         />
+                        <div  
+                            className="add-on-icons">
+                            <label className ="photo-icon-label">
+                                <IoMdPhotos className="photo-icon" />
+                                <input 
+                                    type="file" 
+                                    onChange={e => setPhotoFiles(e.target.files)}
+                                    multiple 
+                                />  
+                            </label>
+                            <BsPersonPlusFill className="tag-icon" />
+                            <BsFiletypeGif className="gif-icon" />
+                        </div>
+
                         <button onClick={handleUpdate}>Save</button>  
                         <button onClick={() => setEditMode(false)}>Cancel</button>                 
                     </>
@@ -130,6 +148,14 @@ const PostItem = ({ post }) => {
                 {postTopLevelComments.map(comment => (
                     <Comment comment={comment} post={post} key={comment.id} sessionUser={sessionUser} />
                 ))}
+            </div>
+
+            <div className="comment-input">
+                <CommentInput 
+                    postId={post.id}
+                    parentCommentId={null}
+                    sessionUser={sessionUser}
+                />
             </div>
         </li>
     );
