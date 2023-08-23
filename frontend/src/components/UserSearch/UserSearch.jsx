@@ -29,7 +29,7 @@ const UserSearch = props => {
     const handleInputChange = field => async e => {
         const newParams = { ...searchParams, [field]: e.target.value };
         debouncedSearch(newParams);
-        await setSearchParams(prev => ({ ...prev, [field]: e.target.value}));
+        setSearchParams(prev => ({ ...prev, [field]: e.target.value}));
     }
 
     return (

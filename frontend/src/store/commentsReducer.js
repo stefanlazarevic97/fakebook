@@ -74,6 +74,8 @@ export const deleteComment = (commentId) => async dispatch => {
     }
 }
 
+// REDUCER 
+
 const commentsReducer = (state = {}, action) => {
     const nextState = { ...state };
 

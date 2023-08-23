@@ -48,7 +48,7 @@ const ProfilePage = () => {
     }
 
     const handleChangeProfilePicture = (e) => {
-        const file = e.currentTarget.files[0];
+        const file = e.target.files[0];
         if (!file) return;
         const updatedUser = { ...user, profilePicture: file };
         dispatch(updateUser(updatedUser));
@@ -56,7 +56,7 @@ const ProfilePage = () => {
     }
 
     const handleChangeCoverPhoto = (e) => {
-        const file = e.currentTarget.files[0];
+        const file = e.target.files[0];
         if (!file) return;
         const updatedUser = { ...user, coverPhoto: file };
         dispatch(updateUser(updatedUser));
@@ -115,18 +115,21 @@ const ProfilePage = () => {
                         /> : 
                         <GiPhotoCamera className="cover-photo" />
                     }
-                    {coverPhotoDropdown && (
-                        <div className="cover-photo-dropdown-menu">
-                            <label className="dropdown-label">Update Cover Photo
-                                <input 
-                                    type="file"
-                                    onChange={handleChangeCoverPhoto}
-                                    onClick={e => e.stopPropagation()}
-                                />
-                            </label>
-                        </div>
-                    )}
                 </div>
+                {coverPhotoDropdown && (
+                    <div className="cover-photo-dropdown-menu">
+                        <label 
+                            className="dropdown-label"
+                            onClick={e => e.stopPropagation()}
+                            >
+                                Update Cover Photo
+                            <input 
+                                type="file"
+                                onChange={handleChangeCoverPhoto}
+                            />
+                        </label>
+                    </div>
+                )}
                 
                 <div className="profile-header">
                     <div 
@@ -143,11 +146,15 @@ const ProfilePage = () => {
                         }
                         {profilePictureDropdown && (
                             <div className="profile-dropdown-menu">
-                                <label className="dropdown-label">Update Profile Picture
+                                <label 
+                                    className="dropdown-label" 
+                                    onClick={e => e.stopPropagation()}
+                                    >
+                                        Update Profile Picture
                                     <input 
                                         type="file"
                                         onChange={handleChangeProfilePicture}
-                                        onClick={e => e.stopPropagation()}
+                                        
                                     />
                                 </label>
                             </div>

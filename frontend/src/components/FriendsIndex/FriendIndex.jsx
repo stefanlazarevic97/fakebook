@@ -1,19 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './FriendIndex.css';
-import { getFriendsByUserId, getFriendRequestsByUserId } from "../../store/friendshipsReducer";
+import { getFriendsByUserId, getFriendRequestsByUserId, acceptFriendRequest, deleteFriendship } from "../../store/friendshipsReducer";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const FriendIndex = ({ user }) => {
+    const dispatch = useDispatch();
     const sessionUserFriends = useSelector(getFriendsByUserId(user.id));
     const sessionUserFriendRequests = useSelector(getFriendRequestsByUserId(user.id));
+
+    const handleAccept = (friendshipId) => {
+        dispatch(acceptFriendRequest(friendshipId));
+    };
+
+    const handleReject = (friendshipId) => {
+        dispatch(deleteFriendship(friendshipId));
+    };
 
     return (
         <div className="friend-index">
             <h3>Friend Requests</h3>
             {sessionUserFriendRequests.length > 0 ? (
                 sessionUserFriendRequests.map(friend => (
-                    <Link key={friend.id} to={`/users/${friend.id}`} className="friend-link">
-                        <div key={friend.id} className="friend-item">
+                    <div key={friend.id} className="friend-item">
+                        <Link to={`/users/${friend.id}`} className="friend-link">
                             <img 
                                 className="friend-profile-picture" 
                                 src={friend.profilePictureUrl} 
@@ -22,8 +31,11 @@ const FriendIndex = ({ user }) => {
                             />
                             <span>{friend.firstName} {friend.lastName}</span>
                             <span>{friend.mutualFriendsCount} mutual friends</span>
-                        </div>
-                    </Link>
+                        </Link>
+
+                        <button onClick={() => handleAccept(friend.friendshipId)}>Accept</button>
+                        <button onClick={() => handleReject(friend.friendshipId)}>Reject</button>
+                    </div>
                 ))
             ) : (
                 <p>No pending friend requests.</p>

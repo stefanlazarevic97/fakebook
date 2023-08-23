@@ -41,11 +41,12 @@ class Api::UsersController < ApplicationController
 
     def index
         @users = User.all
+        @current_user = current_user
 
         if params[:search]
             @users = @users.where("first_name ILIKE '%#{params[:search]}%' OR last_name ILIKE '%#{params[:search]}%'")
         end
-        
+
         render :index
     end
 

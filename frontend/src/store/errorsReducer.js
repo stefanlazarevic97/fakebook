@@ -2,7 +2,7 @@ import { RECEIVE_COMMENT, RECEIVE_COMMENTS, RECEIVE_COMMENT_ERRORS, REMOVE_COMME
 import { RECEIVE_FRIENDSHIP, RECEIVE_FRIENDSHIPS, RECEIVE_FRIENDSHIP_ERRORS, REMOVE_FRIENDSHIP } from "./friendshipsReducer";
 import { RECEIVE_POST, RECEIVE_POSTS, RECEIVE_POST_ERRORS, REMOVE_POST } from "./postsReducer";
 import { CLEAR_SESSION_ERRORS, RECEIVE_SESSION_ERRORS, REMOVE_CURRENT_USER, SET_CURRENT_USER } from "./sessionReducer";
-import { RECEIVE_USER, RECEIVE_USERS, RECEIVE_USER_ERRORS, REMOVE_USER } from "./usersReducer";
+import { RECEIVE_SEARCH_RESULTS, CLEAR_SEARCH_RESULTS, RECEIVE_SEARCH_ERRORS, RECEIVE_USER, RECEIVE_USERS, RECEIVE_USER_ERRORS, REMOVE_USER } from "./usersReducer";
 
 const errorsReducer = (state = {
     session: [],
@@ -10,7 +10,8 @@ const errorsReducer = (state = {
     posts: [],
     friendships: [],
     comments: [],
-    reactions: []
+    reactions: [],
+    search: []
 }, action) => {
     const nextState = { ...state };
 
@@ -55,6 +56,12 @@ const errorsReducer = (state = {
             return { ...nextState, comments: [] };
         case RECEIVE_COMMENT_ERRORS:
             return { ...nextState, comments: action.payload.errors };
+        case RECEIVE_SEARCH_RESULTS:
+            return { ...nextState, search: []};
+        case CLEAR_SEARCH_RESULTS:
+            return { ...nextState, search: []};
+        case RECEIVE_SEARCH_ERRORS:
+            return { ...nextState, search: action.payload.errors };
         default:
             return state;
     }

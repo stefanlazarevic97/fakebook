@@ -17,7 +17,7 @@ class Api::FriendshipsController < ApplicationController
     def destroy
         @friendship = Friendship.find_by(id: params[:id])
 
-        unless @friendship && @friendship.user_id == current_user.id
+        unless @friendship && (@friendship.user_id == current_user.id || @friendship.friend_id == current_user.id)
             return render json: { errors: ["Unauthorized action."] }, status: 403
         end
 

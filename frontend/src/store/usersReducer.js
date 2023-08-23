@@ -7,6 +7,9 @@ export const RECEIVE_USERS = 'users/RECEIVE_USERS';
 export const RECEIVE_USER = 'users/RECEIVE_USER';
 export const REMOVE_USER = 'users/REMOVE_USER';
 export const RECEIVE_USER_ERRORS = 'users/RECEIVE_USER_ERRORS';
+export const RECEIVE_SEARCH_RESULTS = 'users/RECEIVE_SEARCH_RESULTS';
+export const CLEAR_SEARCH_RESULTS = 'users/CLEAR_SEARCH_RESULTS';
+export const RECEIVE_SEARCH_ERRORS = 'users/RECEIVE_SEARCH_ERRORS';
 
 // ACTION CREATORS
 
@@ -14,6 +17,9 @@ export const receiveUsers = (users) => ({ type: RECEIVE_USERS, users });
 export const receiveUser = (payload) => ({ type: RECEIVE_USER, payload });
 export const removeUser = (userId) => ({ type: REMOVE_USER, userId });
 export const receiveUserErrors = (errors) => ({ type: RECEIVE_USER_ERRORS, errors });
+export const receiveSearchResults = (users) => ({ type: RECEIVE_SEARCH_RESULTS, users });
+export const clearSearchResults = () => ({ type: CLEAR_SEARCH_RESULTS });
+export const receiveSearchErrors = (errors) => ({ type: RECEIVE_SEARCH_ERRORS, errors });
 
 // SELECTORS
 
@@ -33,7 +39,7 @@ export const fetchUsers = (params) => async dispatch => {
 
     if (res.ok) {
         const users = await res.json();
-        dispatch(receiveUsers(users));
+        dispatch(receiveSearchResults(users));
     } else {
         const errors = await res.json();
         dispatch(receiveUserErrors(errors));
@@ -66,7 +72,7 @@ export const updateUser = (user) => async dispatch => {
 
     if (res.ok) {
         const payload = await res.json();
-        dispatch(receiveUser(payload.user));
+        dispatch(receiveUser(payload));
         return payload;
     } else {
         const errors = await res.json();
@@ -89,9 +95,7 @@ export const deleteUser = (userId) => async dispatch => {
 
 // REDUCER
 
-const initialState = JSON.parse(sessionStorage.getItem("currentUser"))?.friends || null;
-
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = { search: {} }, action) => {
     const nextState = { ...state };
 
     switch (action.type) {
@@ -105,6 +109,8 @@ const usersReducer = (state = initialState, action) => {
             return nextState;
         case SET_CURRENT_USER:
             return { ...state, ...action.payload.friends };
+        case RECEIVE_SEARCH_RESULTS:
+            return { ...state, search: action.users };
         default:
             return state;
     }  

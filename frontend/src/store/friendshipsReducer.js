@@ -27,9 +27,11 @@ export const getFriendsByUserId = (userId) => (state) => {
         friendship.status === 'accepted' && 
         (friendship.userId === userId || friendship.friendId === userId));
     const friends = friendships.map(friendship => {
-        const user1 = state.users[friendship.userId];
-        const user2 = state.users[friendship.friendId];
-        return user1 || user2;
+        const user1 = state.users[friendship.userId] || state.session.user;
+        user1.friendshipId = friendship.id
+        const user2 = state.users[friendship.friendId] || state.session.user;
+        user2.friendshipId = friendship.id
+        return user1.id === userId ? user2 : user1;
     })
     return friends;
 }
@@ -39,9 +41,11 @@ export const getFriendRequestsByUserId = (userId) => (state) => {
         friendship.status === 'pending' && 
         (friendship.friendId === userId));
     const friends = friendships.map(friendship => {
-        const user1 = state.users[friendship.userId];
-        const user2 = state.users[friendship.friendId];
-        return user1 || user2;
+        const user1 = state.users[friendship.userId] || state.session.user;
+        user1.friendshipId = friendship.id
+        const user2 = state.users[friendship.friendId] || state.session.user;
+        user2.friendshipId = friendship.id
+        return user1.id === userId ? user2 : user1;
     })
     return friends;
 }
@@ -90,6 +94,22 @@ export const createFriendship = (friendship) => async dispatch => {
     }
 }
 
+export const acceptFriendRequest = (friendshipId) => async dispatch => {
+    const res = await csrfFetch(`/api/friendships/${friendshipId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'accepted' })
+    });
+
+    if (res.ok) {
+        const friendship = await res.json();
+        dispatch(receiveFriendship(friendship));
+    } else {
+        const errors = await res.json();
+        dispatch(receiveFriendshipErrors(errors));
+    }
+}
+
 export const deleteFriendship = (friendshipId) => async dispatch => { 
     const res = await csrfFetch(`/api/friendships/${friendshipId}`, { 
         method: 'DELETE' 
@@ -105,9 +125,9 @@ export const deleteFriendship = (friendshipId) => async dispatch => {
 
 // REDUCER
 
-const initialState = JSON.parse(sessionStorage.getItem("currentUser"))?.friendships || {};
+// const initialState = JSON.parse(sessionStorage.getItem("currentUser"))?.friendships || {};
 
-const friendshipsReducer = (state = initialState, action) => {
+const friendshipsReducer = (state = {}, action) => {
     const nextState = { ...state };
 
     switch (action.type) {
