@@ -29,10 +29,10 @@ export const getTopLevelCommentsByPostId = (postId) => (state) => {
 
 export const getCommentReplies = (commentId) => (state) => {
     const commentReplies = getComments(state).filter(
-        comment => comment.parentId === commentId
+        comment => comment.parentCommentId === commentId
     );
     
-    return commentReplies
+    return commentReplies;
 }
 
 // THUNK ACTION CREATORS
@@ -71,8 +71,8 @@ export const createComment = (comment) => async dispatch => {
     }
 }
 
-export const updateComment = (comment) => async dispatch => {
-    const res = await csrfFetch(`/api/comments/${comment.id}`, {
+export const updateComment = (comment, commentId) => async dispatch => {
+    const res = await csrfFetch(`/api/comments/${commentId}`, {
         method: 'PUT',
         body: comment,
     });

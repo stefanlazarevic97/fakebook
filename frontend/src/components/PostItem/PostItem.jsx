@@ -11,7 +11,7 @@ import { BsPersonPlusFill } from 'react-icons/bs';
 import { BsFiletypeGif } from 'react-icons/bs';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import './PostItem.css'
-import { createComment, fetchCommentsByPostId, getTopLevelCommentsByPostId } from "../../store/commentsReducer";
+import { fetchCommentsByPostId, getTopLevelCommentsByPostId } from "../../store/commentsReducer";
 import Comment from "../Comment/Comment";
 import CommentInput from "../Comment/CommentInput";
 
@@ -19,10 +19,10 @@ const PostItem = ({ post }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editedPostBody, setEditedPostBody] = useState(post.body);
-    const [editedPostPhoto, setEditedPostPhoto] = useState(post.photoUrl);
+    // const [editedPostPhoto, setEditedPostPhoto] = useState(post.photoUrl);
     const dispatch = useDispatch();
     const [imageIndex, setImageIndex] = useState(0);
-    const [commentInput, setCommentInput] = useState(null);
+    // const [commentInput, setCommentInput] = useState(null);
     const postTopLevelComments = useSelector(getTopLevelCommentsByPostId(post.id));
     const [photoFiles, setPhotoFiles] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
@@ -60,12 +60,6 @@ const PostItem = ({ post }) => {
 
         dispatch(updatePost(updatedPostFormData, post.id));
         setEditMode(false);
-    }
-
-    const openCommentBar = (postId) => (e) => {
-        e.stopPropagation();
-        setCommentInput(postId);
-        dispatch(fetchCommentsByPostId(postId));
     }
 
     useEffect(() => { 
@@ -146,7 +140,13 @@ const PostItem = ({ post }) => {
 
             <div className="comments-section">
                 {postTopLevelComments.map(comment => (
-                    <Comment comment={comment} post={post} key={comment.id} sessionUser={sessionUser} />
+                    <Comment 
+                        className="parent-comment"
+                        comment={comment} 
+                        post={post} 
+                        key={comment.id} 
+                        sessionUser={sessionUser} 
+                    />
                 ))}
             </div>
 
