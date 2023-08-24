@@ -1,0 +1,17 @@
+.comment-profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.comment-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.parent-comment {
+    width: 100%;
+}

@@ -200,7 +200,7 @@ post6.photos.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazon
 
 post7 = add_post(user2.id, "My new album 'Justice' is out now! Hope it resonates with you. #Justice", "2021-03-19 14:43:09 UTC")
 
-post8 = add_post(user3.id, "Came up short this time, but it's all part of the journey. Grateful for all the love and support. #RenasArmy 🎾", "2021-07-08 19:46:29 UTC")
+post8 = add_post(user3.id, "Came up short this time, but it's all part of the journey. Grateful for all the love and support. #RenasArmy 🎾", "2019-07-13 19:46:29 UTC")
 
 post9 = add_post(user3.id, "Thrilled to introduce my new fashion line! It's been a labor of love. Can't wait for you all to see it.", "2020-02-25 14:12:33 UTC")
 
@@ -336,16 +336,157 @@ post46.photos.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazo
 
 post47 = add_post(user13.id, "Climate change is the biggest threat we face. It's time for sustainable energy solutions.", "2021-06-21 20:11:57 UTC")
 
-# user_ids = User.pluck(:id)
+puts "Creating sample top-level (parent) comments..."
 
-# user_ids.each do |user_id|
-#     rand(1..5).times do
-#         Post.create!({
-#         author_id: user_id,
-#         body: Faker::Lorem.paragraph(sentence_count: rand(1..3))
-#         })
-#     end
-# end
+def add_comment(user_id, post_id, body, created_at)
+    comment = Comment.create!({
+        commenter_id: user_id,
+        post_id: post_id,
+        body: body,
+        parent_comment_id: nil
+    })
+
+    comment.created_at = created_at
+    comment.save!
+    
+    return comment
+end
+
+comment1 = add_comment(user5.id, post2.id, "That dinner looks amazing! Family dinners are the best. #FamilyFirst", "2023-08-24 09:35:00 UTC")
+
+comment2 = add_comment(user12.id, post2.id, "Well done!", "2023-08-24 09:42:19 UTC")
+
+comment3 = add_comment(user10.id, post3.id, "Can't wait to catch you on tour! 🎶", "2022-01-15 15:22:12 UTC")
+
+comment4 = add_comment(user9.id, post4.id, "Amazing energy last night, keep it up!", "2016-07-19 19:49:58 UTC")
+
+comment5 = add_comment(user7.id, post6.id, "Congratulations on the engagement! Wishing you both nothing but happiness. 💍", "2018-07-10 18:58:32 UTC")
+
+comment6 = add_comment(user4.id, post6.id, "I better get an invite to the wedding.", "2018-07-10 19:01:42 UTC")
+
+comment7 = add_comment(user3.id, post7.id, "Already listening on repeat! #Justice", "2021-03-19 14:48:26 UTC")
+
+comment8 = add_comment(user5.id, post8.id, "You're a champion, no matter what. Keep going! 🎾", "2019-07-13 19:52:49 UTC")
+
+comment9 = add_comment(user12.id, post8.id, "Unlucky today. Check out this cool shot I got of you though!", "2019-07-13 19:52:03 UTC")
+
+comment9.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-9.png"), filename: "comment-photo-9.png")
+
+comment10 = add_comment(user3.id, post9.id, "Congratulations! Can't wait to see it.", "2020-02-25 14:15:20 UTC")
+
+comment11 = add_comment(user6.id, post10.id, "Family is everything. Beautiful post!", "2022-06-05 17:15:46 UTC")
+
+comment12 = add_comment(user2.id, post11.id, "Fantastic race, well done! 🏎️", "2021-03-28 18:33:54 UTC")
+
+comment13 = add_comment(user7.id, post11.id, "Legend!", "2021-03-28 18:35:52 UTC")
+
+comment14 = add_comment(user5.id, post11.id, "Unbeatable performance!", "2021-03-28 19:01:43 UTC")
+
+comment15 = add_comment(user5.id, post12.id, "Inspirational words, Lewis. Climate change can't be ignored.", "2020-04-22 10:36:21 UTC")
+
+comment16 = add_comment(user11.id, post13.id, "Great game! Loved the teamwork.", "2019-06-15 20:44:59 UTC")
+
+comment17 = add_comment(user7.id, post14.id, "Well said, Lewis. We must all raise our voices. #BlackLivesMatter", "2020-06-02 09:49:37 UTC")
+
+comment18 = add_comment(user11.id, post15.id, "Thank you for using your platform for such an important cause. #ClimateAction", "2019-09-23 12:23:11 UTC")
+
+comment19 = add_comment(user8.id, post16.id, "Congratulations on the win! The film is a much-needed eye-opener. This was my favourite scene!", "2017-05-14 18:59:05 UTC")
+
+comment19.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-19.png"), filename: "comment-photo-19.png")
+
+comment20 = add_comment(user10.id, post16.id, "Can't wait to watch it!", "2017-05-14 19:20:18 UTC")
+
+comment21 = add_comment(user6.id, post17.id, "Your fashion sense is impeccable! This was one of your best looks.", "2019-02-20 13:25:47 UTC")
+
+comment21.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-21.png"), filename: "comment-photo-21.png")
+
+comment22 = add_comment(user13.id, post18.id, "Congratulations! Well-deserved victory. #DubNation 🏀", "2018-06-09 11:29:32 UTC")
+
+comment23 = add_comment(user12.id, post18.id, "Just spectacular! Your talent knows no bounds.", "2018-01-10 15:09:55 UTC")
+
+comment24 = add_comment(user9.id, post20.id, "Absolutely, let's keep fighting for equality. ✊", "2020-06-03 15:47:21 UTC")
+
+comment25 = add_comment(user11.id, post21.id, "Those shoes look amazing! Hopefully you can recreate this colorway!", "2022-09-10 17:02:14 UTC")
+
+comment25.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-25.png"), filename: "comment-photo-25.png")
+
+comment26 = add_comment(user3.id, post21.id, "Where can I buy these?", "2022-09-10 17:10:43 UTC")
+
+comment27 = add_comment(user5.id, post23.id, "Can't wait to listen to it.", "2022-04-05 10:35:57 UTC")
+
+comment28 = add_comment(user4.id, post23.id, "Thank you for sharing your journey, truly inspiring. ❤️", "2022-07-18 12:47:46 UTC")
+
+comment29 = add_comment(user7.id, post24.id, "You're a great role model for many.", "2019-10-22 11:52:09 UTC")
+
+comment30 = add_comment(user12.id, post22.id, "What a game! On to the next.", "2021-04-14 19:55:23 UTC")
+
+comment31 = add_comment(user2.id, post25.id, "Absolutely! An artist's vision is unique and should remain their own. #SupportArtists", "2019-07-01 08:17:23 UTC")
+
+comment32 = add_comment(user11.id, post25.id, "Couldn't agree more! 💯", "2019-07-01 10:26:47 UTC")
+
+comment33 = add_comment(user4.id, post26.id, "This is a historic moment. Congratulations!", "2008-11-05 02:12:32 UTC")
+
+comment33.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-33.png"), filename: "comment-photo-33.png")
+
+comment34 = add_comment(user5.id, post27.id, "Healthcare should be a right, not a privilege. Well said!", "2010-03-24 09:14:28 UTC")
+
+comment35 = add_comment(user2.id, post27.id, "Huge step forward for the country.", "2010-03-24 11:03:46 UTC")
+
+comment36 = add_comment(user12.id, post28.id, "Already pre-ordered. Can't wait to read it! Expect this stack to be gone by the end of the day.", "2020-09-17 12:45:16 UTC")
+
+comment36.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-36.png"), filename: "comment-photo-36.png")
+
+comment37 = add_comment(user3.id, post28.id, "Looking forward to gaining some insights from your experience.", "2020-09-17 15:20:39 UTC")
+
+comment38 = add_comment(user7.id, post29.id, "GOAT 🎾", "2020-02-02 22:51:12 UTC")
+
+comment39 = add_comment(user8.id, post30.id, "Mental health is so crucial. Thanks for speaking out.", "2021-05-12 13:14:33 UTC")
+
+comment40 = add_comment(user6.id, post31.id, "Totally agree! Nutrition is key to success.", "2021-09-07 19:28:12 UTC")
+
+comment41 = add_comment(user10.id, post32.id, "Congratulations! You've made your fans proud again!", "2019-07-14 17:30:47 UTC")
+
+comment42 = add_comment(user5.id, post32.id, "Wow! Wimbledon #5! The first one feels like it was just yesterday...", "2019-07-14 17:32:09 UTC")
+
+comment42.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-42.png"), filename: "comment-photo-42.png")
+
+comment43 = add_comment(user2.id, post33.id, "That's great! Every little bit helps.", "2020-03-27 14:21:19 UTC")
+
+comment44 = add_comment(user9.id, post34.id, "Juventus just got a superstar! ⚽", "2018-07-10 15:19:20 UTC")
+
+comment45 = add_comment(user12.id, post35.id, "Unstoppable indeed! Keep shining ⭐", "2021-08-17 10:46:31 UTC")
+
+comment46 = add_comment(user3.id, post38.id, "Can't wait to try the new makeup line! Will try to recreate this look.", "2017-06-21 15:32:41 UTC")
+
+comment46.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-46.png"), filename: "comment-photo-46.png")
+
+comment47 = add_comment(user2.id, post39.id, "Thank you for advocating for justice.", "2019-06-13 20:41:16 UTC")
+
+comment48 = add_comment(user13.id, post39.id, "Must've just missed you!", "2019-06-13 20:43:11 UTC")
+
+comment49 = add_comment(user6.id, post41.id, "You were fantastic in the movie!", "2018-03-02 17:47:36 UTC")
+
+comment50 = add_comment(user6.id, post42.id, "More power to women in every field! 👏", "2020-01-25 11:20:19 UTC")
+
+comment50.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-50.png"), filename: "comment-photo-50.png")
+
+comment51 = add_comment(user5.id, post43.id, "We need to protect Mother Earth. 🌎", "2021-04-22 14:12:03 UTC")
+
+comment52 = add_comment(user4.id, post43.id, "I should start recycling...", "2021-04-22 14:36:44 UTC")
+
+comment53 = add_comment(user8.id, post44.id, "Innovation at its finest!", "2017-07-29 16:53:01 UTC")
+
+comment54 = add_comment(user4.id, post44.id, "Such a polished interior.", "2017-07-29 18:32:04 UTC")
+
+comment54.photo.attach(io: URI.open("https://fakebook-app-seeds.s3.us-west-1.amazonaws.com/comment-photos/comment-photo-54.png"), filename: "comment-photo-54.png")
+
+comment55 = add_comment(user11.id, post45.id, "This is out of this world! Literally!", "2018-02-06 20:41:19 UTC")
+
+comment56 = add_comment(user12.id, post46.id, "This is the future!", "2020-08-29 18:02:11 UTC")
+
+comment57 = add_comment(user2.id, post46.id, "Can't tell if this technology is scary or cool.", "2020-08-30 20:15:09 UTC")
+
+comment58 = add_comment(user6.id, post46.id, "Wow!", "2020-08-30 20:16:29 UTC")
 
 # puts "Sample posts created!"
 
