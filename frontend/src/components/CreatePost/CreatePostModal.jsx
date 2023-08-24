@@ -4,8 +4,6 @@ import { createPost } from '../../store/postsReducer';
 import { BsPersonCircle } from 'react-icons/bs';
 import { IoClose } from 'react-icons/io5';
 import { IoMdPhotos } from 'react-icons/io';
-import { BsPersonPlusFill } from 'react-icons/bs';
-import { BsFiletypeGif } from 'react-icons/bs';
 import './CreatePostModal.css';
 
 const CreatePostModal = ({ closeModal, currentUser }) => {
@@ -93,8 +91,6 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
                                     multiple 
                                 />  
                             </label>
-                            <BsPersonPlusFill className="tag-icon" />
-                            <BsFiletypeGif className="gif-icon" />
                         </div>
                     </div>
                 </div>

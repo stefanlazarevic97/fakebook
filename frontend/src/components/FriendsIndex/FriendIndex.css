@@ -1,7 +1,75 @@
+.friend-index {
+    background-color: #f0f2f5;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.friends-header {
+    font-size: 1.5em;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mutual-friends-count {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.friend-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.friend-index-body {
+    display: flex;
+    flex-direction: column;
+}
+
 .friend-profile-picture {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.friend-request-button {
+    padding: 6px 12px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.friend-request-button:hover {
+    background-color: #ddd;
+}
+
+.friend-request-button:first-child {
+    background-color: #1877f2;
+    color: white;
+    margin-right: 10px;
+}
+
+.friend-request-button:first-child:hover {
+    background-color: #155a8a;
+}
+
+.friend-request-button:last-child {
+    background-color: #ccc;
+    color: black;
 }

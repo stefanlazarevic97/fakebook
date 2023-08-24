@@ -162,7 +162,7 @@ const ProfilePage = () => {
                     <div className="profile-info">
                         <div className="left-profile-header">
                             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
-                            <Link to={`/users/${user.id}/friends`}>{numMutualFriends()} mutual friends</Link>
+                            <Link to={`/users/${user.id}/friends`}>{user.mutualFriendsCount} mutual friends</Link>
                         </div>
 
                         <div className="right-profile-header">

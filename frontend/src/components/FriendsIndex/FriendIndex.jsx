@@ -18,7 +18,7 @@ const FriendIndex = ({ user }) => {
 
     return (
         <div className="friend-index">
-            <h3>Friend Requests</h3>
+            <h3 className="friends-header">Friend Requests</h3>
             {sessionUserFriendRequests.length > 0 ? (
                 sessionUserFriendRequests.map(friend => (
                     <div key={friend.id} className="friend-item">
@@ -33,15 +33,26 @@ const FriendIndex = ({ user }) => {
                             <span>{friend.mutualFriendsCount} mutual friends</span>
                         </Link>
 
-                        <button onClick={() => handleAccept(friend.friendshipId)}>Accept</button>
-                        <button onClick={() => handleReject(friend.friendshipId)}>Reject</button>
+                        <button 
+                            onClick={() => handleAccept(friend.friendshipId)}
+                            className="friend-request-button"
+                        >
+                            Accept
+                        </button>
+
+                        <button 
+                            className="friend-request-button"
+                            onClick={() => handleReject(friend.friendshipId)}
+                        >
+                            Reject
+                        </button>
                     </div>
                 ))
             ) : (
-                <p>No pending friend requests.</p>
+                <p className="friend-item">No pending friend requests.</p>
             )}
 
-            <h3>Friends</h3>
+            <h3 className="friends-header">Friends</h3>
             {sessionUserFriends.length > 0 ? (
                 sessionUserFriends.map(friend => (
                     <Link key={friend.id} to={`/users/${friend.id}`} className="friend-link">
@@ -52,13 +63,15 @@ const FriendIndex = ({ user }) => {
                                 alt={''} 
                                 onError={(e) => {e.target.onerror = null; e.target.src="path_to_default_image.jpg";}}
                             />
-                            <span>{friend.firstName} {friend.lastName}</span>
-                            <span>{friend.mutualFriendsCount} mutual friends</span>
+                            <div className="friend-index-body">
+                                <p className="friend-name">{friend.firstName} {friend.lastName}</p>
+                                <p className="mutual-friends-count">{friend.mutualFriendsCount} mutual friends</p>
+                            </div>
                         </div>
                     </Link>
                 ))
             ) : (
-                <p>No friends found</p>
+                <p className="friend-item">No friends found</p>
             )}
         </div>
     );

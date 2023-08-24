@@ -112,26 +112,18 @@
     justify-content: center;
 }
 
-.photo-icon:hover, .tag-icon:hover, .gif-icon:hover {
+.photo-icon:hover {
     background-color: rgb(215, 215, 215);
 }
 
 .add-on-icons {
     display: flex;
     justify-content: space-between;
-    width: 150px;
+    width: 50px;
 }
 
 .photo-icon {
     color: #00A400
-}
-
-.tag-icon {
-    color: #3578E5;
-}
-
-.gif-icon {
-    color: #4DBBA6;
 }
 
 .footer > p {

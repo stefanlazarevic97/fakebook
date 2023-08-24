@@ -1,0 +1,44 @@
+.comment-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding: 5px 0;
+}
+
+.comment-input {
+    flex: 1;
+    border: none;
+    padding: 0 10px;
+    border-radius: 25px;
+    outline: none;
+    box-sizing: border-box;
+    background-color: #f0f2f5;
+}
+
+.comment-photo-icon-label {
+    position: relative;
+    margin-right: 10px;
+}
+
+.photo-icon {
+    color: grey;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.comment-file-input {
+    display: none;
+}
+
+.comment-button {
+    background: none;
+    border: none;
+    color: #3578E5;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.comment-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

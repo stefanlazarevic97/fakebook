@@ -3,6 +3,7 @@ import { createComment } from '../../store/commentsReducer';
 import { useState } from 'react';
 import { IoMdPhotos } from 'react-icons/io';
 import { BiSolidRightArrow } from 'react-icons/bi';
+import './CommentInput.css';
 
 const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
     const dispatch = useDispatch();
@@ -22,8 +23,9 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
     };
 
     return (
-        <form onSubmit={handleCommentSubmit} >
+        <form onSubmit={handleCommentSubmit} className="comment-form" >
             <input 
+                className="comment-input"
                 type="text"
                 placeholder="Write a comment..."
                 value={body}
@@ -34,12 +36,13 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
                 <IoMdPhotos className="photo-icon" />
                 
                 <input 
+                    className="comment-file-input"
                     type="file" 
                     onChange={e => setPhotoFile(e.target.files[0])} 
                 />  
             </label>
 
-            <button><BiSolidRightArrow /></button>
+            <button className="comment-button"><BiSolidRightArrow /></button>
         </form>
     );
 };
