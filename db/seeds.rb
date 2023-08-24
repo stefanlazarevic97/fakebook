@@ -488,6 +488,80 @@ comment57 = add_comment(user2.id, post46.id, "Can't tell if this technology is s
 
 comment58 = add_comment(user6.id, post46.id, "Wow!", "2020-08-30 20:16:29 UTC")
 
+puts "Creating sample child comments..."
+
+def add_child_comment(user_id, post_id, parent_comment_id, body, created_at)
+    comment = Comment.create!({
+        commenter_id: user_id,
+        post_id: post_id,
+        body: body,
+        parent_comment_id: parent_comment_id
+    })
+
+    comment.created_at = created_at
+    comment.save!
+    
+    return comment
+end
+
+comment59 = add_child_comment(user8.id, post6.id, comment5.id, "Couldn't agree more! They're perfect for each other.", "2018-07-10 19:05:47 UTC")
+
+comment60 = add_child_comment(user7.id, post6.id, comment6.id, "Haha, me too! Save me a dance.", "2018-07-10 19:10:12 UTC")
+
+comment61 = add_child_comment(user1.id, post8.id, comment9.id, "That's an amazing shot, thanks for sharing!", "2019-07-13 20:00:30 UTC")
+
+comment62 = add_child_comment(user10.id, post10.id, comment11.id, "Family truly is a blessing.", "2022-06-05 17:30:54 UTC")
+
+comment63 = add_child_comment(user13.id, post11.id, comment12.id, "The speed was just insane!", "2021-03-28 19:00:49 UTC")
+
+comment64 = add_child_comment(user9.id, post16.id, comment19.id, "That scene was powerful, left me speechless.", "2017-05-14 19:25:21 UTC")
+
+comment65 = add_child_comment(user12.id, post17.id, comment21.id, "100%! That outfit was a showstopper.", "2019-02-20 14:00:36 UTC")
+
+comment66 = add_child_comment(user11.id, post21.id, comment26.id, "I heard they're dropping next month!", "2022-09-10 17:15:09 UTC")
+
+comment67 = add_child_comment(user13.id, post23.id, comment27.id, "Me too! Always a treat to hear new music.", "2022-04-05 10:40:13 UTC")
+
+comment68 = add_child_comment(user10.id, post25.id, comment31.id, "This is so true. The art belongs to the artist.", "2019-07-01 11:00:51 UTC")
+
+comment69 = add_child_comment(user6.id, post28.id, comment36.id, "Just placed my order too! Can't wait!", "2020-09-17 13:00:27 UTC")
+
+comment70 = add_child_comment(user5.id, post30.id, comment39.id, "It's refreshing to see celebrities talk openly about this.", "2021-05-12 13:30:46 UTC")
+
+comment71 = add_child_comment(user2.id, post32.id, comment41.id, "You always make it look so easy.", "2019-07-14 17:45:35 UTC")
+
+comment72 = add_child_comment(user3.id, post34.id, comment44.id, "A match made in heaven!", "2018-07-10 15:30:24 UTC")
+
+comment73 = add_child_comment(user4.id, post35.id, comment46.id, "Wow, your dog is absolutely adorable!", "2018-11-12 12:15:38 UTC")
+
+comment74 = add_child_comment(user9.id, post37.id, comment48.id, "That book was life-changing for me.", "2017-06-15 22:00:57 UTC")
+
+comment75 = add_child_comment(user8.id, post40.id, comment50.id, "The second episode is even better!", "2020-11-05 10:20:31 UTC")
+
+comment76 = add_child_comment(user8.id, post42.id, comment52.id, "Wish I was there, looks like a lot of fun!", "2018-05-14 17:40:09 UTC")
+
+comment77 = add_child_comment(user7.id, post45.id, comment55.id, "The photography is just stunning.", "2019-12-13 21:00:44 UTC")
+
+comment78 = add_child_comment(user1.id, post28.id, comment36.id, "Definitely adding this to my reading list.", "2020-09-17 13:24:21 UTC")
+
+comment79 = add_child_comment(user1.id, post2.id, comment1.id, "Thank you!", "2023-08-24 09:39:23 UTC")
+
+comment80 = add_child_comment(user10.id, post18.id, comment22.id, "The game was so close, can't believe they won!", "2018-06-11 UTC")
+
+comment81 = add_child_comment(user9.id, post23.id, comment27.id, "My favorite album by far.", "2022-04-05 21:31:09 UTC")
+
+comment82 = add_child_comment(user12.id, post21.id, comment25.id, "Where did you get those shoes? I need them!", "2022-09-10 17:13:20 UTC")
+
+comment83 = add_child_comment(user11.id, post41.id, comment49.id, "I totally agree, the plot twist was unexpected.", "2018-03-03 18:32:01 UTC")
+
+comment84 = add_child_comment(user6.id, post41.id, comment49.id, "The choreography was amazing!", "2018-03-03 19:57:16 UTC")
+
+comment85 = add_child_comment(user11.id, post39.id, comment47.id, "Just doing my part.", "2019-06-15 20:11:26 UTC")
+
+comment86 = add_child_comment(user9.id, post32.id, comment42.id, "Time really flies when you're winning grand slams...", "2019-07-14 17:55:04 UTC")
+
+comment87 = add_child_comment(user12.id, post43.id, comment52.id, "We all should!", "2021-04-24 08:30:19 UTC")
+
 # puts "Sample posts created!"
 
 # puts "Creating sample friendships..."

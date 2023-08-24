@@ -7,6 +7,7 @@ import CommentInput from "./CommentInput";
 import './Comment.css';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoMdPhotos } from 'react-icons/io';
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Comment = ({ comment, post, sessionUser, className }) => {
     const dispatch = useDispatch();
@@ -44,14 +45,16 @@ const Comment = ({ comment, post, sessionUser, className }) => {
         <div className={className}>
             <header className="comment-header">
                 <div key={comment.id} className="left-comment-header">
-                    {comment.profilePictureUrl ?
-                        <img 
-                            src={comment.profilePictureUrl}
-                            alt="profile" 
-                            className="comment-profile-picture" 
-                        /> : 
-                        <BsPersonCircle className="profile-picture" />
-                    }
+                    <Link to={`/users/${comment.commenterId}`} className="commenter-link">
+                        {comment.profilePictureUrl ?
+                            <img 
+                                src={comment.profilePictureUrl}
+                                alt="profile" 
+                                className="comment-profile-picture" 
+                            /> : 
+                            <BsPersonCircle className="profile-picture" />
+                        }
+                    </Link>
 
                     <div className="commenter-info">
                         <h3 className="commenter">{comment.commenter}</h3>
