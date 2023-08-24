@@ -23,7 +23,11 @@ class Comment < ApplicationRecord
         class_name: :Comment, 
         dependent: :destroy
 
-    validates :body, presence: true
+    validates :body, presence: tru
+    
+    has_many :reactions,
+        as: :reactable,
+        dependent: :destroy
 
     has_one_attached :photo
 end
