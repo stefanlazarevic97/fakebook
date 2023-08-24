@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CreatePostButton from '../CreatePost/CreatePostButton';
 import CreatePostModal from '../CreatePost/CreatePostModal';
 import PostItemIndex from '../PostItemIndex/PostItemIndex';
 import './NewsFeed.css';
 import FriendIndex from '../FriendsIndex/FriendIndex';
-import { getFriendsByUserId } from '../../store/friendshipsReducer';
-import { getPostsByUserId } from '../../store/postsReducer';
 
 const NewsFeed = () => {
     const dispatch = useDispatch();
