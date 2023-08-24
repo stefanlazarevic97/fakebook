@@ -562,40 +562,34 @@ comment86 = add_child_comment(user9.id, post32.id, comment42.id, "Time really fl
 
 comment87 = add_child_comment(user12.id, post43.id, comment52.id, "We all should!", "2021-04-24 08:30:19 UTC")
 
-# puts "Sample posts created!"
+puts "Creating sample friendships..."
 
-# puts "Creating sample friendships..."
+user_ids = (1..13).to_a
 
-# desired_friendships = 100
-# created_friendships = 0
+unique_pairs = Set.new
+friendship_count = {}
 
-# unique_pairs = []
+user_ids.each { |id| friendship_count[id] = 0 }
 
-# while created_friendships < desired_friendships
-#     user1_id, user2_id = user_ids.sample(2)
+while true
+    exhausted_users = friendship_count.select { |k, v| v >= 8 }.keys
+    available_users = user_ids - exhausted_users
+    
+    break if (friendship_count.values.all? { |count| count >= 5 }) || available_users.empty?
 
-#     next if unique_pairs.include?([user1_id, user2_id]) || unique_pairs.include?([user2_id, user1_id]) || user1_id == user2_id
+    user1_id, user2_id = available_users.sample(2)
+    next if user1_id.nil? || user2_id.nil? || user1_id == user2_id
+    
+    next if unique_pairs.include?([user1_id, user2_id]) || unique_pairs.include?([user2_id, user1_id])
 
-#     friendship = Friendship.new(user_id: user1_id, friend_id: user2_id, status: 'accepted')
+    friendship = Friendship.new(user_id: user1_id, friend_id: user2_id, status: 'accepted')
+    
+    if friendship.save
+        unique_pairs.add([user1_id, user2_id])
 
-#     if friendship.save
-#         created_friendships += 1
-#         unique_pairs << [user1_id, user2_id]
-#     end
-# end
-
-# puts "Creating sample top-level comments..."
-
-# post_ids = Post.pluck(:id)
-
-# user_ids.each do |user_id|
-#     rand(1..5).times do
-#         Comment.create!({
-#         commenter_id: user_id,
-#         post_id: post_ids.sample,
-#         body: Faker::Lorem.paragraph(sentence_count: rand(1..3))
-#         })
-#     end
-# end
+        friendship_count[user1_id] += 1
+        friendship_count[user2_id] += 1
+    end
+end
 
 puts "Done!"
