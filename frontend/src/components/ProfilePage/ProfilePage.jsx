@@ -1,4 +1,4 @@
-import { Link, Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { fetchUser, getUser, updateUser } from "../../store/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import CreatePostModal from "../CreatePost/CreatePostModal";
 import EditProfileModal from "./EditProfileModal";
-import { createFriendship, deleteFriendship, getFriendship, getFriendsByUserId } from "../../store/friendshipsReducer";
+import { createFriendship, deleteFriendship, getFriendship } from "../../store/friendshipsReducer";
 
 const ProfilePage = () => {
     const { userId } = useParams();

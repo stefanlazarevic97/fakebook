@@ -112,22 +112,24 @@ const PostItem = ({ post }) => {
                             value={editedPostBody}
                             onChange={e => setEditedPostBody(e.target.value)}
                         />
-                        <div  
-                            className="add-on-icons">
-                            <label className ="photo-icon-label">
-                                <IoMdPhotos className="photo-icon" />
-                                <input 
-                                    type="file" 
-                                    onChange={e => setPhotoFiles(e.target.files)}
-                                    multiple 
-                                />  
-                            </label>
-                            <BsPersonPlusFill className="tag-icon" />
-                            <BsFiletypeGif className="gif-icon" />
+                        <div className="footer">
+                            <p>Add to your post</p>
+                            <div  
+                                className="add-on-icons">
+                                <label className ="photo-icon-label">
+                                    <IoMdPhotos className="photo-icon" />
+                                    <input 
+                                        type="file" 
+                                        onChange={e => setPhotoFiles(e.target.files)}
+                                        multiple 
+                                    />
+                                </label>
+                            </div>
                         </div>
-
-                        <button onClick={handleUpdate}>Save</button>  
-                        <button onClick={() => setEditMode(false)}>Cancel</button>                 
+                        <div className="edit-post-button-container">
+                            <button className="edit-post-button" onClick={handleUpdate}>Save</button>  
+                            <button className="edit-post-button" onClick={() => setEditMode(false)}>Cancel</button>                 
+                        </div>
                     </>
                 ) : (
                     post.body
