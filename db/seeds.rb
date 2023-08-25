@@ -4,11 +4,19 @@ users = []
 
 puts "Destroying tables..."
 
+Reaction.destroy_all
+Friendship.destroy_all
+Comment.destroy_all
+Post.destroy_all
 User.destroy_all
 
 puts "Resetting primary keys..."
 
 ApplicationRecord.connection.reset_pk_sequence!('users')
+ApplicationRecord.connection.reset_pk_sequence!('posts')
+ApplicationRecord.connection.reset_pk_sequence!('comments')
+ApplicationRecord.connection.reset_pk_sequence!('friendships')
+ApplicationRecord.connection.reset_pk_sequence!('reactions')
 
 puts "Creating demo user..."
 
