@@ -84,7 +84,6 @@ Your next friend is a search away! Type names into the search bar and get basic 
 
 I faced the challenge of incorporating friendships in a way that they count for both users involved. This was solved by filtering through friendships using a selector function that returns friends of a given user. This works regardless of whether the given user corresponds to the "friend_id" or the "user_id" column of the friendships table. Differentiating between "accepted", "pending", and "deleted" friendships was critical to returning the correct content from the backend to mimic the behavior of Facebook.
 
-<pre> 
 ```javascript
 export const getFriendsByUserId = (userId) => (state) => {
     if (!userId) return [];
@@ -101,13 +100,11 @@ export const getFriendsByUserId = (userId) => (state) => {
     return friends;
 }
 ```
-</pre>
 
 ### Slow Load Times
 
 Another challenge was dealing with slow load times. This was mitigated by limiting the content that is stored in state to only things that are relevant to the logged-in user. Additionally, the amount of rendered content returned from the API backend was limited.
 
-<pre>
 ```ruby
 def index
     @post = Post.find(params[:post_id])
@@ -125,7 +122,6 @@ def index
     end
 end
 ```
-</pre>
 
 ---
 
