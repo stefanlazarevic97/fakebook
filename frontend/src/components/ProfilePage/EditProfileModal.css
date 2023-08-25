@@ -4,6 +4,10 @@
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .edit-profile-modal-content h2 {
@@ -14,6 +18,7 @@
 .edit-profile-form {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .edit-profile-form input {
@@ -21,6 +26,15 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.edit-profile-form textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    height: 100px;
 }
 
 .edit-profile-submit-button {

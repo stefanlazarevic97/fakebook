@@ -144,7 +144,7 @@ const PostItem = ({ post }) => {
                 {imageIndex < post.imageUrls.length - 1 && <IoChevronForwardOutline className="next-button" onClick={handleNextImage} />}
             </div>
 
-            <div className = "post-reactions">
+            <div className="post-reactions">
                 <ReactionSummary reactable={post} reactableType='Post' />
                 <ReactionInput reactable={post} reactableType='Post' sessionUser={sessionUser} />
             </div>

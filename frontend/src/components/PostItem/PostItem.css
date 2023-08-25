@@ -148,6 +148,7 @@
 
 .post-reactions {
     position: relative;
+    padding: 8px;
 }
 
 .edit-post-button {

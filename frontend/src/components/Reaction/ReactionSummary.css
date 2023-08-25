@@ -4,9 +4,9 @@
     align-items: center;
     font-size: 18px;
     color: #606770;
-    border-top: 1px solid #dddfe2;
     padding: 8px;
     height: 30px;
+    box-sizing: border-box;
 }
 
 .reaction-summary-item {

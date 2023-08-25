@@ -1,7 +1,6 @@
 .reaction-container {
     display: flex;
     padding: 5px 0;
-    border-top: 1px solid #ccc;
     position: absolute;
     width: 30%;
     top: 0;

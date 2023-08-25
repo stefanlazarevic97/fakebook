@@ -113,12 +113,14 @@ const Comment = ({ comment, post, sessionUser, className }) => {
                 )}
             </div>
             
-            <button 
-                className="reply-button" 
-                onClick={ openReply(comment.id)}
-            >
-                Reply
-            </button>
+            <div className="reply-button-container">
+                <button 
+                    className="reply-button" 
+                    onClick={ openReply(comment.id)}
+                >
+                    Reply
+                </button>
+            </div>
     
             {replyToParent === comment.id &&
                 <CommentInput 
@@ -133,8 +135,11 @@ const Comment = ({ comment, post, sessionUser, className }) => {
             </div>
 
             <div className = "comment-reactions">
-                <ReactionSummary reactable={comment} reactableType='Comment' />
-                <ReactionInput reactable={comment} reactableType='Comment' sessionUser={sessionUser} />
+                <div className="comments-menu">
+                    <ReactionSummary reactable={comment} reactableType='Comment' />
+                    <ReactionInput reactable={comment} reactableType='Comment' sessionUser={sessionUser} />
+
+                </div>
             </div>
 
             <div className="comments-section">
