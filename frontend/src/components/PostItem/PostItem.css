@@ -145,3 +145,7 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+
+.post-reactions {
+    position: relative;
+}

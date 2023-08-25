@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { deleteComment, getCommentReplies, updateComment } from "../../store/commentsReducer";
 import { BsPersonCircle } from 'react-icons/bs';
 import formatDate from "../../util/formatDate";
@@ -8,6 +8,8 @@ import './Comment.css';
 import { BsThreeDots } from 'react-icons/bs';
 import { IoMdPhotos } from 'react-icons/io';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import ReactionInput from "../Reaction/ReactionInput";
+import ReactionSummary from "../Reaction/ReactionSummary";
 
 const Comment = ({ comment, post, sessionUser, className }) => {
     const dispatch = useDispatch();
@@ -17,7 +19,7 @@ const Comment = ({ comment, post, sessionUser, className }) => {
     const [editedCommentBody, setEditedCommentBody] = useState(comment.body);
     const [editedCommentPhotoFile, setEditedCommentPhotoFile] = useState(comment.photoUrl);
 
-    const commentReplies = useSelector(getCommentReplies(comment.id));
+    const commentReplies = useSelector(getCommentReplies(comment.id), shallowEqual);
 
     const openReply = (parentCommentId) => (e) => {
         e.stopPropagation();
@@ -111,7 +113,12 @@ const Comment = ({ comment, post, sessionUser, className }) => {
                 )}
             </div>
             
-            <button onClick={ openReply(comment.id)}>Reply</button>
+            <button 
+                className="reply-button" 
+                onClick={ openReply(comment.id)}
+            >
+                Reply
+            </button>
     
             {replyToParent === comment.id &&
                 <CommentInput 
@@ -123,6 +130,11 @@ const Comment = ({ comment, post, sessionUser, className }) => {
 
             <div className="comment-photo">
                 {comment.photoUrl && <img src={comment.photoUrl} alt="comment" />}
+            </div>
+
+            <div className = "comment-reactions">
+                <ReactionSummary reactable={comment} reactableType='Comment' />
+                <ReactionInput reactable={comment} reactableType='Comment' sessionUser={sessionUser} />
             </div>
 
             <div className="comments-section">

@@ -1,0 +1,44 @@
+.reaction-container {
+    display: flex;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+    position: absolute;
+    width: 30%;
+    top: 0;
+    height: 30px;
+}
+
+.reaction-dropdown {
+    position: absolute;
+    display: none;
+    bottom: 100%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+.reaction-container:hover .reaction-dropdown {
+    display: flex;
+}
+
+.reaction-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+    color: #606770;
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.reaction-button.active {
+    color: #1877f2;
+}
+
+.reaction-button:hover {
+    color: #1877f2;
+}

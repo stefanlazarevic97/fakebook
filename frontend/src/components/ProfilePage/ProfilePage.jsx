@@ -19,8 +19,6 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
-    // const sessionUserFriends = useSelector(getFriendsByUserId(sessionUser?.id));
-    // const userFriends = useSelector(getFriendsByUserId(userId));
     const friendship = useSelector(getFriendship(+userId));
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -67,14 +65,6 @@ const ProfilePage = () => {
         openEditModal();
     }
 
-    // const numMutualFriends = () => {
-    //     let count = 0;
-    //     sessionUserFriends.forEach(friend => {
-    //         if (userFriends.includes(friend)) count++;
-    //     })
-    //     return count;
-    // }
-    
     const handleFriendClick = () => {
         if (friendship?.status === 'accepted') {
             dispatch(deleteFriendship(friendship.id));
@@ -163,7 +153,7 @@ const ProfilePage = () => {
                         <div className="left-profile-header">
                             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
                             {user.id !== sessionUser.id && 
-                                <Link to={`/users/${user.id}/friends`}>{user.mutualFriendsCount} mutual friends</Link>
+                                <p className="profile-mutual-friends">{user.mutualFriendsCount} mutual friends</p>
                             }
                         </div>
 

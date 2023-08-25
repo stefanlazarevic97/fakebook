@@ -14,15 +14,15 @@ import './PostItem.css'
 import { fetchCommentsByPostId, getTopLevelCommentsByPostId } from "../../store/commentsReducer";
 import Comment from "../Comment/Comment";
 import CommentInput from "../Comment/CommentInput";
+import ReactionInput from "../Reaction/ReactionInput";
+import ReactionSummary from "../Reaction/ReactionSummary";
 
 const PostItem = ({ post }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editedPostBody, setEditedPostBody] = useState(post.body);
-    // const [editedPostPhoto, setEditedPostPhoto] = useState(post.photoUrl);
     const dispatch = useDispatch();
     const [imageIndex, setImageIndex] = useState(0);
-    // const [commentInput, setCommentInput] = useState(null);
     const postTopLevelComments = useSelector(getTopLevelCommentsByPostId(post.id));
     const [photoFiles, setPhotoFiles] = useState([]);
     const sessionUser = useSelector(state => state.session.user);
@@ -83,19 +83,23 @@ const PostItem = ({ post }) => {
                         <p className="post-date">{formatDate(post.createdAt)}</p>
                     </div>
                 </div>
-
+                
                 <div className="right-header">
-                    <button 
-                        onClick={() => setDropdownOpen(!dropdownOpen)} 
-                        className="post-dropdown-button">
-                            <BsThreeDots />
-                    </button>
+                    {sessionUser.id === post.authorId && (
+                        <>
+                            <button 
+                                onClick={() => setDropdownOpen(!dropdownOpen)} 
+                                className="post-dropdown-button">
+                                    <BsThreeDots />
+                            </button>
 
-                    {dropdownOpen && (
-                        <div className="dropdown-menu">
-                            <button onClick={handleEdit}>Edit Post</button>
-                            <button onClick={handleDelete}>Delete Post</button>
-                        </div>
+                            {dropdownOpen && (
+                                <div className="dropdown-menu">
+                                    <button onClick={handleEdit}>Edit Post</button>
+                                    <button onClick={handleDelete}>Delete Post</button>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </header>
@@ -136,6 +140,11 @@ const PostItem = ({ post }) => {
                 <img src={post.imageUrls[imageIndex]} alt="" />
 
                 {imageIndex < post.imageUrls.length - 1 && <IoChevronForwardOutline className="next-button" onClick={handleNextImage} />}
+            </div>
+
+            <div className = "post-reactions">
+                <ReactionSummary reactable={post} reactableType='Post' />
+                <ReactionInput reactable={post} reactableType='Post' sessionUser={sessionUser} />
             </div>
 
             <div className="comments-section">

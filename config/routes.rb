@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         resource :session, only: [:show, :create, :destroy]
         resources :friendships, only: [:create, :update, :destroy]
         resources :comments, only: [:index, :show, :create, :update, :destroy]
+        resources :reactions, only: [:index, :create, :update, :destroy]
     end
 
     get '*path', 

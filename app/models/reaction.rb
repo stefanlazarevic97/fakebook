@@ -11,7 +11,13 @@
 #  updated_at     :datetime         not null
 
 class Reaction < ApplicationRecord
-    belongs_to :reactor
+    belongs_to :reactor, class_name: :User
     belongs_to :reactable, polymorphic: true
-    validates :reactor_id, uniqueness: { scope: [:reactable_type, :reactable_id], message: "can only react once" }
+    validate :uniqueness_validation
+
+    def uniqueness_validation
+        if Reaction.where(reactor_id: reactor_id, reactable_type: reactable_type, reactable_id: reactable_id, reaction_type: reaction_type).exists?
+            errors.add(:reactor_id, "can only react once")
+        end
+    end
 end

@@ -3,6 +3,7 @@ class Api::PostsController < ApplicationController
     
     before_action :set_post, only: [:show, :update, :destroy]
     before_action :ensure_author, only: [:update, :destroy]
+    before_action :set_current_user, only: [:index, :show, :create, :update, :destroy]
 
     def index
         if params[:user_id]
@@ -53,6 +54,10 @@ class Api::PostsController < ApplicationController
         end
     end
 
+    def set_current_user
+        @current_user = current_user
+    end
+    
     def post_params
         params.require(:post).permit(:body, :author_id, photos: [])
     end

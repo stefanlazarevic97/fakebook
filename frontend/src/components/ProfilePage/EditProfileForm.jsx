@@ -28,7 +28,7 @@ const EditProfileForm = ({ user, onClose }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="edit-profile-form" onSubmit={handleSubmit}>
             <input 
                 type="text"
                 value={firstName}
@@ -54,7 +54,11 @@ const EditProfileForm = ({ user, onClose }) => {
                 onChange={(e) => setEmail(e.target.value)}
             />
 
-            <button type="submit">Update Profile</button>
+            <button 
+                className="edit-profile-submit-button"
+            >
+                Update Profile
+            </button>
         </form>
     );
 };
