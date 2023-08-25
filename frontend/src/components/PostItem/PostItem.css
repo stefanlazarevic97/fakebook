@@ -145,3 +145,28 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+
+.post-reactions {
+    position: relative;
+}
+
+.edit-post-button {
+    margin: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #1877F2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+}
+
+.edit-post-button .edit-post-button:hover {
+    background-color: #165dbb;
+}
+
+.edit-post-button-container {
+    display: flex;
+    justify-content: center;
+}

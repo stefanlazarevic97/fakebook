@@ -53,6 +53,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 30%;
 }
 
 .friend-request-button:hover {
@@ -72,4 +73,15 @@
 .friend-request-button:last-child {
     background-color: #ccc;
     color: black;
+}
+
+.friend-request-button:last-child:hover {
+    background-color: #bbb;
+}
+
+.friend-request-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 10px;
 }

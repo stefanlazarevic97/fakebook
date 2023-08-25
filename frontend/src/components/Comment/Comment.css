@@ -105,3 +105,18 @@
     border: none;
     box-shadow: none;
 }
+
+.reply-button {
+    background: none;
+    border: none;
+    padding: 10px;
+    margin: 0;
+    color: rgb(100, 100, 100);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.reply-button:hover {
+    text-decoration: underline;
+}

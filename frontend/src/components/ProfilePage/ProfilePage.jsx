@@ -1,4 +1,4 @@
-import { Link, Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { fetchUser, getUser, updateUser } from "../../store/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import './ProfilePage.css';
 import CreatePostButton from "../CreatePost/CreatePostButton";
 import CreatePostModal from "../CreatePost/CreatePostModal";
 import EditProfileModal from "./EditProfileModal";
-import { createFriendship, deleteFriendship, getFriendship, getFriendsByUserId } from "../../store/friendshipsReducer";
+import { createFriendship, deleteFriendship, getFriendship } from "../../store/friendshipsReducer";
 
 const ProfilePage = () => {
     const { userId } = useParams();
@@ -19,8 +19,6 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const [profilePictureDropdown, setProfilePictureDropdown] = useState(false);
     const [coverPhotoDropdown, setCoverPhotoDropdown] = useState(false);
-    const sessionUserFriends = useSelector(getFriendsByUserId(sessionUser?.id));
-    const userFriends = useSelector(getFriendsByUserId(userId));
     const friendship = useSelector(getFriendship(+userId));
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -67,14 +65,6 @@ const ProfilePage = () => {
         openEditModal();
     }
 
-    const numMutualFriends = () => {
-        let count = 0;
-        sessionUserFriends.forEach(friend => {
-            if (userFriends.includes(friend)) count++;
-        })
-        return count;
-    }
-    
     const handleFriendClick = () => {
         if (friendship?.status === 'accepted') {
             dispatch(deleteFriendship(friendship.id));
@@ -162,7 +152,9 @@ const ProfilePage = () => {
                     <div className="profile-info">
                         <div className="left-profile-header">
                             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
-                            <Link to={`/users/${user.id}/friends`}>{user.mutualFriendsCount} mutual friends</Link>
+                            {user.id !== sessionUser.id && 
+                                <p className="profile-mutual-friends">{user.mutualFriendsCount} mutual friends</p>
+                            }
                         </div>
 
                         <div className="right-profile-header">

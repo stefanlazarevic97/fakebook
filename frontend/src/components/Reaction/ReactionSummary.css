@@ -1,0 +1,22 @@
+.reaction-summary {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #606770;
+    border-top: 1px solid #dddfe2;
+    padding: 8px;
+    height: 30px;
+}
+
+.reaction-summary-item {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.reaction-summary-item svg {
+    margin-right: 5px;
+    color: #1877f2;
+}

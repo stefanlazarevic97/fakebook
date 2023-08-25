@@ -89,6 +89,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
 }
 
 .edit-profile-button:hover,
@@ -100,7 +101,6 @@
     margin: 0;
     padding: 20px 0;
     width: 40%;
-    line-height: 1.5;
     text-align: justify;
 }
 
@@ -114,7 +114,7 @@
 
 .user-posts {
     width: 58%;
-    padding: 0 20px;
+    padding: 20px;
 }
 
 input[type="file"] {
@@ -145,4 +145,6 @@ input[type="file"] {
     z-index: 10;
 }
 
-
+.profile-mutual-friends {
+    padding: 5px 0;
+}

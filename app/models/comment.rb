@@ -24,6 +24,10 @@ class Comment < ApplicationRecord
         dependent: :destroy
 
     validates :body, presence: true
+    
+    has_many :reactions,
+        as: :reactable,
+        dependent: :destroy
 
     has_one_attached :photo
 end

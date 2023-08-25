@@ -61,6 +61,10 @@ class User < ApplicationRecord
         foreign_key: :commenter_id,
         dependent: :destroy 
 
+    has_many :reactions,
+        foreign_key: :reactor_id,
+        dependent: :destroy
+    
     has_one_attached :profile_picture
     has_one_attached :cover_photo
         

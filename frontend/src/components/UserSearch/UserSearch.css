@@ -1,0 +1,32 @@
+.user-search {
+    position: relative;
+}
+
+.user-search-form {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 5px 10px;
+    background-color: #f2f2f2;
+    width: 250px;
+}
+
+.user-search-form input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 50px;
+    outline: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.user-search-form input::placeholder {
+    color: #8a8a8a;
+}
+
+.user-search-form input:focus {
+    background-color: #e6e6e6;
+}

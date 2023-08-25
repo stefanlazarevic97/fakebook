@@ -19,5 +19,9 @@ class Post < ApplicationRecord
         foreign_key: :post_id,
         dependent: :destroy
 
+    has_many :reactions, 
+        as: :reactable, 
+        dependent: :destroy
+        
     has_many_attached :photos
 end

@@ -8,6 +8,7 @@ import App from './App';
 import configureStore from './store/store';
 import csrfFetch from './store/csrf';
 import * as sessionActions from './store/sessionReducer';
+import * as reactionActions from './store/reactions';
 
 const store = configureStore();
 
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV !== "production") {
     window.store = store;
     window.csrfFetch = csrfFetch;
     window.sessionActions = sessionActions;
+    window.reactionActions = reactionActions;
 }
 
 function Root() {
@@ -29,9 +31,7 @@ function Root() {
 
 const renderApplication = () => {
     ReactDOM.createRoot(document.getElementById('root')).render(
-        <React.StrictMode>
-            <Root />
-        </React.StrictMode>
+        <Root />
     );
 }
 

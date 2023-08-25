@@ -592,4 +592,55 @@ while true
     end
 end
 
+puts "Creating sample post reactions..."
+
+reaction_types = ["like", "love", "laugh", "sad", "angry", "surprised"]
+used_post_reactions = Set.new
+
+300.times do
+    loop do
+        reactor_id = rand(1..13)
+        post_id = rand(1..47)
+        key = "#{reactor_id}-#{post_id}"
+
+        next if used_post_reactions.include?(key)
+
+        used_post_reactions.add(key)
+        
+        Reaction.create!(
+            reactor_id: reactor_id,
+            reactable_type: "Post",
+            reactable_id: post_id,
+            reaction_type: reaction_types.sample
+        )
+
+        break
+    end
+end
+
+puts "Creating sample comment reactions..."
+
+used_comment_reactions = Set.new
+
+300.times do
+    loop do
+        reactor_id = rand(1..13)
+        comment_id = rand(1..87)
+        key = "#{reactor_id}-#{comment_id}"
+
+        next if used_comment_reactions.include?(key)
+
+        used_comment_reactions.add(key)
+        
+        Reaction.create!(
+            reactor_id: reactor_id,
+            reactable_type: "Comment",
+            reactable_id: comment_id,
+            reaction_type: reaction_types.sample
+        )
+
+        break
+    end
+end
+
 puts "Done!"

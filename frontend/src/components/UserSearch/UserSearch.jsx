@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchUsers, getSearchResults } from "../../store/usersReducer";
 import { useEffect, useMemo, useState } from "react";
 import SearchResults from "./SearchResults";
+import './UserSearch.css';
 
 const UserSearch = props => {
     const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const UserSearch = props => {
                 className="user-search-form" 
                 onSubmit={handleSearch}>
                 <input 
+                    className="search-input"
                     placeholder="Search Fakebook"
                     value={searchParams.search || ''}
                     onChange={handleInputChange('search')}

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { clearSearchResults, getSearchResults } from "../../store/usersReducer"
 import { BsPersonCircle } from 'react-icons/bs';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import './SearchResults.css';
 
 const SearchResults = ({ setShowDropdown, setSearchParams }) => {
     const searchResults = useSelector(getSearchResults);
@@ -27,14 +28,16 @@ const SearchResults = ({ setShowDropdown, setSearchParams }) => {
                         >
                             {user.profilePictureUrl ? 
                                 <img 
-                                    className="profile-picture" 
+                                    className="search-profile-picture" 
                                     src={user.profilePictureUrl} 
                                     alt="profile" 
                                 /> : 
-                                <BsPersonCircle className="profile-picture" />
+                                <BsPersonCircle className="search-profile-picture" />
                             }
-                            <span>{user.firstName} {user.lastName}</span>
-                            <span>{user.mutualFriendsCount} mutual friends</span>
+                            <div className="friend-index-body">
+                                <p className="friend-name">{user.firstName} {user.lastName}</p>
+                                <p className="mutual-friends-count">{user.mutualFriendsCount} mutual friends</p>
+                            </div>
                         </div>
                 ))
             ) : (

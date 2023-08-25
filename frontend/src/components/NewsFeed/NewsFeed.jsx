@@ -5,6 +5,7 @@ import CreatePostModal from '../CreatePost/CreatePostModal';
 import PostItemIndex from '../PostItemIndex/PostItemIndex';
 import './NewsFeed.css';
 import FriendIndex from '../FriendsIndex/FriendIndex';
+import { BsLinkedin, BsGithub } from 'react-icons/bs';
 
 const NewsFeed = () => {
     const dispatch = useDispatch();
@@ -23,7 +24,13 @@ const NewsFeed = () => {
     return (
         <div className="news-feed-container">
             <div className="left-sidebar">
-                <h1>Left Sidebar</h1>
+                <a href="https://github.com/stefanlazarevic97" target="_blank" rel="noreferrer" className="social-link">
+                    <BsGithub className="social-media-icons" />
+                </a>
+
+                <a href="https://www.linkedin.com/in/stefan-lazarevic-a5b60413a/" target="_blank" rel="noreferrer" className="social-link">
+                    <BsLinkedin className="social-media-icons" />
+                </a>
             </div>
             <div className="main-feed">
                 <CreatePostButton openModal={openModal} currentUser={sessionUser} />
