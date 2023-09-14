@@ -37,7 +37,7 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
                 onChange={e => setBody(e.target.value)}
             />
 
-            <label className ="comment-photo-icon-label">
+            <label className="comment-photo-icon-label">
                 <IoMdPhotos className="photo-icon" />
                 
                 <input 

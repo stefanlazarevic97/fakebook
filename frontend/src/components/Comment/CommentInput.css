@@ -9,9 +9,9 @@
 }
 
 .comment-input {
+    margin: 0 10px;
     flex: 1;
     border: none;
-    padding: 0 10px;
     border-radius: 25px;
     outline: none;
     box-sizing: border-box;
@@ -34,6 +34,7 @@
 }
 
 .comment-button {
+    display: flex;
     background: none;
     border: none;
     color: #3578E5;

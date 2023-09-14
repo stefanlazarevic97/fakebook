@@ -88,15 +88,15 @@ const Comment = ({ comment, post, sessionUser, className }) => {
             <div className="comment-body">
                 {editMode ? (
                     <>
-                        <input
-                            type="text" 
-                            placeholder="Write a comment..."
-                            value={editedCommentBody}
-                            onChange={e => setEditedCommentBody(e.target.value)}
-                        />
-                        <div
-                            className="add-on-icons">
-                            <label className ="photo-icon-label">
+                        <div className="comment-edit-container">
+                            <input
+                                className="comment-edit-input"
+                                type="text" 
+                                placeholder="Write a comment..."
+                                value={editedCommentBody}
+                                onChange={e => setEditedCommentBody(e.target.value)}
+                            />
+                            <label className="comment-photo-icon-label">
                                 <IoMdPhotos className="photo-icon" />
                                 <input 
                                     type="file" 
@@ -104,9 +104,21 @@ const Comment = ({ comment, post, sessionUser, className }) => {
                                 />  
                             </label>
                         </div>
-
-                        <button onClick={handleUpdate}>Save</button>  
-                        <button onClick={() => setEditMode(false)}>Cancel</button>                 
+                        
+                        <div className="comment-edit-buttons-container">
+                            <button 
+                                className="comment-edit-button"
+                                onClick={handleUpdate}
+                            >
+                                Save
+                            </button>  
+                            <button 
+                                className="comment-edit-button"
+                                onClick={() => setEditMode(false)}
+                            >
+                                Cancel
+                            </button>                 
+                        </div>
                     </>
                 ) : (
                     comment.body
