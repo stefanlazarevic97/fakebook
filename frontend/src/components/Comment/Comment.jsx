@@ -18,6 +18,7 @@ const Comment = ({ comment, post, sessionUser, className }) => {
     const [editMode, setEditMode] = useState(false);
     const [editedCommentBody, setEditedCommentBody] = useState(comment.body);
     const [editedCommentPhotoFile, setEditedCommentPhotoFile] = useState(comment.photoUrl);
+    const commentErrors = useSelector(state => state.errors.comments);
 
     const commentReplies = useSelector(getCommentReplies(comment.id), shallowEqual);
 
@@ -45,6 +46,10 @@ const Comment = ({ comment, post, sessionUser, className }) => {
 
     return (
         <div className={className}>
+            <ul>
+                {commentErrors.map(error => <li key={error}>{error}</li>)}
+            </ul>
+
             <header className="comment-header">
                 <div key={comment.id} className="left-comment-header">
                     <Link to={`/users/${comment.commenterId}`} className="commenter-link">

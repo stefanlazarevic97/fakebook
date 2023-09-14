@@ -12,6 +12,12 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
+
+        if (!body.trim()) {
+            alert("Comment cannot be empty");
+            return;
+        }
+        
         const commentFormData = new FormData();
         commentFormData.append('comment[commenterId]', sessionUser.id);
         commentFormData.append('comment[postId]', postId);

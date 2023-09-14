@@ -40,6 +40,12 @@ const CreatePostModal = ({ closeModal, currentUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!body.trim()) {
+            alert("Post cannot be empty");
+            return;
+        }
+
         const formData = new FormData();
         formData.append('post[authorId]', currentUser.id);
         formData.append('post[body]', body);
