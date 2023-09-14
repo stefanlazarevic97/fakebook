@@ -10,7 +10,7 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
     const [photoFile, setPhotoFile] = useState(null);
     const [body, setBody] = useState('');
 
-    const handleCommentSubmit = (e) => {
+    const handleCommentSubmit = async (e) => {
         e.preventDefault();
         const commentFormData = new FormData();
         commentFormData.append('comment[commenterId]', sessionUser.id);
@@ -19,7 +19,12 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
         if (parentCommentId) commentFormData.append('comment[parentCommentId]', parentCommentId);
         if (photoFile) commentFormData.append('comment[photo]', photoFile);
 
-        dispatch(createComment(commentFormData));
+        const result = await dispatch(createComment(commentFormData));
+
+        if (result) {
+            setBody('');
+            setPhotoFile(null);
+        }
     };
 
     return (
