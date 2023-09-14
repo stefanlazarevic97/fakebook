@@ -31,7 +31,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         dispatch(fetchUser(userId));
-    }, [dispatch, userId, user]);
+    }, [dispatch, userId]);
     
     const createPost = (post) => {
         dispatch(createPost(post));
@@ -45,13 +45,19 @@ const ProfilePage = () => {
         setCoverPhotoDropdown(prev => !prev);
     }
 
-    const handleChangeProfilePicture = (e) => {
+    const handleChangeProfilePicture = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
+
         const updatedUser = { ...user, profilePicture: file };
-        dispatch(updateUser(updatedUser));
-        setProfilePictureDropdown(false);
-    }
+        const result = await dispatch(updateUser(updatedUser));
+
+        if (result) {
+            setProfilePictureDropdown(false);
+            window.location.reload();
+        }
+    };
+
 
     const handleChangeCoverPhoto = (e) => {
         const file = e.target.files[0];

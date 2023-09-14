@@ -18,7 +18,7 @@ export default function Navigation() {
                         <BsFacebook className="fakebook-logo" />
                     </NavLink>
                     <UserSearch />
-                    <ProfileButton user={sessionUser} />
+                    <ProfileButton />
                 </nav>
             </>
         );

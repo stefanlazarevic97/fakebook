@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from '../../store/sessionReducer';
 import './ProfileButton.css'
 import { BsPersonCircle } from 'react-icons/bs';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import formatPhoneNumber from "../../util/formatPhone";
 
-export default function ProfileButton({ user }) {
+export default function ProfileButton() {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
+    const user = useSelector(state => state.session.user);
 
     const openMenu = (e) => {
         e.stopPropagation();
@@ -32,6 +33,8 @@ export default function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.logout());
     };
+
+    console.log('User from useSelector:', user);
 
     return (
         <>
