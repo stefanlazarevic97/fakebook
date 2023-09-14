@@ -19,9 +19,9 @@ const CommentInput = ({ postId, parentCommentId, sessionUser }) => {
         if (parentCommentId) commentFormData.append('comment[parentCommentId]', parentCommentId);
         if (photoFile) commentFormData.append('comment[photo]', photoFile);
 
-        const result = await dispatch(createComment(commentFormData));
+        const res = await dispatch(createComment(commentFormData));
 
-        if (result) {
+        if (res) {
             setBody('');
             setPhotoFile(null);
         }

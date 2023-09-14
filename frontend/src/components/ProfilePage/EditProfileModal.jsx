@@ -6,7 +6,7 @@ const EditProfileModal = ({ onClose, user }) => {
     return (
         <Modal onClose={onClose}>
             <div className="edit-profile-modal-content">
-                <EditProfileForm user={user} />
+                <EditProfileForm user={user} onClose={onClose}/>
             </div>
         </Modal>
     );

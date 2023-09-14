@@ -31,7 +31,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         dispatch(fetchUser(userId));
-    }, [dispatch, userId]);
+    }, [dispatch, userId, user]);
     
     const createPost = (post) => {
         dispatch(createPost(post));
@@ -175,7 +175,7 @@ const ProfilePage = () => {
                         {editModalOpen && 
                             <EditProfileModal 
                             onClose={closeEditModal} 
-                            user={sessionUser} 
+                            user={user} 
                             />
                         }
                     </div>

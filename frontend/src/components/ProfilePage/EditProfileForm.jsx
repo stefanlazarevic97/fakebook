@@ -10,7 +10,7 @@ const EditProfileForm = ({ user, onClose }) => {
     const [phone, setPhone] = useState(user.phone);
     const [email, setEmail] = useState(user.email);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const updatedUser = {
@@ -22,9 +22,11 @@ const EditProfileForm = ({ user, onClose }) => {
             email,
         };
 
-        dispatch(updateUser(updatedUser));
-
-        if (onClose) onClose();
+        const res = await dispatch(updateUser(updatedUser));
+    
+        if (res && onClose) {
+            onClose();
+        }
     };
 
     return (
