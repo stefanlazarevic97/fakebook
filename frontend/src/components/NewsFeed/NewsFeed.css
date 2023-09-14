@@ -23,7 +23,7 @@ h1 {
 
 .social-media-icons {
     font-size: 100px;
-    color: black;
+    color: var(--blue);
 }
 
 .left-sidebar {

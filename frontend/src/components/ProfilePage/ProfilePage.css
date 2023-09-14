@@ -140,8 +140,9 @@ input[type="file"] {
 
 .cover-photo-dropdown-menu {
     position: absolute;
-    top: 270px;
-    right: 400px;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
 }
 

@@ -110,13 +110,14 @@ const ProfilePage = () => {
                         <GiPhotoCamera className="cover-photo" />
                     }
                 </div>
-                {coverPhotoDropdown && user.id === sessionUser.id (
+                {coverPhotoDropdown && user.id === sessionUser.id && (
                     <div className="cover-photo-dropdown-menu">
                         <label 
                             className="dropdown-label"
                             onClick={e => e.stopPropagation()}
-                            >
-                                Update Cover Photo
+                        >
+                            Update Cover Photo
+
                             <input 
                                 type="file"
                                 onChange={handleChangeCoverPhoto}
