@@ -4,7 +4,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import './SearchResults.css';
 
-const SearchResults = ({ setShowDropdown, setSearchParams }) => {
+const SearchResults = ({ setShowDropdown, setSearchParams, setSearchPerformed }) => {
     const searchResults = useSelector(getSearchResults);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -14,6 +14,7 @@ const SearchResults = ({ setShowDropdown, setSearchParams }) => {
         dispatch(clearSearchResults());
         setShowDropdown(false);
         setSearchParams({});
+        setSearchPerformed(false);
         history.push(`/users/${userId}`);
     }
 
@@ -41,7 +42,7 @@ const SearchResults = ({ setShowDropdown, setSearchParams }) => {
                         </div>
                 ))
             ) : (
-                <p>No results found</p>
+                <div className="no-results">No results found</div>
             )}
         </div>
     )

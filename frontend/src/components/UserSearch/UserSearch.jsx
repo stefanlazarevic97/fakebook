@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUsers, getSearchResults } from "../../store/usersReducer";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import SearchResults from "./SearchResults";
 import './UserSearch.css';
 
@@ -9,6 +9,23 @@ const UserSearch = props => {
     const [searchParams, setSearchParams] = useState({});
     const [showDropdown, setShowDropdown] = useState(false);
     const searchResults = useSelector(getSearchResults);
+    const containerRef = useRef();
+    const [searchPerformed, setSearchPerformed] = useState(false);
+
+    useEffect(() => {
+        const handleClickOutside = e => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setShowDropdown(false);
+                setSearchPerformed(false); // Add this line
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [containerRef]);
 
     useEffect(() => {
         setShowDropdown(searchResults.length > 0);
@@ -38,10 +55,11 @@ const UserSearch = props => {
         const newParams = { ...searchParams, [field]: e.target.value };
         debouncedSearch(newParams);
         setSearchParams(prev => ({ ...prev, [field]: e.target.value}));
+        setSearchPerformed(true);
     }
 
     return (
-        <div className="user-search">
+        <div className="user-search" ref={containerRef}>
             <form 
                 className="user-search-form" 
                 onSubmit={handleSearch}>
@@ -53,9 +71,10 @@ const UserSearch = props => {
                 />
             </form>
 
-            {showDropdown && <SearchResults 
+            {(showDropdown || searchPerformed) && <SearchResults
                 setShowDropdown={setShowDropdown}
                 setSearchParams={setSearchParams}
+                setSearchPerformed={setSearchPerformed}
             />}
         </div>
     )

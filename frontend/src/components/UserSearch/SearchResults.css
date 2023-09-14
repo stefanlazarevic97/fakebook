@@ -40,3 +40,13 @@
 .user-item span {
     display: block;
 }
+
+.no-results {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f2f2f2;
+}
