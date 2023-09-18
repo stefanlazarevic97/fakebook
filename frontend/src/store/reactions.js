@@ -97,7 +97,6 @@ export const createReaction = (reaction) => async (dispatch) => {
 
     if (res.ok) {
         const reactable = await res.json();
-        console.log(reactable)
         if (reactable.reactableType === 'Post') dispatch(receivePost(reactable));
         if (reactable.reactableType === 'Comment') dispatch(receiveComment(reactable));
     } else {

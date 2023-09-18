@@ -35,10 +35,8 @@ function ReactionInput({ reactable, reactableType }) {
             };
             
             if (reactable.currentUserReaction) {
-                console.log("hitting update")
                 dispatch(updateReaction({ ...reactionData, id: reactable.currentUserReaction.id }));
             } else {
-                console.log("hitting create")
                 dispatch(createReaction(reactionData));
             }
         }

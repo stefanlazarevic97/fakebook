@@ -34,8 +34,6 @@ export default function ProfileButton() {
         dispatch(sessionActions.logout());
     };
 
-    console.log('User from useSelector:', user);
-
     return (
         <>
             <div className="profile-button" onClick={openMenu}>
